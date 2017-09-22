@@ -154,15 +154,17 @@ Design Sketches
 
 Architechture Design
 ---
-**Slack** - The AutoBot will have a Slack user-interface on the frontend.The interaction with the Slack interface can be controlled programmatically using a bot user token which can access Slack APIs.The Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user.The bot can work with message threads and reply to conversations.
+![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Architecture.png)
 
-**Node.js** - For the development of the AutoBot we will use Node.js.It is convenient to use model frameworks such as REST for bot implementation. Since the bot implementation will require to effectively run bunch of API calls and a large number of service requests too.
+* **Slack** - The AutoBot will have a Slack user-interface on the frontend.The interaction with the Slack interface can be controlled programmatically using a bot user token which can access Slack APIs.The Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user.The bot can work with message threads and reply to conversations.
 
-**Database** - The AutoBot will store information about the user and virtual machines already created by that user and all the applications that have been installed on those virtual machine and their informations.MongoDB offers flexible storage of data ,free   and also provides high availability by having a distributed database in the core. MongoDB is being considered for  bot development.
+* **Node.js** - For the development of the AutoBot we will use Node.js.It is convenient to use model frameworks such as REST for bot implementation. Since the bot implementation will require to effectively run bunch of API calls and a large number of service requests too.
 
-**Amazon Web Service (AWS)** - The AutoBot will use the services provided by the AWS to create virtual machines using API calls. Users shall have their AWS account setup so that the Bot can use their AWS account for provisioning virtual machines.
+* **Database** - The AutoBot will store information about the user and virtual machines already created by that user and all the applications that have been installed on those virtual machine and their informations.MongoDB offers flexible storage of data ,free   and also provides high availability by having a distributed database in the core. MongoDB is being considered for  bot development.
 
-**VM Manager** -  The AutoBot will be using the VM Manager for creating, tearing down and modification of a virtual machine such as adjusting the size of the memory, processors and RAM,etc.Based on user requirements the Autobot will instruct the VM Manager to create the virtual environment.
+* **Amazon Web Service (AWS)** - The AutoBot will use the services provided by the AWS to create virtual machines using API calls. Users shall have their AWS account setup so that the Bot can use their AWS account for provisioning virtual machines.
+
+* **VM Manager** -  The AutoBot will be using the VM Manager for creating, tearing down and modification of a virtual machine such as adjusting the size of the memory, processors and RAM,etc.Based on user requirements the Autobot will instruct the VM Manager to create the virtual environment.
 
 #### Constraints and Guidelines 
 * AutoBot responds to only specific commands because we will not use Natural Language Processing.
