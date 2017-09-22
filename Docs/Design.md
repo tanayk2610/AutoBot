@@ -176,4 +176,4 @@ Architechture Design
 We are thinking to design the AutoBot with Command and Adapter Pattern. Command pattern because AutoBot is serving the user requests and Adapter pattern because we are integrating AutoBot with VM manager (using AWS sdk) and MongoDB, and we will definitely need a bridge between two incompatible interfaces which is what adapter pattern is made for.
 
 #### Future Design 
-Natural Language Processing Third-Party - A third party AI service provider like **wit.ai** may be used to have conversation with AutoBot to perform tasks such as spawning a virtual machine.
+Natural Language Processing Third-Party - A third party natural language processing API, for example Api.ai, may be used to have conversation with AutoBot to perform tasks such as spawning a virtual machine.
