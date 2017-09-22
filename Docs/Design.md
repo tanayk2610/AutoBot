@@ -134,7 +134,23 @@ Design Sketches
 ---
 #### Wireframe Mockup
 
+![Wireframe](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Wireframe.png)
+
 #### Storyboards
+* Creating a VM
+
+![Creating a VM](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%201.jpg)
+---
+
+* Destroying a VM
+
+![Destroying a VM](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%202.jpg)
+---
+
+* Setting Up Eclipse Workspace
+
+![Setting Up Eclipse Workspace](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%203.jpg)
+---
 
 Architechture Design
 ---
