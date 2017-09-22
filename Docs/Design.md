@@ -173,7 +173,7 @@ Architechture Design
 * It is necessary for the user to have a AWS account.
 
 #### Additional Patterns
-We are thinking to design AutoBot with _**command and adapter patterns**_. Command pattern because AutoBot is serving the user requests and adapter pattern because we are integrating AutoBot with VM manager (using AWS SDK) and MongoDB. This requires a bridge between the two incompatible interfaces where the adapter pattern comes in.
+We are thinking to design AutoBot with _**command**_ and _**adapter**_ patterns. Command pattern because AutoBot is serving the user requests and adapter pattern because we are integrating AutoBot with VM manager (using AWS SDK) and MongoDB. This requires a bridge between the two incompatible interfaces where the adapter pattern comes in.
 
 #### Future Design 
-Natural Language Processing Third-Party - A third party natural language processing API, for example Api.ai, may be used to have conversation with AutoBot to perform tasks such as spawning a virtual machine.
+Natural Language Processing - A third party natural language processing API, for example Api.ai, may be used to have a more human-like conversation with AutoBot and perform tasks such as spawning a virtual machine.
