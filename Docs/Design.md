@@ -1,30 +1,30 @@
 # Design Milestone
 
 #### A step towards the automated future
-With the advent of cloud computing, companies these days are moving towards the idea of Virtualization,starting from the very beginning of software development process. Virtualization is the single most effective way to reduce the IT expenses while boosting efficiency and agility of all size businesses. Developers no longer have to wait for the physical hardware, they can get a software based representation of the physical machine with the help of virtualization. 
+With the advent of cloud computing, companies these days are moving towards the idea of virtualization, right from the initial phase of software development process. Virtualization is the single most effective way to reduce the IT expenses while boosting efficiency and agility of all size businesses. Developers no longer have to wait for the physical hardware, instead they just get a software based representation of the physical machine with the help of virtualization. 
 
 Problem Statement
 ---
-Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. This task itself is time consuming as developers have to undergo a long process of spinning and configuring a new VM using command line utility or web application. Moreover, some developers are not familiar with the process of creating Virtual Machines on numerous cloud providers like Amazon AWS, which makes it harder for them to understand the process first and then proceed with what they were looking for. Moreover, sometimes setting up development environment with IDE’s such as Eclipse is also a painful task as it involves creation of workspaces, installing required plugins and at the end importing all the build projects into the workspace.
+Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. This task itself is time consuming as developers have to undergo a long process of spinning and configuring a new VM using command line utility or a web application. Moreover, some developers are not familiar with the process of creating virtual machines on numerous cloud providers like Amazon AWS, which makes it time consuming to go through this process first and then proceed with what they were actually looking for. Also, sometimes setting up development environment with IDEs such as Eclipse is a painful task as it involves creation of workspaces, installing required plugins and at the end importing all the build projects into the workspace.
 
 These common problems consume most of the developer’s time and companies are looking forward for an automated way to ease this process (and that is why I think, most of the intern projects in companies are about automating common tasks for developers of the team).
+
+_Autobot to the rescue: The solution to all these problems is our intelligent slackbot: **AutoBot**_
 
 Bot Description
 ---
 
-_Autobot to the rescue: The solution to all the above mentioned problems is our intelligent slackbot: AutoBot_
-
 AutoBot provides a command based interface for provisioning common development setup tasks like creating virtual machines, setting up development workspaces, maintaining the provisioned VMs which includes updating the libraries or editing the VM configuration. With the help of AutoBot, developers can focus and spend their valuable time on more value generating work rather than spending time on configuring the work environment. AutoBot is happy to assist developers in below mentioned tasks:
 
-* **Provisioning a new Virtual Machine:** This is the primary task which AutoBot is designed for. Developers can request creation of virtual machines by providing the desired configuration. Once the request is issued, developers can sit back, relax and let the AutoBot work on the request. The bot will respond back with details to access the virtual machine so that developer can start working immediately. Currently, AutoBot can provision a plain VM or a Jenkins Configured VM. We are planning to add more flavors to the AutoBot repository so that developers will have wide variety of choices.
+* **Provisioning a new Virtual Machine:** This is the primary task which AutoBot is designed for. Developers can request creation of virtual machines by providing the desired configuration. Once the request is issued, developers can sit back, relax and let the AutoBot work on the request. The bot will respond back with details to access the virtual machine so that developer can start using it immediately. Currently, AutoBot can provision a plain VM or a Jenkins configured VM. In future, we are planning to increase the flavors of VMs AutoBot can create, so that developers have much more options to choose from.
 
-* **Display list of all virtual machines under a developer access/control:** AutoBot will store and maintain all the virtual machines requested and provisioned for a specific developer so that they can come back and request details about them. AutoBot will make sure that developers can only access the virtual machines provisioned by them and not by any other developers until special permissions have been given.
+* **Display list of all virtual machines under a developer access/control:** AutoBot will store and maintain all the virtual machines requested and provisioned for a specific developer so that they can be accessed anytime from anywhere. AutoBot will make sure that developers have their own private _space_ and no other developers can access it until special permissions have been granted.
 
-* **Maintaining a server/ virtual machine:** Developers can request AutoBot for the maintaining their created virtual machines. AutoBot can upgrade distribution packages, edit VM configurations, install third party applications on developer request. In addition, AutoBot can also be used to bring down the unused virtual machines in order to free up space and have better resource utilization. Managers in the team can have additional authority to tear down machines which has not been used or is not required by developers in the team.
+* **Maintaining a server/ virtual machine:** Developers can request AutoBot for maintaining their virtual machines. AutoBot can upgrade distribution packages, edit VM configurations, install third party applications on developer request. In addition, AutoBot can also be used to bring down the unused virtual machines in order to free up space and have better resource utilization. Managers in the team can have additional authority to tear down machines that have not been used or are not required anymore.
 
-* **Setting up local development environment with IDE’s such as Eclipse:** Developers can request AutoBot to setup the development environment for the project they are working on. In addition, developers can request for installation of plugins they need for the development of the software project. Currently, AutoBot supports only Eclipse and some custom plugins. We are planning to extend the capability of AutoBot in future by adding support for more plugins and other IDE’s and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
+* **Setting up local development environment with IDE’s such as Eclipse:** Developers can request AutoBot to setup the development environment for the project they are working on. In addition, developers can request for installation of plugins they need for the development of the software project. Currently, AutoBot supports only Eclipse IDE and some custom plugins along with it. We are planning to extend this capability of AutoBot in future by adding support for more plugins and other IDEs and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
 
-AutoBot will be best fitted into **Responder Bot** category as it is listening to the requests made by the user and then invoking the other modules to serve the request. AutoBot also remembers the user with whom it is talking to, so that bot can manage the work and can provide security with respect to AWS services. AutoBot will also be able to learn from what is being said, for example if a user requests the bot to reconfigure or upgrade some specific virtual machines or request to monitor the state of the machine, then bot will remember about that request and act accordingly.
+AutoBot will be best fitted into **Responder Bot** category as it is listening to the requests made by the user and then invoking its modules to serve the request. AutoBot also remembers the user its interacting with, so that inherent security and transparency can be provided to the user with respect to AWS services. AutoBot will also be able to learn from what is being said, for example if a user requests AutoBot to reconfigure or upgrade some specific virtual machines, it will remembers the request and acts accordingly.
 
 Use Cases
 ---
@@ -38,7 +38,7 @@ User requests AutoBot to provision a new Virtual Machine [S1].  AutoBot asks ab
 
 3. SubFlows
   [S1] User requests the bot to provision a new Virtual Machine.
-  [S2] The AutoBot shows different kinds of VMs to the user to select one of them. (plain   or flavored VM)
+  [S2] The AutoBot shows different kinds of VMs to the user to select one of them. (plain or flavored VM)
   [S3] The user selects one of the provided kind of VM.
   [S4] The AutoBot asks different configuration parameters from the user.
   [S5] The user provides configuration parameters.
@@ -156,24 +156,24 @@ Architechture Design
 ---
 ![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Architecture.png)
 
-* **Slack** - The AutoBot will have a Slack user-interface on the frontend.The interaction with the Slack interface can be controlled programmatically using a bot user token which can access Slack APIs.The Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user.The bot can work with message threads and reply to conversations.
+* **Slack:** The AutoBot will have a Slack user-interface on the frontend. The interaction with wlack interface can be controlled programmatically using a bot user token which can access Slack APIs. Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user. The bot can work with message threads and reply in conversations too.
 
-* **Node.js** - For the development of the AutoBot we will use Node.js.It is convenient to use model frameworks such as REST for bot implementation. Since the bot implementation will require to effectively run bunch of API calls and a large number of service requests too.
+* **Node.js:** For the development of the AutoBot we will use Node.js. It is convenient to use model frameworks such as REST for bot implementation as it will require effectively running a bunch of API calls and large number of service requests too.
 
-* **Database** - The AutoBot will store information about the user and virtual machines already created by that user and all the applications that have been installed on those virtual machine and their informations. MongoDB offers flexible storage of data ,free   and also provides high availability by having a distributed database in the core. MongoDB is being considered for  bot development.
+* **Database:** AutoBot will store information about the user, configurations of the VMs provisioned to him and all the applications that have been installed on those VMs. MongoDB is free, offers a flexible storage of data and also provides high availability to the user by having a distributed database in the core. Thus MongoDB is being considered for bot development.
 
-* **Amazon Web Service (AWS)** - The AutoBot will use the services provided by the AWS to create virtual machines using API calls. Users shall have their AWS account setup so that the Bot can use their AWS account for provisioning virtual machines.
+* **Amazon Web Service (AWS):** The AutoBot will use the services provided by AWS to create virtual machines using API calls. Users shall have their AWS account setup so that AutoBot can use their AWS account for provisioning flavored VMs.
 
-* **VM Manager** -  The AutoBot will be using the VM Manager for creating, tearing down and modification of a virtual machine such as adjusting the size of the memory, processors and RAM,etc. Based on user requirements the Autobot will instruct the VM Manager to create the virtual environment.
+* **VM Manager:**  AutoBot will be using the VM Manager for creating, tearing down and modifying the configuration of VMs (such as adjusting the size of the memory, processors and RAM, etc.). Based on user requirements Autobot will instruct the VM Manager to create a virtual environment.
 
 #### Constraints and Guidelines 
-* AutoBot initiates response to only slash commands.
+* AutoBot initiates response only slash commands only.
 * AutoBot can perform  only one task at a time.
 * Eclipse can be installed only in the local environment.
 * It is necessary for the user to have a AWS account.
 
 #### Additional Patterns
-We are thinking to design the AutoBot with Command and Adapter Pattern. Command pattern because AutoBot is serving the user requests and Adapter pattern because we are integrating AutoBot with VM manager (using AWS sdk) and MongoDB, and we will definitely need a bridge between two incompatible interfaces which is what adapter pattern is made for.
+We are thinking to design AutoBot with _**command and adapter patterns**_. Command pattern because AutoBot is serving the user requests and adapter pattern because we are integrating AutoBot with VM manager (using AWS SDK) and MongoDB. This requires a bridge between the two incompatible interfaces where the adapter pattern comes in.
 
 #### Future Design 
 Natural Language Processing Third-Party - A third party natural language processing API, for example Api.ai, may be used to have conversation with AutoBot to perform tasks such as spawning a virtual machine.
