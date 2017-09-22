@@ -167,7 +167,7 @@ Architechture Design
 * **VM Manager** -  The AutoBot will be using the VM Manager for creating, tearing down and modification of a virtual machine such as adjusting the size of the memory, processors and RAM,etc. Based on user requirements the Autobot will instruct the VM Manager to create the virtual environment.
 
 #### Constraints and Guidelines 
-* AutoBot responds to only specific commands because we will not use Natural Language Processing.
+* AutoBot initiates response to only slash commands.
 * AutoBot can perform  only one task at a time.
 * Eclipse can be installed only in the local environment.
 * It is necessary for the user to have a AWS account.
