@@ -117,7 +117,7 @@ Design Sketches
 ![Destroying a VM](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%202.jpg)
 ---
 
-* Setting Up Eclipse Workspace
+* Setting Up machine image for use in local virtual environment
 
 ![Setting Up Eclipse Workspace](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%203.jpg)
 ---
