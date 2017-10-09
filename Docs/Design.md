@@ -124,7 +124,7 @@ Design Sketches
 
 Architecture Design
 ---
-![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/AD1-1.png)
+![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Architecture.png)
 
 * **Slack:** The AutoBot will have a Slack user-interface on the frontend. The interaction with slack interface can be controlled programmatically using a bot user token which can access Slack APIs. Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user. The bot can work with message threads and reply in conversations too.
 
