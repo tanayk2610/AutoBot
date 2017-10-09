@@ -119,7 +119,7 @@ Design Sketches
 
 * Setting Up machine image for use in local virtual environment
 
-![Setting Up Eclipse Workspace](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%203.jpg)
+![Create downloadable machine image to run on local environment](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Storyboard%203.jpg)
 ---
 
 Architecture Design
@@ -141,7 +141,7 @@ Architecture Design
 * **VM Manager:**  AutoBot will be using the VM Manager for creating, tearing down and modifying the configuration of VMs (such as adjusting the size of the memory, processors and RAM, etc.). Based on user requirements Autobot will instruct the VM Manager to create a virtual environment.
 
 #### Constraints and Guidelines 
-* AutoBot initiates response only slash commands only.
+* AutoBot initiates response to basic commands only.
 * AutoBot can perform  only one task at a time.
 * It is necessary for the user to have a AWS/Digital Ocean account.
 
