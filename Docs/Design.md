@@ -20,7 +20,7 @@ AutoBot provides a command based interface for providing common development setu
 
 * **Maintaining a server/ virtual machine:** Developers can request AutoBot for maintaining their virtual machines. AutoBot can upgrade distribution packages, edit VM configurations, install third party applications on developer request. In addition, AutoBot can also be used to bring down the unused virtual machines in order to free up space and have better resource utilization. Managers in the team can have additional authority to tear down machines that have not been used or are not required anymore.
 
-* **Creating a virtual machine image with IDE’s such as Eclipse:** Developers can request AutoBot to create a virtual machine images with eclipse installed on it so that it can be used for the development process. Additionally, developers can specify plugins they wish to be configured with the eclipse IDE. Currently, AutoBot supports only Eclipse IDE and some custom plugins along with it. We are planning to extend this capability of AutoBot in future by adding support for more plugins and other IDEs and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
+* **Creating a virtual machine image with IDE’s such as Eclipse:** Developers can request AutoBot to create a virtual machine image with eclipse installed on it so that it can be used for the development process. Additionally, developers can specify plugins they wish to be configured with the eclipse IDE. Currently, AutoBot supports only Eclipse IDE and some custom plugins along with it. We are planning to extend this capability of AutoBot in future by adding support for more plugins and other IDEs and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
 
 AutoBot will be best fitted into **Responder Bot** category as it is listening to the requests made by the user and then invoking its modules to serve the request. AutoBot also remembers the user its interacting with, so that inherent security and transparency can be provided to the user with respect to AWS services. AutoBot will also be able to learn from what is being said, for example if a user requests AutoBot to reconfigure or upgrade some specific virtual machines, it will remembers the request and acts accordingly.
 
@@ -30,7 +30,7 @@ Use Cases
 
 Use Case 1: Provision a new Virtual Machine.
 1. Preconditions
-The user shall have AWS account with valid access keys. User shall also have valid Slack API token on their system
+The user shall have AWS/Digital Ocean account with valid access keys. User shall also have valid Slack API token on their system
 
 2. Main Flow:
 User requests AutoBot to provision a new Virtual Machine [S1]. AutoBot asks about flavor of the requested machine [S2]. User selects the flavor of the VM [S3] AutoBot asks about configuration parameters [S4]. User provides configuration parameters [S5]. AutoBot creates a VM with provided parameters [S6]. 
@@ -49,7 +49,7 @@ User requests AutoBot to provision a new Virtual Machine [S1]. AutoBot asks abou
 ````
 ````
   
-Use Case 2: Setup virtual machine with Eclipse and selective plugins installed using packerIO.
+Use Case 2: Setup virtual machine with Eclipse and selective plugins installed using Packer.
 1. Preconditions
 User shall have valid Slack API token on their system, and eclipse installed in the environment.
 
@@ -73,7 +73,7 @@ User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBo
 
 Use Case 3: Management of Virtual Machines. 
 1. Preconditions
-The user shall have AWS account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
+The user shall have AWS/Digital Ocean account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
 
 2. Main Flow
 User request the AutoBot to change a specific VM [S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks user about desired action on selected VM: delete or configuration change [S4]. The user provides the choice [S5]. The AutoBot ask required parameters if needed [S6]. The user provides needed parameters [S7].The Autobot request confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
@@ -91,12 +91,12 @@ User request the AutoBot to change a specific VM [S1]. The AutoBot shows all use
    [S10] The AutoBot changes the configuration of the selected VM based on given parameters or tears down it.
 
 4. Alternative Flows
-   [E1] The AutoBot is not able to configure the VM based on some errors and returns the failure message to the user.
+   [E1] The AutoBot is not able to configure the VM based on errors it may encounter and returns the failure message to the user.
    [E2] The user has no reserved VMs.
    [E3] The AutoBot is not able to delete the VM based on some errors and returns the failure message to the user.
    [E4] The user does not want to delete the VM after entering the main flow and request to go back to main menu.
    [E5] The user provided incorrect OTP, retry again with the OTP in his/her email.
-   [E6] AutoBot lock Delete Action for the user, after three incorrect attempts. AutoBot unlocks the delete action, after 10 minutes. 
+   [E6] AutoBot locks delete Action for the user, after three incorrect attempts. AutoBot unlocks the delete action, after 10 minutes. 
 
 ````
 
@@ -136,7 +136,7 @@ Architecture Design
 
 * **Packer:** The AutoBot will automate the creation of machine image using Packer. Using packed AutoBot will be able to create machine images that will be available for dowload to the user. These images can be in different formats and be used on a local virtual environment like VirtualBox.
 
-* **Digital Ocean:** The AutoBot will use the services provided by Digital Ocean to create virtual machines using API calls.
+* **Digital Ocean:** The AutoBot will use the services provided by Digital Ocean to create virtual machines using API calls of Packer.
 
 * **VM Manager:**  AutoBot will be using the VM Manager for creating, tearing down and modifying the configuration of VMs (such as adjusting the size of the memory, processors and RAM, etc.). Based on user requirements Autobot will instruct the VM Manager to create a virtual environment.
 
