@@ -76,10 +76,10 @@ Use Case 3: Management of Virtual Machines.
 The user shall have AWS/Digital Ocean account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
 
 2. Main Flow
-User request the AutoBot to change a specific VM [S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks user about desired action on selected VM: delete or configuration change [S4]. The user provides the choice [S5]. The AutoBot ask required parameters if needed [S6]. The user provides needed parameters [S7].The Autobot request confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
+User says AutoBot that he wants to manage his VMs[S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks user about desired action on selected VM: delete or configuration change [S4]. The user provides the choice [S5]. The AutoBot ask required parameters if needed [S6]. The user provides needed parameters [S7].The Autobot request confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
 
 3. Subflows
-   [S1] User requests the AutoBot to change a specific VM.
+   [S1] User requests the AutoBot to manage VMs.
    [S2] The AutoBot lists all user’s reserved VMs.
    [S3] User selects a specific VM to change.
    [S4] AutoBot ask user to select a specific action for the selected VM: delete or change configuration
