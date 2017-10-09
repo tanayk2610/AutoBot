@@ -5,16 +5,14 @@ With the advent of cloud computing, companies these days are moving towards the 
 
 Problem Statement
 ---
-Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. This task itself is time consuming as developers have to undergo a long process of spinning and configuring a new VM using command line utility or a web application. Moreover, some developers are not familiar with the process of creating virtual machines on numerous cloud providers like Amazon AWS, which makes it time consuming to go through this process first and then proceed with what they were actually looking for. Also, sometimes setting up development environment with IDEs such as Eclipse is a painful task as it involves creation of workspaces, installing required plugins and at the end importing all the build projects into the workspace.
+Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. This task itself is time consuming as developers have to undergo a long process of provisioning and configuring a new VM using command line utility or a web application. Moreover, some developers are not familiar with the process of creating virtual machines on numerous cloud providers like Amazon AWS or Digital Ocean. Also, setting up development environment with IDEs such as Eclipse can be a painful task as it involves creation of workspaces, installing required plugins and finally importing all the build projects into the workspace.
 
-These common problems consume most of the developer’s time and companies are looking forward for an automated way to ease this process (and that is why I think, most of the intern projects in companies are about automating common tasks for developers of the team).
-
-_Autobot to the rescue: The solution to all these problems is our intelligent slackbot: **AutoBot**_
+These common problems waste developer's time. For companies looking for an automated way to ease this process, comes Autobot to the rescue: The solution to all these problems.
 
 Bot Description
 ---
 
-AutoBot provides a command based interface for provisioning common development setup tasks like creating virtual machines, setting up development workspaces, maintaining the provisioned VMs which includes updating the libraries or editing the VM configuration. With the help of AutoBot, developers can focus and spend their valuable time on more value generating work rather than spending time on configuring the work environment. AutoBot is happy to assist developers in below mentioned tasks:
+AutoBot provides a command based interface for providing common development setup tasks like creating virtual machines, setting up development workspaces, maintaining the provisioned VMs which includes updating the libraries or editing the VM configuration. With the help of AutoBot, developers can focus and spend their valuable time on more value generating work rather than spending time on configuring the work environment. AutoBot is happy to assist developers in below mentioned tasks:
 
 * **Provisioning a new Virtual Machine:** This is the primary task which AutoBot is designed for. Developers can request creation of virtual machines by providing the desired configuration. Once the request is issued, developers can sit back, relax and let the AutoBot work on the request. The bot will respond back with details to access the virtual machine so that developer can start using it immediately. Currently, AutoBot can provision a plain VM or a Jenkins configured VM. In future, we are planning to increase the flavors of VMs AutoBot can create, so that developers have much more options to choose from.
 
@@ -22,112 +20,69 @@ AutoBot provides a command based interface for provisioning common development s
 
 * **Maintaining a server/ virtual machine:** Developers can request AutoBot for maintaining their virtual machines. AutoBot can upgrade distribution packages, edit VM configurations, install third party applications on developer request. In addition, AutoBot can also be used to bring down the unused virtual machines in order to free up space and have better resource utilization. Managers in the team can have additional authority to tear down machines that have not been used or are not required anymore.
 
-* **Setting up local development environment with IDE’s such as Eclipse:** Developers can request AutoBot to setup the development environment for the project they are working on. In addition, developers can request for installation of plugins they need for the development of the software project. Currently, AutoBot supports only Eclipse IDE and some custom plugins along with it. We are planning to extend this capability of AutoBot in future by adding support for more plugins and other IDEs and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
+* **Creating a virtual machine image with IDE’s such as Eclipse:** Developers can request AutoBot to create a virtual machine image with eclipse installed on it so that it can be used for the development process. Additionally, developers can specify plugins they wish to be configured with the eclipse IDE. Currently, AutoBot supports only Eclipse IDE and some custom plugins along with it. We are planning to extend this capability of AutoBot in future by adding support for more plugins and other IDEs and also adding natural language processing capabilities so that talking to AutoBot feels more user friendly.
 
 AutoBot will be best fitted into **Responder Bot** category as it is listening to the requests made by the user and then invoking its modules to serve the request. AutoBot also remembers the user its interacting with, so that inherent security and transparency can be provided to the user with respect to AWS services. AutoBot will also be able to learn from what is being said, for example if a user requests AutoBot to reconfigure or upgrade some specific virtual machines, it will remembers the request and acts accordingly.
 
 Use Cases
 ---
 ```
+
 Use Case 1: Provision a new Virtual Machine.
-1. Preconditions
+1 Preconditions
 The user shall have AWS account with valid access keys. User shall also have valid Slack API token on their system
 
-2. Main Flow:
-User requests AutoBot to provision a new Virtual Machine [S1].  AutoBot asks about flavor of the requested machine [S2]. User selects the flavor of the VM [S3] AutoBot asks about configuration parameters [S4]. User provides configuration parameters [S5]. AutoBot creates a VM with provided parameters [S6].
-
-3. SubFlows
-  [S1] User requests the bot to provision a new Virtual Machine.
-  [S2] The AutoBot shows different kinds of VMs to the user to select one of them. (plain or flavored VM)
+2 Main Flow:
+User requests AutoBot to provision a new Virtual Machine [S1].  AutoBot asks about       flavor of the requested machine [S2]. User selects the flavor of the VM [S3] AutoBot asks about configuration parameters [S4]. User provides configuration parameters [S5]. AutoBot creates a VM with provided parameters [S6]. 
+3 SubFlows
+   [S1] User requests the bot to provision a new Virtual Machine.
+  [S2] The AutoBot shows different kinds of VMs to the user to select one of them. (plain   or flavored VM)
   [S3] The user selects one of the provided kind of VM.
   [S4] The AutoBot asks different configuration parameters from the user.
   [S5] The user provides configuration parameters.
-  [S6] The AutoBot configured a VM based on the user selections and returns the configuration details of the created VM including access link, and credentials.
+ [S6] The AutoBot configured a VM based on the user selections and returns the configuration details of the created VM including access link, and credentials
+4 Alternative Flows
+  [E1] The AutoBot can not create a new VM based on some errors and return the failure message to the user. - error like the user has reached limit of VM’s he can create. 
   
-4. Alternative Flows
-  [E1] The AutoBot can not create a new VM based on some errors and return the failure message to the user, example - the user has reached the limit of number of VMs he/she can create.
-```
-
-```
-Use Case 2 : Show list of all user’s reserved Virtual Machines.
-1. Preconditions
-  The user shall have AWS account with valid access keys. User shall also have valid  Slack API token on their system.
-2. Main Flow
-  User requests the AutoBot to show list of all his/her reserved VMs [S1]. The AutoBot shows the list of all his/her reserved VMs [S2].
-3. Subflows
-  [S1] User requests the AutoBot to show list of all his/her reserved VMs.
-  [S2] The AutoBot shows the list of all his/her reserved VMs.
-4. Alternative Flows
-  [E1] The user has no reserved VMs.
-  [E2] The AutoBot can not get the list of user’s reserved VMs based on some errors and return the failure message to the user.
-  [E3] User requests list of VMs of another user.
-```
-
-```
-Use Case 3: Tear down a specific Virtual Machine.
-1. Preconditions
-  The user shall have AWS account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
-  
-2. Main Flow
-  User request the AutoBot to tear down a specific VM [S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3].  The Autobot request confirmation from the user (OTP via email) [S4]. The user confirms the request [S5]. The AutoBot tears down the selected VM [S6].
-  
-3. Subflows
-  [S1] User requests the AutoBot to tear down a specific VM.
-  [S2] The AutoBot lists all user’s reserved VMs.
-  [S3] User selects a specific VM or a set of VM’s to delete.
-  [S4] The Autobot request for providing OTP as a confirmation to delete the VM. 
-  [S5] The user confirms the request by providing valid OTP.
-  [S6] The AutoBot tears down the selected VM.
-
-4. Alternative Flows
-  [E1] The AutoBot is not able to delete the VM based on some errors and returns the failure message to the user.
-  [E2] The user does not want to delete the VM after entering the main flow and request to go back to main menu.
-  [E3] The user provided incorrect OTP, retry again with the OTP in his/her email.
-  [E4] AutoBot lock Delete Action for the user, after three incorrect attempts. AutoBot unlocks the delete action, after 10 minutes. 
-```
-
-```
-Use Case 4: Setup a local Eclipse workspace with selective plugins installed.
-1. Preconditions
-  User shall have valid Slack API token on their system, and eclipse installed in the environment.
-
-2. Main Flow
-  User requests the AutoBot to setup a local Eclipse workspace [S1]. The AutoBot asks location of Eclipse [S2] The user provides the location [S3] The autoBot asks about required plugins[S4]. The user selects desired plugins [S5]. The AutoBot setups Eclipse workspace for the user [S6].
-  
-3. Subflows
-  [S1] User requests the AutoBot to setup a local Eclipse workspace.
-  [S2] AutoBot ask the user about the location of eclipse directory on the system.
-  [S3] User provide the location of the Eclipse Directory.
+Use Case 2: Setup virtual machine with Eclipse and selective plugins installed using packerIO.
+1 Preconditions
+User shall have valid Slack API token on their system, and eclipse installed in the environment.
+2 Main Flow
+User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBot ask user whether or not to install any specific plugins on the configured eclipse[S2]. The user provides plugins to be installed[S3]. The AutoBot build VM image with eclipse and plugins configured using packer Io and gives the image back to user[S4].
+3 Subflows : to be edited
+   [S1] User requests the AutoBot to setup a local Eclipse workspace.
+   [S2] AutoBot ask the user about the location of eclipse directory on the system.
+   [S3] User provide the location of the Eclipse Directory.
   [S4] The AutoBot provides the list of available plugins and ask the user the select some of them. 
-  [S5] The user selects desired plugins from the provided list.
-  [S6] The AutoBot setups Eclipse workspace with selected plugins installed.
+   [S5] The user selects desired plugins from the provided list.
+   [S6] The AutoBot setups Eclipse workspace with selected plugins installed.
+4 Alternative Flows
+ [E1] User wants plugins that do not exist in the list of plugins which bot can install.
+ [E2] AutoBot was not able to install the desired plugins, because of some errors: like internet issue/ download error.
 
-4. Alternative Flows
-  [E1] User wants plugins that do not exist in the list of plugins.
-  [E2] AutoBot can not find eclipse executable on the provided location by the User
-  [E3] AutoBot was not able to install the desired plugins, because of some errors: like internet issue/ download error.
-```
-
-```
-Use Case 5: Management of Virtual Machines. 
-1. Preconditions
-  The user shall have AWS account with valid access keys. User shall also have valid  Slack API token on their system
-
-2. Main Flow
-  User request the AutoBot to tear down a specific VM [S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks about kind of changing configuration [S4]. The user provides kind of changes he/she wants [S5]. The AutoBot ask required parameters [S6]. The user provides needed parameters [S7]. The Autobot changed the configuration of the selected VM.
-
-3. Subflows
-  [S1] User requests the AutoBot to tear down a specific VM.
-  [S2] The AutoBot lists all user’s reserved VMs.
-  [S3] User selects a specific VM to configure.
-  [S4] The AutoBot shows the list of changing configuration items and ask the user to select one of them.
-  [S5] The user selects one configuration item.
-  [S6] The AutoBot asks required parameter of that configuration. (if needed)
-  [S7] The user enters different parameters.
-  [S8] The AutoBot changes the configuration of the selected VM based on given parameters.
-
-4. Alternative Flows
+Use Case 3: Management of Virtual Machines. 
+1 Preconditions
+   The user shall have AWS account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
+2 Main Flow
+   User request the AutoBot to change a specific VM [S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks user about desired action on selected VM: delete or configuration change [S4]. The user provides the choice [S5]. The AutoBot ask required parameters if needed [S6]. The user provides needed parameters [S7].The Autobot request confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
+3 Subflows
+   [S1] User requests the AutoBot to change a specific VM.
+   [S2] The AutoBot lists all user’s reserved VMs.
+   [S3] User selects a specific VM to change.
+  [S4] AutoBot ask user to select a specific action for the selected VM: delete or change configuration
+  [S5] The user selects one option. It can be one of the configuration change or tear down the machine. 
+  [S6] The AutoBot asks required parameter of that configuration. (if needed. For example to tear down the VM no parameter is needed)
+   [S7] The user enters different parameters (if needed).
+   [S8] The Autobot request for providing OTP as a confirmation to change the VM. 
+   [S9] The user confirms the request by providing valid OTP.
+ [S10] The AutoBot changes the configuration of the selected VM based on given parameters or tears down it.
+4 Alternative Flows
   [E1] The AutoBot is not able to configure the VM based on some errors and returns the failure message to the user.
+  [E2] The user has no reserved VMs.
+   [E3] The AutoBot is not able to delete the VM based on some errors and returns the failure message to the user.
+   [E4] The user does not want to delete the VM after entering the main flow and request to go back to main menu.
+    [E5] The user provided incorrect OTP, retry again with the OTP in his/her email.
+   [E6] AutoBot lock Delete Action for the user, after three incorrect attempts. AutoBot unlocks the delete action, after 10 minutes. 
 ```
 
 Design Sketches
