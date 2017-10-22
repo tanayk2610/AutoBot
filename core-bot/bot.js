@@ -3,7 +3,7 @@ var apiai = require('apiai');
 var app = apiai(process.env.APIAITOKEN);
 var Slack = require('slack-node')
 var request = require('request')
-
+var service = require('./service.js')
 var slack = new Slack(process.env.SLACKTOKEN)
 
 
@@ -25,7 +25,7 @@ function getSlackUsers() {
 }
 
 
-var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on AWS or Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 4. `exit` : exit the conversation\n"
+var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on AWS or Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 5. `save aws keys`: will save your aws credentials which will be used to spin up virtual machines \n 5. `save digital ocean keys`: will save your digital ocean keys for creating virtual machines. \n '6. `exit` : exit the conversation\n"
 
 var controller = Botkit.slackbot({
     debug: false
@@ -50,9 +50,11 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
         message.text = message.text.substring(0,message.text.indexOf("<"));
         console.log("Alert" + message.text)
       }
+
       var request = app.textRequest(message.text, {
       sessionId: sessionMap[message.user]
     });
+
     request.on('response', function (response) {
         // console.log(response);
         if (response.result.actionIncomplete) {
@@ -91,7 +93,10 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                         getSlackUsers()
                     }
                      bot.reply(message, "Good Bye, " + userIdNameMap[message.user])
+                    break;
 
+                case 'save.digital.ocean.keys':
+                    service.saveDigitalOceanKeys(bot, message, response);
                     break;
 
                 default:
