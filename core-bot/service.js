@@ -17,5 +17,10 @@ module.exports = {
 
 		keyService.post_keys_digital_ocean(params, bot, message, response);
 
+	},
+
+	createVirtualMachine: function(bot, message, response) {
+		bot.reply(message, "Please wait for a moment, my autobots will be right back with your VM on cloud!!!!!");
+		console.log("Spinning up new virtual machine")
 	}
 }

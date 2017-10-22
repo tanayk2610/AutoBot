@@ -99,6 +99,9 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     service.saveDigitalOceanKeys(bot, message, response);
                     break;
 
+                case 'create.vm':
+                    service.createVirtualMachine(bot, message, response);
+                    break;
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 
