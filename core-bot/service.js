@@ -3,8 +3,9 @@ var serviceURL  = "http://service:3001";
 
 var keyService = require('../serviceManager/keyController/keySave.js');
 
-var digitalOceanService = require('../serviceManager/DigitalOcean/digitalOCean.js');
+var digitalOceanService = require('../serviceManager/DigitalOcean/digitalOcean.js');
 
+var reservationsController = require('../serviceManager/reservationsController/reservationsController.js');
 
 module.exports = {
 
@@ -36,6 +37,16 @@ module.exports = {
 		}
 
 		digitalOceanService.create_vm(params, bot, message, response);
+	},
+
+	manageReservations: function(bot,message,respone) {
+		bot.reply(message, "Retrieving all your reservations, please wait for a moment...");
+		console.log("**************Managing Reservations*******************");
+
+		var params = {
+			"UserId": message.user
+		}
+		reservationsController.get_reservations(params, bot, message, response);
 	}
 
 }

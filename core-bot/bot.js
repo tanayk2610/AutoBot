@@ -60,14 +60,15 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
         if (response.result.actionIncomplete) {
             bot.reply(message, response.result.fulfillment.speech);
         } else {
+            console.log(response.result.action);
             switch (response.result.action) {
 
                 case 'user.initiation':
                    if(userIdNameMap[message.user] == undefined) {
                      getSlackUsers()
                    }
+                   
                    bot.reply(message, "Hello, " + userIdNameMap[message.user])
-
                    break;
 
                 case 'greeting.initial':
@@ -102,6 +103,11 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                 case 'create.vm':
                     service.createVirtualMachine(bot, message, response);
                     break;
+
+                case 'manage.reservation':
+                    service.manageReservations(bot, message, response);
+                    break;
+
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 
