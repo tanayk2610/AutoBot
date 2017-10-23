@@ -13,6 +13,7 @@
     "request": "^2.67.0"
   },
   "devDependencies": {
-    "mongoose": "~4.6.3"
+    "mongoose": "~4.6.3",
+    "nock": "^9.0.17"
   }
 }

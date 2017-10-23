@@ -1,9 +1,11 @@
 require('../database_models/reservations.js');
 require('../database_models/provider_keys.js');
 var mongoose = require('mongoose');
-
+var nock = require("nock")
 var Key = mongoose.model('Key');
+var mockData = require('./mockData/newMock.json')
 
+var dropletData = require('./mockData/dropletMockData.json')
 var Reservation = mongoose.model('Reservation');
 
 var needle = require("needle");
@@ -43,7 +45,7 @@ module.exports =
                           console.log("Got droplet: " + dropletId + " polling for public IP...");
 
                           // Get IP Handler
-                          function getIPCallback(error, response)
+                          function getIPCallback(error, response, body)
                           {
                               data = response.body;
                               data["ReservationId"] = "" + data.droplet.id;
@@ -135,13 +137,16 @@ var client =
         };
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
-
+        // mocking service call here
+        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
 
     getIP: function(dropletId, onResponse )
     {
+        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
+        // mocking service call here
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 

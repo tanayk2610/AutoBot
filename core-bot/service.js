@@ -25,7 +25,6 @@ module.exports = {
 	},
 
 	createVirtualMachine: function(bot, message, response) {
-		bot.reply(message, "Please wait for a moment, my autobots will be right back with your VM on cloud!!!!!");
 		console.log("*********Spinning up new virtual machine*************");
 
 		var params = {
@@ -45,7 +44,7 @@ module.exports = {
 		var params = {
 			"UserId": message.user
 		}
-		
+
 		reservationsController.get_reservations(params, bot, message, response);
 	}
 
