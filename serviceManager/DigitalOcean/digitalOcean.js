@@ -145,8 +145,8 @@ var client =
 
     getIP: function(dropletId, onResponse )
     {
-        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         // mocking service call here
+        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 
@@ -156,7 +156,8 @@ var client =
         var data = null;
 
         console.log("Attempting to delete: "+ dropletId );
-
+        // mocking service call here
+        nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
         needle.delete("https://api.digitalocean.com/v2/droplets/"+dropletId, data, {headers:headers,json:true}, onResponse );
     },
 
