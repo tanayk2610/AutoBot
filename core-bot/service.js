@@ -39,13 +39,13 @@ module.exports = {
 		digitalOceanService.create_vm(params, bot, message, response);
 	},
 
-	manageReservations: function(bot,message,respone) {
-		bot.reply(message, "Retrieving all your reservations, please wait for a moment...");
+	manageReservations: function(bot,message,response) {
 		console.log("**************Managing Reservations*******************");
 
 		var params = {
 			"UserId": message.user
 		}
+		
 		reservationsController.get_reservations(params, bot, message, response);
 	}
 

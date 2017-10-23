@@ -4,9 +4,11 @@ var mongoose = require('mongoose');
 var Reservation = mongoose.model('Reservation');
 
 exports.get_reservations = function(params, bot, message, response) {
+    console.log("Debug: get_reservations begins"); // Debug
     var UserId = params.UserId;
-    
-    Reservation.findOne({"UserId":params.UserId, "Service": "digital-ocean" }, function(err,result) {
+
+    Reservation.find({"UserId":params.UserId}, function(err,result) {
+        console.log("Debug: data fetched, function called"); // Debug
         if(err) {
             console.log("Could not fetch keys from database", err);
             bot.reply(message, "Internal Server Error, please try again after some time!!!")
@@ -16,8 +18,23 @@ exports.get_reservations = function(params, bot, message, response) {
                 bot.reply(message, "Oh ho, you have not yet made any reservations with me");
             }
             else{
-                console.log(result);
+                console.log(result); // Debug
+                var reply = textFormatter(result);
+                bot.reply(message, reply);
             }
         }
     });
+}
+
+function textFormatter(data) {
+    var reply = "*Here are all your reservations:* \n";
+    for(var i=0; i<data.length; i++) {
+        console.log("iteration" + (i+1));  // Debug
+        if(data[i].Cloud == "digital-ocean")
+            data[i].Cloud = "Digital Ocean";
+        if(data[i].Request.OS == "ubuntu")
+            data[i].Request.OS = "Ubuntu"
+        reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
+    }
+    return reply;
 }
