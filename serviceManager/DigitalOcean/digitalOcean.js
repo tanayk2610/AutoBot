@@ -118,7 +118,7 @@ module.exports =
 
                       if(resultReservation == null) {
                           console.log("No reservation found with given reservation ID", err);
-                          bot.reply(message, "No Reservation found with given ID");
+                          bot.reply(message, "No Reservation found with given ID. Please input correct reservation ID and try again!!!");
                       } else {
                         client.deleteDroplet(resId, function(err, resp, body) {
                             if(!err)
@@ -188,15 +188,15 @@ var client =
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
         // mocking service call here
-        //nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
+        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
 
     getIP: function(dropletId, onResponse )
     {
-        //nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         // mocking service call here
+        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 
@@ -206,7 +206,8 @@ var client =
         var data = null;
 
         console.log("Attempting to delete: "+ dropletId );
-
+        // mocking service call here
+        nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
         needle.delete("https://api.digitalocean.com/v2/droplets/"+dropletId, data, {headers:headers,json:true}, onResponse );
     },
 
