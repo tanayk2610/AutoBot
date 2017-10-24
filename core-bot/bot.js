@@ -105,7 +105,29 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     break;
 
                 case 'create.vm':
-                    service.createVirtualMachine(bot, message, response);
+                    var OsType =  response.result.parameters.osKind
+                    // console.log(OsType)
+                    var config = response.result.parameters.config
+                    var userDecision = false;
+                    var privateKey = null;
+                    bot.startConversation(message, function(err, convo){
+                      if(err) {
+                        console.log("error")
+                      } else{
+                        convo.ask("Type **plain** to get a plain Vm OR Type **flavored** to add jenkins flavor on top of your VM", function(response, convo){
+                        if(response.text === "plain") {
+                            service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
+                        } else {
+                          convo.ask("Please provide your private Key so that I can access your droplet", function(responseNew, convoNew) {
+                            privateKey = responseNew.text
+                            service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
+                          });
+                        }
+                        convo.next();
+                        });
+                      }
+                    });
+
                     break;
 
                 case 'manage.reservation':
@@ -117,6 +139,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                         getSlackUsers()
                     }
                     var userEmail = userIdEmailMap[message.user];
+                    // mock otp for this milestone
                     var otp = shortid.generate()
                     var dropletId = response.result.parameters.reservationId
                     console.log("Droplet Id is: " + dropletId);

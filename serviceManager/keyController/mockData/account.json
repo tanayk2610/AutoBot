@@ -1,0 +1,9 @@
+{ "account":
+   { "droplet_limit": 10,
+     "floating_ip_limit": 3,
+     "email": "bbansal@ncsu.edu",
+     "uuid": "a6ac830a89d3c28aec49dbe70b19f705ea62dec2",
+     "email_verified": true,
+     "status": "active",
+     "status_message": "" }
+}

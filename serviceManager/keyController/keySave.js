@@ -1,6 +1,8 @@
 
 require('../database_models/provider_keys.js');
 var mongoose = require('mongoose');
+var nock = require("nock")
+var accountMockData = require('./mockData/account.json')
 
 var Key = mongoose.model('Key');
 
@@ -26,11 +28,12 @@ exports.get_keys = function (req, res) {
 };
 
 exports.post_keys_digital_ocean = function (params, bot, message, response) {
+
     var userId = params.UserId;
     console.log("post_keys : POST Request ")
     console.log(userId);
 
-    validateDigitalOcean(params, function (valid) {
+    validateDigitalOcean(bot,message, params, function (valid) {
         if (!valid) {
           bot.reply(message, "Invalid keys for Digital Ocean Account. Please try again!!!!");
         } else {
@@ -49,7 +52,8 @@ exports.post_keys_digital_ocean = function (params, bot, message, response) {
     });
 }
 
-function validateDigitalOcean(msg, callback) {
+function validateDigitalOcean(bot, message, msg, callback) {
+       bot.reply(message, "Please wait for a moment...")
         var status = true;
         var needle = require("needle");
 
@@ -58,9 +62,12 @@ function validateDigitalOcean(msg, callback) {
             Authorization: 'Bearer ' + msg.Token
         };
         console.log(headers);
-        needle.get("https://api.digitalocean.com/v2/account", {headers: headers}, function (err, resp, body) {
 
-            if (body.account) {
+        // mocking service call here: will remove in service milestone
+        nock("https://api.digitalocean.com").get("/v2/account").reply(202, accountMockData)
+        needle.get("https://api.digitalocean.com/v2/account", {headers: headers}, function (err, resp, body) {
+            console.log("bhavya \n")
+            if (accountMockData.account) {
                 console.log("Digital ocean validated....");
                 callback(true);
             } else {

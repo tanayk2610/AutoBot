@@ -37,8 +37,9 @@ function textFormatter(data) {
         reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
     }
     reply += "\n";
-    reply += "Please type: *delete droplet <reservation ID>* to delete a droplet" + "\n";
-    reply += "**********OR*************" + "*\n";
-    reply += "Please type: *update droplet <reservation ID>* to update the configuration for a droplet" + "\n";
+    reply += "Further Actions on Droplet: \n\n"
+    reply += "Please type: *delete droplet* to delete a droplet" + "\n\n";
+    reply += "               **********OR*************" + "*\n\n";
+    reply += "Please type: *update droplet* to update the configuration for a droplet";
     return reply;
 }

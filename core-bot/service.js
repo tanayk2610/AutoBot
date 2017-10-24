@@ -10,7 +10,6 @@ var reservationsController = require('../serviceManager/reservationsController/r
 module.exports = {
 
 	saveDigitalOceanKeys: function (bot, message, response) {
-		bot.reply(message, "Please wait for a moment...")
 		console.log("*************Saving Digital Ocean Keys******************");
     // getting params from api ai response message
 		var params = {
@@ -24,20 +23,24 @@ module.exports = {
 
 	},
 
-	createVirtualMachine: function(bot, message, response) {
+	createVirtualMachine: function(bot, message, OsType, config, userDecision, privateKey) {
 		console.log("*********Spinning up new virtual machine*************");
-
+		console.log(OsType)
 		var params = {
 			"UserId": message.user,
-			"OS": response.result.parameters.osKind,
-			"config": response.result.parameters.config
+			"OS": OsType,
+			"config": config,
+			"privateKey": null
 		}
-
-		  validateOperatingSystem(response.result.parameters.osKind, function(result) {
-			if(!result) {
+		if(userDecision == true) {
+			params['privateKey'] = privateKey;
+		}
+		 console.log(params['OS']);
+		 validateOperatingSystem(OsType, function(result) {
+			 if(!result) {
 				bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
 			} else {
-					digitalOceanService.create_vm(params, bot, message, response);
+					digitalOceanService.create_vm(params, bot, message);
 			}
 		});
 

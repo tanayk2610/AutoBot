@@ -5,7 +5,7 @@ var nock = require("nock")
 var Key = mongoose.model('Key');
 var mockData = require('./mockData/newMock.json')
 var dropletData = require('./mockData/dropletMockData.json')
-var updateData = require('./mockData/updateMockData.json')
+var updateData = require('./mockData/UpdateMockData.json')
 var Reservation = mongoose.model('Reservation');
 var needle = require("needle");
 var os   = require("os");
@@ -17,7 +17,7 @@ var Enum = require('enum');
 var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-8-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
 module.exports =
 {
-    create_vm: function (params, bot, message, response) {
+    create_vm: function (params, bot, message) {
         Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
 
             if(err) {
@@ -122,6 +122,8 @@ module.exports =
                           bot.reply(message, "No Reservation found with given ID. Please input correct reservation ID and try again!!!");
                       } else {
                         client.deleteDroplet(resId, function(err, resp, body) {
+                          console.log(err)
+                          console.log(resp)
                             if(!err)
                             {
                                 Reservation.remove({"Reservation.droplet.id" : resId}, function(err, result) {
@@ -132,7 +134,7 @@ module.exports =
                                     }
                                 });
                             } else {
-                                console.log("deleting res failed. status" + resp.statusCode);
+                                console.log("deleting res failed. status" + resp);
                                 bot.reply(message, "Can not delete reservation, please try again after some time!!!")
                             }
 
@@ -177,6 +179,7 @@ module.exports =
                             console.log("Error updating the droplet")
                             bot.reply(message, "Update failed, please try again later.")
                           } else {
+                            console.log("Status code is: " + resp.statusCode)
                             if(!err && resp.statusCode == 201) {
                               bot.reply(message, "Droplet has been updated Succesfully")
                             }
@@ -233,7 +236,7 @@ var client =
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
         // mocking service call here
-        //nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
+        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
@@ -241,19 +244,18 @@ var client =
     getIP: function(dropletId, onResponse )
     {
         // mocking service call here
-        //nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
+        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 
 
     deleteDroplet: function (dropletId, onResponse)
     {
-        var data = null;
 
         console.log("Attempting to delete: "+ dropletId );
         // mocking service call here
-        //nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
-        needle.delete("https://api.digitalocean.com/v2/droplets/"+dropletId, data, {headers:headers,json:true}, onResponse );
+        nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId).reply(204)
+        needle.delete("https://api.digitalocean.com/v2/droplets/" + dropletId, null,{headers:headers}, onResponse)
     },
 
     resizeDroplet: function(dropletId, newConfig, onResponse)
@@ -265,7 +267,7 @@ var client =
       }
       console.log("Attempting to Resize the droplet:" + dropletId);
       // mocking service call here
-      nock("https://api.digitalocean.com").post("/v2/droplets/"+ dropletId + "/actions", data).reply(202, updateData)
+      nock("https://api.digitalocean.com").post("/v2/droplets/"+ dropletId + "/actions", data).reply(201, updateData)
       needle.post("https://api.digitalocean.com/v2/droplets/" + dropletId + "/actions", data, {headers:headers,json:true}, onResponse );
     }
 
