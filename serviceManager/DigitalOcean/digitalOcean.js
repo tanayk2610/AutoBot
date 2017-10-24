@@ -5,6 +5,7 @@ var nock = require("nock")
 var Key = mongoose.model('Key');
 var mockData = require('./mockData/newMock.json')
 var dropletData = require('./mockData/dropletMockData.json')
+var updateData = require('./mockData/updateMockData.json')
 var Reservation = mongoose.model('Reservation');
 var needle = require("needle");
 var os   = require("os");
@@ -263,7 +264,9 @@ var client =
         "size": newConfig
       }
       console.log("Attempting to Resize the droplet:" + dropletId);
-      needle.post("https://api.digitalocean.com/v2/droplets/" +dropletId + "/actions", data, {headers:headers,json:true}, onResponse );
+      // mocking service call here
+      nock("https://api.digitalocean.com").post("/v2/droplets/"+ dropletId + "/actions", data).reply(202, updateData)
+      needle.post("https://api.digitalocean.com/v2/droplets/" + dropletId + "/actions", data, {headers:headers,json:true}, onResponse );
     }
 
 };
