@@ -7,7 +7,7 @@ var service = require('./service.js')
 var slack = new Slack(process.env.SLACKTOKEN)
 var emailService = require('../emailService/emailService.js')
 var shortid = require('shortid')
-
+var otpMockData = require('./otpMock.json')
 // variable to store all slack user details
 var slackUsersList =[]
 var url = "https://api.api.ai/v1/"
@@ -51,7 +51,6 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
       if(message.text.indexOf("<") > 1) {
         console.log("Initial:" + message.text)
         message.text = message.text.substring(0,message.text.indexOf("<"));
-        console.log("Alert" + message.text)
       }
 
       var request = app.textRequest(message.text, {
@@ -63,7 +62,6 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
         if (response.result.actionIncomplete) {
             bot.reply(message, response.result.fulfillment.speech);
         } else {
-            console.log(response.result.action);
             switch (response.result.action) {
 
                 case 'user.initiation':
@@ -72,7 +70,6 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                    }
 
                    bot.reply(message, "Hello, " + userIdNameMap[message.user])
-                   console.log(userIdEmailMap)
                    break;
 
                 case 'greeting.initial':
@@ -140,7 +137,8 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     }
                     var userEmail = userIdEmailMap[message.user];
                     // mock otp for this milestone
-                    var otp = shortid.generate()
+                    // var otp = shortid.generate()
+                    var otp = otpMockData.otp;
                     var dropletId = response.result.parameters.reservationId
                     console.log("Droplet Id is: " + dropletId);
                     emailService.sendEmail(userEmail, otp);
