@@ -91,7 +91,7 @@ module.exports =
 
     },
 
-    terminateVM: function (params, bot, message, response) {
+    terminateVM: function (params, bot, message, reservationId) {
         console.log(params.UserId);
         console.log(params.reservationID);
 
@@ -108,7 +108,7 @@ module.exports =
                   // read api token
                   headers.Authorization = 'Bearer ' + result.Token;
 
-                  var resId = parseInt(params.reservationID);
+                  var resId = parseInt(reservationId);
                   Reservation.findOne({"Reservation.droplet.id" : resId}, function(err, resultReservation) {
 
                       if(err) {
@@ -207,7 +207,7 @@ var client =
 
         console.log("Attempting to delete: "+ dropletId );
         // mocking service call here
-        nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
+        //nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
         needle.delete("https://api.digitalocean.com/v2/droplets/"+dropletId, data, {headers:headers,json:true}, onResponse );
     },
 

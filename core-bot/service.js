@@ -53,15 +53,15 @@ module.exports = {
 		reservationsController.get_reservations(params, bot, message, response);
 	},
 
-	terminateVirtualMachine: function(bot, message, response) {
+	terminateVirtualMachine: function(bot, message, reservationId) {
 		console.log("**************Terminating Virtual Machine*******************");
 
 		var params = {
 			"UserId": message.user,
-			"reservationID": response.result.parameters.reservationId
+			"reservationID": reservationId
 		}
 
-		digitalOceanService.terminateVM(params, bot, message, response);
+		digitalOceanService.terminateVM(params, bot, message);
 	}
 
 }

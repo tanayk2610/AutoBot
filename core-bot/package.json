@@ -17,7 +17,9 @@
     "bluebird": "^3.2.2",
     "parse-link-header": "^0.4.1",
     "apiai": "^3.0.2",
-    "slack-node": "^0.1.8"
+    "slack-node": "^0.1.8",
+    "nodemailer": "4.3.0",
+    "shortid": "2.2.6"
   },
   "devDependencies": {
     "mocha": "^4.0.0"

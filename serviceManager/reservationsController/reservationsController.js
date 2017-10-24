@@ -13,9 +13,9 @@ exports.get_reservations = function(params, bot, message, response) {
             console.log("Could not fetch keys from database", err);
             bot.reply(message, "Internal Server Error, please try again after some time!!!")
         } else {
-            if(result == null) {
+            if(result == null || result.length == 0) {
                 console.log("Could not fetch keys from database", err);
-                bot.reply(message, "Oh ho, you have not yet made any reservations with me");
+                bot.reply(message, "You have not yet made any reservations with me yet!!!");
             }
             else{
                 console.log(result); // Debug
@@ -36,5 +36,9 @@ function textFormatter(data) {
             data[i].Request.OS = "Ubuntu"
         reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
     }
+    reply += "\n";
+    reply += "Please type: *delete droplet <reservation ID>* to delete a droplet" + "\n";
+    reply += "**********OR*************" + "*\n";
+    reply += "Please type: *update droplet <reservation ID>* to update the configuration for a droplet" + "\n";
     return reply;
 }

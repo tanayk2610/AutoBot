@@ -5,22 +5,25 @@ var Slack = require('slack-node')
 var request = require('request')
 var service = require('./service.js')
 var slack = new Slack(process.env.SLACKTOKEN)
-
+var emailService = require('../emailService/emailService.js')
+var shortid = require('shortid')
 
 // variable to store all slack user details
 var slackUsersList =[]
 var url = "https://api.api.ai/v1/"
 var userIdNameMap = {}
 
-
+var userIdEmailMap = {}
 function getSlackUsers() {
 
   slack.api("users.list", function(error, response) {
     slackUsersList = response.members;
+
   });
   for(var i = 0 ; i < slackUsersList.length; i++) {
     var user = slackUsersList[i];
     userIdNameMap[user.id] = user.real_name
+    userIdEmailMap[user.id] = user.profile.email
   }
 }
 
@@ -69,6 +72,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                    }
 
                    bot.reply(message, "Hello, " + userIdNameMap[message.user])
+                   console.log(userIdEmailMap)
                    break;
 
                 case 'greeting.initial':
@@ -109,9 +113,30 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     break;
 
                 case 'terminate.droplet':
-                    service.terminateVirtualMachine(bot, message, response);
+                    var userEmail = userIdEmailMap[message.user];
+                    var otp = shortid.generate()
+                    var dropletId = response.result.parameters.reservationId
+                    console.log("Droplet Id is: " + dropletId);
+                    emailService.sendEmail(userEmail, otp);
+                    bot.startConversation(message, function(err, convo){
+                      if(err) {
+                        console.log("error")
+                      } else{
+                        convo.ask("I have sent you an OTP. Please enter OTP to verify the terminate action!!", function(response, convo){
+                          validateOTP(response.text, otp, function(valid){
+                            if(!valid){
+                              bot.reply(message, "OTP Verification failed. Please try again!!!")
+                            } else{
+                              service.terminateVirtualMachine(bot, message, dropletId)
+                            }
+                          });
+                          convo.next();
+                        });
+                      }
+                    });
+                    //service.terminateVirtualMachine(bot, message, response);
                     break;
-                    
+
                 case 'show.configurations':
                    bot.reply(message, "Please see below available configurations from Digital Ocean")
                    bot.reply(message, {
@@ -160,4 +185,13 @@ function deleteContextsForUser(sessionId)
     console.log("context cleared");
 	});
 
+}
+
+
+function validateOTP(number, otp, callback) {
+  if(otp == number) {
+    callback(true);
+  } else{
+    callback(false);
+  }
 }
