@@ -30,12 +30,17 @@ module.exports = {
 		var params = {
 			"UserId": message.user,
 			"OS": response.result.parameters.osKind,
-			"vCPUs": response.result.parameters.vCPUs,
-			"RAM": response.result.parameters.mainMemory,
-			"Storage": response.result.parameters.Storage
+			"config": response.result.parameters.config
 		}
 
-		digitalOceanService.create_vm(params, bot, message, response);
+		  validateOperatingSystem(response.result.parameters.osKind, function(result) {
+			if(!result) {
+				bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
+			} else {
+					digitalOceanService.create_vm(params, bot, message, response);
+			}
+		});
+
 	},
 
 	manageReservations: function(bot,message,response) {
@@ -46,6 +51,29 @@ module.exports = {
 		}
 
 		reservationsController.get_reservations(params, bot, message, response);
+	},
+
+	terminateVirtualMachine: function(bot, message, response) {
+		console.log("**************Terminating Virtual Machine*******************");
+
+		var params = {
+			"UserId": message.user,
+			"reservationID": response.result.parameters.reservationId
+		}
+
+		digitalOceanService.terminateVM(params, bot, message, response);
 	}
 
 }
+
+function validateOperatingSystem(operatingSystem, callback) {
+	var os = operatingSystem.toLowerCase();
+	console.log("Operating system entered is:" + os)
+	var listOfOperatingSystemSupported = ["Ubuntu", "FreeBSD", "Fedora", "Debian", "CoreOS", "CentOS"]
+	var stricmp = listOfOperatingSystemSupported.toString().toLowerCase();
+	if (stricmp.indexOf(os.toLowerCase()) > -1) {
+    callback(true);
+  } else {
+		callback(false);
+  }
+};

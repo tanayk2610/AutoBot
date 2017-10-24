@@ -25,7 +25,7 @@ function getSlackUsers() {
 }
 
 
-var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on AWS or Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 5. `save aws keys`: will save your aws credentials which will be used to spin up virtual machines \n 5. `save digital ocean keys`: will save your digital ocean keys for creating virtual machines. \n '6. `exit` : exit the conversation\n"
+var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on AWS or Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 4. `save digital ocean keys`: will save your digital ocean keys for creating virtual machines. \n 5. `show available configuratons` : VM configurations which can be created on Digital Ocean\n 6. `exit` : exit the conversation\n"
 
 var controller = Botkit.slackbot({
     debug: false
@@ -67,7 +67,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                    if(userIdNameMap[message.user] == undefined) {
                      getSlackUsers()
                    }
-                   
+
                    bot.reply(message, "Hello, " + userIdNameMap[message.user])
                    break;
 
@@ -107,6 +107,24 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                 case 'manage.reservation':
                     service.manageReservations(bot, message, response);
                     break;
+
+                case 'terminate.droplet':
+                    service.terminateVirtualMachine(bot, message, response);
+                    break;
+                    
+                case 'show.configurations':
+                   bot.reply(message, "Please see below available configurations from Digital Ocean")
+                   bot.reply(message, {
+                     "attachments": [
+                       {
+                         "fallback": "Required plain-text summary of the attachment.",
+                         "color": "#36a64f",
+                         "image_url": "https://transfer.sh/hMmpP/digitalOceanPricing.PNG",
+                         "ts": 123456789
+                       }
+                     ]
+                   });
+                   break;
 
                 default:
                     bot.reply(message, response.result.fulfillment.speech);

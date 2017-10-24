@@ -4,17 +4,19 @@ var mongoose = require('mongoose');
 var nock = require("nock")
 var Key = mongoose.model('Key');
 var mockData = require('./mockData/newMock.json')
-
 var dropletData = require('./mockData/dropletMockData.json')
 var Reservation = mongoose.model('Reservation');
-
 var needle = require("needle");
 var os   = require("os");
 var fs = require('fs');
+
+// defining enums to match OS
+
+var Enum = require('enum');
+var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-8-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
 module.exports =
 {
     create_vm: function (params, bot, message, response) {
-
         Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
 
             if(err) {
@@ -23,7 +25,7 @@ module.exports =
             } else {
                 if(result == null) {
                     console.log("Could not fetch keys from database", err);
-                    bot.reply(message, "Oh ho, looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+                    bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
                 } else {
                   // read api token
                   headers.Authorization = 'Bearer ' + result.Token;
@@ -32,17 +34,18 @@ module.exports =
                   var ssh_key = parseInt(result.KeyPair);
                   var name = "DevOps-Node";
                   var region = "nyc3";
-                  var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
-                  var mainMemorySize = params.RAM;
-                  client.createDroplet(name, mainMemorySize, region, image, ssh_key, function(err, resp, body)
+                  // var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
+                  var image = myEnum.get(params.OS).value
+                  var config = params.config;
+                  client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
                   {
                       if(err) {
-                        console.log("error happened")
+                        console.log("request failed")
                       }
                       if(!err && resp.statusCode == 202)
                       {
                           var dropletId = resp.body.droplet.id;
-                          console.log("Got droplet: " + dropletId + " polling for public IP...");
+                          console.log("Got droplet: " + dropletId + " getting public IP now");
 
                           // Get IP Handler
                           function getIPCallback(error, response, body)
@@ -53,10 +56,7 @@ module.exports =
                               {
                                   console.log(data.droplet.networks.v4[0].ip_address);
 
-                                  // All SET!
-                                  // STORE RESERVATION AND REQUEST IN DB
-                                  console.log("STORE the following in DB :");
-                                  console.log();
+                                  console.log("STORE Reservation data in DB :");
                                   var r = {
                                       "UserId" : params.UserId,
                                       "Cloud" : "digital-ocean",
@@ -67,13 +67,10 @@ module.exports =
                                   Reservation.create(r, function(err, key) {
                                       if(err) {
                                           console.log("Could not write to database", err);
-                                          res.statusCode = 500
-                                          return res.send({"status": 500, "message": "Internal Server Error"});
+                                          bot.reply(message, "Internal Servor Error");
+                                      } else {
+                                        bot.reply(message, "Your VM is hosted at IP address: " + data.droplet.networks.v4[0].ip_address );
                                       }
-                                      // NOTIFY BOT ABOUT STATUS
-                                      // res.statusCode = 201
-                                      // return res.send({"status" : 201, "data" : data});
-                                      bot.reply(message, "Created VM, IP address is : " + data.droplet.networks.v4[0].ip_address )
                                   });
 
                               } else {
@@ -89,6 +86,59 @@ module.exports =
                       }
                   });
                 }
+            }
+        });
+
+    },
+
+    terminateVM: function (params, bot, message, response) {
+        console.log(params.UserId);
+        console.log(params.reservationID);
+
+        Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
+
+            if(err) {
+                console.log("Could not fetch keys from database", err);
+                bot.reply(message, "Internal Server Error, please try again after some time!!!")
+            } else {
+                if(result == null) {
+                  console.log("Could not fetch keys from database", err);
+                  bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+                } else {
+                  // read api token
+                  headers.Authorization = 'Bearer ' + result.Token;
+
+                  var resId = parseInt(params.reservationID);
+                  Reservation.findOne({"Reservation.droplet.id" : resId}, function(err, resultReservation) {
+
+                      if(err) {
+                          console.log("Database Connectivity error", err);
+                          bot.reply(message, "Internal Server Error, please try again after some time!!!")
+                      }
+
+                      if(resultReservation == null) {
+                          console.log("No reservation found with given reservation ID", err);
+                          bot.reply(message, "No Reservation found with given ID");
+                      } else {
+                        client.deleteDroplet(resId, function(err, resp, body) {
+                            if(!err)
+                            {
+                                Reservation.remove({"Reservation.droplet.id" : resId}, function(err, result) {
+                                    if(err) {
+                                        bot.reply(message, "Internal server error");
+                                    } else {
+                                        bot.reply(message, "Reservation Deleted Succesfully");
+                                    }
+                                });
+                            } else {
+                                console.log("deleting res failed. status" + resp.statusCode);
+                                bot.reply(message, "Can not delete reservation, please try again after some time!!!")
+                            }
+
+                        });
+                      }
+                  });
+              }
             }
         });
 
@@ -138,14 +188,14 @@ var client =
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
         // mocking service call here
-        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
+        //nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
 
     getIP: function(dropletId, onResponse )
     {
-        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
+        //nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         // mocking service call here
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
