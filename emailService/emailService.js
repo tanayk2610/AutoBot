@@ -18,7 +18,7 @@ module.exports = {
     from: 'autoBotsWolfPack@gmail.com',
     to: emailAddress,
     subject: 'OTP for verification by Optimus Prime',
-    text: otp
+    text: "Hello Human \n" + "\n" + "Please enter this OTP at slack channel so that optimus prime can confirm your action : " + otp + "\n\n" + "Regards" + "\n" + "Team AutoBots"
     };
 
     transporter.sendMail(mailOptions, function(error, info){
