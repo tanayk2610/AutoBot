@@ -113,6 +113,9 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     break;
 
                 case 'terminate.droplet':
+                    if(userIdEmailMap[message.user] == undefined) {
+                        getSlackUsers()
+                    }
                     var userEmail = userIdEmailMap[message.user];
                     var otp = shortid.generate()
                     var dropletId = response.result.parameters.reservationId
@@ -151,6 +154,9 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                    });
                    break;
 
+                case 'update.droplet' :
+                   service.updateVirtualMachine(bot, message, response);
+                   break;
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 

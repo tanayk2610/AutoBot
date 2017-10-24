@@ -62,6 +62,18 @@ module.exports = {
 		}
 
 		digitalOceanService.terminateVM(params, bot, message);
+	},
+
+	updateVirtualMachine: function(bot, message, response) {
+		console.log("**************Resizing Droplet*******************");
+
+		var params = {
+			"UserId": message.user,
+			"reservationId": response.result.parameters.reservationId,
+			"newConfig": response.result.parameters.newConfig
+		}
+
+		digitalOceanService.updateVM(params, bot, message, response)
 	}
 
 }

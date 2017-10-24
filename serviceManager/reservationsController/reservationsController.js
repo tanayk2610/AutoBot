@@ -15,7 +15,7 @@ exports.get_reservations = function(params, bot, message, response) {
         } else {
             if(result == null || result.length == 0) {
                 console.log("Could not fetch keys from database", err);
-                bot.reply(message, "You have not yet made any reservations with me yet!!!");
+                bot.reply(message, "You have not made any reservations with me yet!!!");
             }
             else{
                 console.log(result); // Debug

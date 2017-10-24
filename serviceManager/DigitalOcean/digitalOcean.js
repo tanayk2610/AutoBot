@@ -91,9 +91,9 @@ module.exports =
 
     },
 
-    terminateVM: function (params, bot, message, reservationId) {
+    terminateVM: function (params, bot, message) {
         console.log(params.UserId);
-        console.log(params.reservationID);
+        console.log("Bhavya bansal" + params.reservationID);
 
         Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
 
@@ -108,7 +108,7 @@ module.exports =
                   // read api token
                   headers.Authorization = 'Bearer ' + result.Token;
 
-                  var resId = parseInt(reservationId);
+                  var resId = parseInt(params.reservationID);
                   Reservation.findOne({"Reservation.droplet.id" : resId}, function(err, resultReservation) {
 
                       if(err) {
@@ -142,6 +142,50 @@ module.exports =
             }
         });
 
+    },
+
+    updateVM: function(params, bot, message, response) {
+      Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
+
+          if(err) {
+              console.log("Could not fetch keys from database", err);
+              bot.reply(message, "Internal Server Error, please try again after some time!!!")
+          } else {
+              if(result == null) {
+                console.log("Could not fetch keys from database", err);
+                bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+              } else {
+                // read api token
+                headers.Authorization = 'Bearer ' + result.Token;
+
+                var resId = parseInt(params.reservationId);
+                var newConfig = params.newConfig;
+                Reservation.findOne({"Reservation.droplet.id" : resId}, function(err, resultReservation) {
+
+                    if(err) {
+                        console.log("Database Connectivity error", err);
+                        bot.reply(message, "Internal Server Error, please try again after some time!!!")
+                    }
+
+                    if(resultReservation == null) {
+                        console.log("No reservation found with given reservation ID", err);
+                        bot.reply(message, "No Reservation found with given ID. Please input correct reservation ID and try again!!!");
+                    } else {
+                      client.resizeDroplet(resId, newConfig, function(err, resp, body) {
+                          if(err) {
+                            console.log("Error updating the droplet")
+                            bot.reply(message, "Update failed, please try again later.")
+                          } else {
+                            if(!err && resp.statusCode == 201) {
+                              bot.reply(message, "Droplet has been updated Succesfully")
+                            }
+                          }
+                      });
+                    }
+                });
+            }
+          }
+      });
     }
 }
 
@@ -188,7 +232,7 @@ var client =
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
         // mocking service call here
-        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
+        //nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
@@ -196,7 +240,7 @@ var client =
     getIP: function(dropletId, onResponse )
     {
         // mocking service call here
-        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
+        //nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 
@@ -210,5 +254,16 @@ var client =
         //nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId, data).reply(204)
         needle.delete("https://api.digitalocean.com/v2/droplets/"+dropletId, data, {headers:headers,json:true}, onResponse );
     },
+
+    resizeDroplet: function(dropletId, newConfig, onResponse)
+    {
+      var data = {
+        "type": "resize",
+        "disk": true,
+        "size": newConfig
+      }
+      console.log("Attempting to Resize the droplet:" + dropletId);
+      needle.post("https://api.digitalocean.com/v2/droplets/" +dropletId + "/actions", data, {headers:headers,json:true}, onResponse );
+    }
 
 };
