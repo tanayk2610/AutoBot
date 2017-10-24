@@ -5,7 +5,7 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'autoBotsWolfPack@gmail.com',
-    pass: 'NcsuAutoBots'
+    pass: process.env.AUTOBOTEMAILPASSWORD
   }
 });
 
