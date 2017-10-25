@@ -113,7 +113,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                       } else{
                         convo.ask("Type **plain** to get a plain Vm OR Type **flavored** to add jenkins flavor on top of your VM", function(response, convo){
                         if(response.text === "plain") {
-                            service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
+                          service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
                         } else {
                           convo.ask("Please provide your private Key so that I can access your droplet", function(responseNew, convoNew) {
                             privateKey = responseNew.text
@@ -178,6 +178,9 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                 case 'update.droplet' :
                    service.updateVirtualMachine(bot, message, response);
                    break;
+
+                case 'create.vm.with.eclipse' :
+                   service.createPackerMachine(bot, message, response);
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 
