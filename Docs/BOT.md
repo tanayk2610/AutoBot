@@ -88,6 +88,7 @@ We use "nock" to mock our api calls. In the following table you can see api call
 | Get IP of a vm      | GET /v2/droplets/:dropletId
 | Delete a vm         | DELETE /v2/droplets/:dropletId
 | Upfate a vm         | POST /v2/droplets/:dropletId/actions
+| Validate DigitalOcean Key | GET /v2/account
 
 ## Bot Implementation
 
