@@ -53,7 +53,6 @@ exports.post_keys_digital_ocean = function (params, bot, message, response) {
 }
 
 function validateDigitalOcean(bot, message, msg, callback) {
-       bot.reply(message, "Please wait for a moment...")
         var status = true;
         var needle = require("needle");
 

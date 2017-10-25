@@ -130,7 +130,7 @@ module.exports =
                                     if(err) {
                                         bot.reply(message, "Internal server error");
                                     } else {
-                                        bot.reply(message, "Reservation Deleted Succesfully");
+                                        bot.reply(message, "Reservation Deleted Successfully");
                                     }
                                 });
                             } else {

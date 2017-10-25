@@ -19,27 +19,31 @@ exports.get_reservations = function(params, bot, message, response) {
             }
             else{
                 console.log(result); // Debug
-                var reply = textFormatter(result);
-                bot.reply(message, reply);
+                // var reply = textFormatter(bot, message, result);
+                textFormatter(bot, message, result);
+                // bot.reply(message, reply);
             }
         }
     });
 }
 
-function textFormatter(data) {
-    var reply = "*Here are all your reservations:* \n";
-    for(var i=0; i<data.length; i++) {
-        console.log("iteration" + (i+1));  // Debug
-        if(data[i].Cloud == "digital-ocean")
-            data[i].Cloud = "Digital Ocean";
-        if(data[i].Request.OS == "ubuntu")
-            data[i].Request.OS = "Ubuntu"
-        reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
-    }
-    reply += "\n";
-    reply += "Further Actions on Droplet: \n\n"
-    reply += "Please type: *delete droplet* to delete a droplet" + "\n\n";
-    reply += "               **********OR*************" + "*\n\n";
-    reply += "Please type: *update droplet* to update the configuration for a droplet";
-    return reply;
+function textFormatter(bot, message, data) {
+    bot.startConversation(message, function(err, convo) {
+        convo.say("Here are all your reservations:");
+        var reply = "";
+        for(var i=0; i<data.length; i++) {
+            console.log("iteration" + (i+1));  // Debug
+            if(data[i].Cloud == "digital-ocean")
+                data[i].Cloud = "Digital Ocean";
+            if(data[i].Request.OS == "ubuntu")
+                data[i].Request.OS = "Ubuntu"
+            reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
+        }
+        reply += "\n";
+        reply += "Further Actions on Droplet: \n\n"
+        reply += "Please type: *delete droplet* to delete a droplet" + "\n\n";
+        reply += "               **********OR*************" + "*\n\n";
+        reply += "Please type: *update droplet* to update the configuration for a droplet";
+        convo.say(reply);
+    });
 }
