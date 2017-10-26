@@ -97,7 +97,7 @@ We use "nock" to mock our api calls. In the following table you can see api call
 
 ## Selenium Testing
 
-We use selenium to test  the AutoBot response based on the input. The selenium test is "here" and test results are "in this path". 
+We use selenium to test  the AutoBot response based on the input. The selenium test is [Selenium Testing] (https://github.ncsu.edu/bbansal/AutoBots/tree/master/Selenium). and test results are ![Selenium Testing](). 
 
 ## Task Tracking
 
