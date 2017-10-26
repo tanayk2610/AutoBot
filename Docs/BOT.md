@@ -35,13 +35,11 @@ User shall have a valid Slack API token on their system, and eclipse installed i
 2. Main Flow
 User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBot queries user whether or not to install any specific plugins on the configured eclipse[S2]. The user provides plugins to be installed[S3]. The AutoBot build VM image with eclipse and plugins configured using packer Io and gives the image back to user[S4].
 
-3. Subflows : to be edited
-   [S1] User requests the AutoBot to setup a local Eclipse workspace.
-   [S2] AutoBot queries the user about the location of the eclipse directory on the system.
-   [S3] User provides the location of the Eclipse Directory.
-   [S4] The AutoBot provides the list of available plugins and queries the user to select some of them. 
-   [S5] The user selects  the desired plugins from the provided list.
-   [S6] The AutoBot sets up Eclipse workspace with selected plugins installed.
+3. Subflows : 
+   [S1] User requests the AutoBot to setup a virtual machine image with eclipse installed on it
+   [S2] The AutoBot provides the list of available plugins and ask the user the select some of them. 
+   [S3] The user selects desired plugins from the provided list.
+   [S4] The AutoBot create VM image and post it to the user Digital Ocean Account using packer.io
 
 4. Alternative Flows
    [E1] User wants plugins that do not exist in the list of plugins which the bot can install.
