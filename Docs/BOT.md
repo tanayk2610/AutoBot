@@ -106,3 +106,13 @@ We use Trello Cards and Pivotal Tasks to task tracking of this project. We defin
 ## Screencast
 
 In [Screencast](path) we show AutoBot performs our use cases and our selenium tests are executed.
+
+## Contributions
+
+| Team Member   | Contribution   
+| ------------- | ------------ 
+| Bhavya Bansal      |          
+| Nitish Raghunathan     |    
+| Pushpendra Singh Patel |
+| Rezvan Mahdavi Hezaveh  |
+| Tanay Kothari |
