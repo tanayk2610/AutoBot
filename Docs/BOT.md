@@ -9,7 +9,7 @@ Use Cases
 
 Use Case 1: Provision a new Virtual Machine.
 1. Preconditions
-The user shall have AWS/Digital Ocean account with valid access keys. User shall also have a valid Slack API token on their system.
+The user shall have Digital Ocean account with valid access keys. User shall also have a valid Slack API token on their system.
 
 2. Main Flow:
 User requests the AutoBot to provision a new Virtual Machine [S1]. AutoBot queries  the flavor of the requested machine [S2]. User selects the flavor of the VM [S3]. AutoBot queries configuration parameters [S4]. User provides configuration parameters [S5]. AutoBot creates a VM with provided parameters [S6]. 
@@ -52,7 +52,7 @@ User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBo
 
 Use Case 3: Management of Virtual Machines. 
 1. Preconditions
-The user shall have a AWS/Digital Ocean account with valid access keys. User shall also have a valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
+The user shall have a Digital Ocean account with valid access keys. User shall also have a valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
 
 2. Main Flow
 User requests the AutoBot to manage his VMs[S1]. The AutoBot shows all the user’s reserved VMs [S2]. The user selects a specific VM [S3]. The AutoBot queries user regarding the desired action on a selected VM: delete or configuration change [S4]. The user chooses from the list of actions [S5]. The AutoBot queries required parameters if needed [S6]. The user provides necessary parameters [S7].The Autobot requests confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
