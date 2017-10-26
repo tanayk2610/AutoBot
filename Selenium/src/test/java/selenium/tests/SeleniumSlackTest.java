@@ -35,15 +35,14 @@ public class SeleniumSlackTest {
 		driver.get("https://slackbotpractice.slack.com/");
 
 		// Wait until page loads and we can see a sign in button.
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signin_btn")));
 
 		// Find email and password fields.
 		WebElement email = driver.findElement(By.id("email"));
 		WebElement pw = driver.findElement(By.id("password"));
-		email.sendKeys("selautobot@gmail.com");
+		email.sendKeys("autobotsel@gmail.com");
 		pw.sendKeys("autobotsel123");
-		// email : autobotsel
 
 		// Click
 		WebElement signin = driver.findElement(By.id("signin_btn"));
@@ -68,7 +67,7 @@ public class SeleniumSlackTest {
 	@Test
 	public void testA() throws Exception {
 
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 50);
 		WebElement messageBot = driver.findElement(By.id("msg_input"));
 		assertNotNull(messageBot);
 
@@ -96,7 +95,7 @@ public class SeleniumSlackTest {
 		// Happy Path
 		LinkedHashMap<String, String> convoSeq = new LinkedHashMap<String, String>();
 		convoSeq.put("save Digital Ocean keys", "Please provide token for your Digital Ocean Account.");
-		convoSeq.put("abcdefghij", "Please provide ssh key id for your digital ocean account.");
+		convoSeq.put("8f057609f00e98176c3edeeef5af00fc2588c2d5449845f7158ebbd1e2201fc7", "Please provide ssh key id for your digital ocean account.");
 		convoSeq.put("12345678", "Keys Saved successfully");
 		conversation(convoSeq);
 	}
@@ -167,7 +166,7 @@ public class SeleniumSlackTest {
 	// USE CASE 3 - Part A Test Show Reservations
 	@Test
 	public void testE() throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 50);
 		WebElement messageBot = driver.findElement(By.id("msg_input"));
 		assertNotNull(messageBot);
 
@@ -229,7 +228,7 @@ public class SeleniumSlackTest {
 	// Method to perform the conversation
 	public static void conversation(LinkedHashMap<String, String> convoSeq) throws Exception {
 
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 500);
 		WebElement messageBot = driver.findElement(By.id("msg_input"));
 		assertNotNull(messageBot);
 		Set<String> keys = convoSeq.keySet();
