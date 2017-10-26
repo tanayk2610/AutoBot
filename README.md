@@ -1,5 +1,5 @@
 # AutoBots
-A slack bot to automated daily development tasks
+A slack bot to automate daily development tasks
 
 Team members with their Unity IDs -
 1. Bhavya Bansal - bbansal
