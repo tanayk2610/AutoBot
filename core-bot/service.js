@@ -37,12 +37,17 @@ module.exports = {
 		if(userDecision == true) {
 			params['privateKey'] = privateKey;
 		}
-		 console.log(params['OS']);
 		 validateOperatingSystem(OsType, function(result) {
 			 if(!result) {
 				bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
 			} else {
-					digitalOceanService.create_vm(params, bot, message);
+				  validateConfig(config, function(result2) {
+						if(!result2) {
+							bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
+						} else{
+							digitalOceanService.create_vm(params, bot, message);
+						}
+					});
 			}
 		});
 
@@ -78,13 +83,40 @@ module.exports = {
 			"newConfig": response.result.parameters.newConfig
 		}
 
-		digitalOceanService.updateVM(params, bot, message, response)
+		validateConfig(params.newConfig, function(valid) {
+			if(!valid){
+				bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
+			} else {
+				digitalOceanService.updateVM(params, bot, message, response)
+			}
+		});
+
 	},
 
 	createPackerImage: function(bot, message, response) {
 		console.log("****************Creating Packer Image***************");
 
-		packerService.createImage(bot, message, response);
+		validatePlugins(response.result.parameters.pluginList, function(valid) {
+			if(!valid) {
+				bot.reply(message, "Sorry, Some plugins entered by you are not supported by me currently. Please try again!!!");
+			} else{
+				validateOperatingSystem(response.result.parameters.osKind, function(result){
+					if(!result) {
+					 bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
+				 } else {
+					    validateConfig(response.result.parameters.config, function(configResult) {
+									if(!configResult) {
+										bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
+									} else{
+											
+											packerService.createImage(bot, message, response);
+									}
+							});
+				 }
+				});
+			}
+		});
+
 	}
 }
 
@@ -99,3 +131,32 @@ function validateOperatingSystem(operatingSystem, callback) {
 		callback(false);
   }
 };
+
+function validatePlugins(pluginList, callback) {
+	var pluginsProvided = pluginList.split(" ")
+	var flag = true;
+	var listOfPluginsProvided = ["Firebugs", "Checklist", "Hibernate", "Subversive"]
+	var stricmp = listOfPluginsProvided.toString().toLowerCase();
+	for(var i = 0; i < pluginsProvided.length; i++) {
+		var plugin = pluginsProvided[i];
+		if (stricmp.indexOf(plugin.toLowerCase()) < 0) {
+			flag = false;
+			break;
+		}
+	}
+	if(flag == false) {
+		callback(false)
+	} else {
+		callback(true)
+	}
+}
+
+function validateConfig(config, callback) {
+	var listOfConfigSupported = ["512MB", "1GB", "2GB", "4GB", "8GB", "16GB"]
+	var stricmp = listOfConfigSupported.toString().toLowerCase();
+	if (stricmp.indexOf(config.toLowerCase()) > -1) {
+    callback(true);
+  } else {
+		callback(false);
+  }
+}

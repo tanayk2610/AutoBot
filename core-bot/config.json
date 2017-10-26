@@ -2,7 +2,7 @@
 
   "builders": [{
   "type" : "digitalocean",
-  "api_token": "1251849ae176be90b99fa5d3105b60207d08a35aabb2220f38c768a88c206919",
+  "api_token": "8f057609f00e98176c3edeeef5af00fc2588c2d5449845f7158ebbd1e2201fc7",
   "image": "ubuntu-14-04-x64",
   "region": "nyc3",
   "size": "512mb",
@@ -12,14 +12,6 @@
 
 
   "provisioners" : [
-    {
-    "type": "shell",
-    "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-    "inline": [
-        "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers"
-    ]
-  },
-    
   {
     "type" : "shell-local",
     "command":"sudo add-apt-repository ppa:webupd8team/java",
