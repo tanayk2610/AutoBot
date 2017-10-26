@@ -33,6 +33,7 @@ exports.createImage = function(bot, message, response){
 
                     data.builders[0].size=newConfig;
                     data.builders[0].image=myEnum.get(OS).value;
+                    data.builders[0].api_token = result.Token;
 
                     console.log("\nChanged content: \n"+JSON.stringify(data));
 
