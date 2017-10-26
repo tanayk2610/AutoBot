@@ -28,7 +28,7 @@ function getSlackUsers() {
 }
 
 
-var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on AWS or Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 4. `save digital ocean keys`: will save your digital ocean keys for creating virtual machines. \n 5. `show available configuratons` : VM configurations which can be created on Digital Ocean\n 6. `exit` : exit the conversation\n"
+var possibleFunctions = "Here is what my autobots can do for you: \n 1. `create vm` : creates virtual machine on Digital Ocean, you can add flavors on top of the requested machine\n 2. `create VM image with eclipse` : creates a virtual machine image with eclipse configured and you can also install selective plugins\n 3. `manage reservations` : shows all your current reservations and further options to edit/delete the specific reservation\n 4. `save digital ocean keys`: will save your digital ocean keys for creating virtual machines. \n 5. `show available configuratons` : VM configurations which can be created on Digital Ocean\n 6. `exit` : exit the conversation\n"
 
 var controller = Botkit.slackbot({
     debug: false
