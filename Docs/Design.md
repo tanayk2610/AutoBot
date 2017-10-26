@@ -30,7 +30,7 @@ Use Cases
 
 Use Case 1: Provision a new Virtual Machine.
 1. Preconditions
-The user shall have AWS/Digital Ocean account with valid access keys. User shall also have valid Slack API token on their system
+The user shall have Digital Ocean account with valid access keys. User shall also have valid Slack API token on their system
 
 2. Main Flow:
 User requests AutoBot to provision a new Virtual Machine [S1]. AutoBot asks about flavor of the requested machine [S2]. User selects the flavor of the VM [S3] AutoBot asks about configuration parameters [S4]. User provides configuration parameters [S5]. AutoBot creates a VM with provided parameters [S6]. 
@@ -73,7 +73,7 @@ User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBo
 
 Use Case 3: Management of Virtual Machines. 
 1. Preconditions
-The user shall have AWS/Digital Ocean account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
+The user shall have Digital Ocean account with valid access keys. User shall also have valid  Slack API token on their system. User shall have access to email service to read the OTP sent.
 
 2. Main Flow
 User says AutoBot that he wants to manage his VMs[S1]. The AutoBot shows all user’s reserved VMs [S2]. The user selects a specific VM [S3] The AutoBot asks user about desired action on selected VM: delete or configuration change [S4]. The user provides the choice [S5]. The AutoBot ask required parameters if needed [S6]. The user provides needed parameters [S7].The Autobot request confirmation from the user (OTP via email) [S8]. The user confirms the request [S9]. The Autobot changed the selected VM [S10].
@@ -132,8 +132,6 @@ Architecture Design
 
 * **Database:** AutoBot will store information about the user, configurations of the VMs provisioned to him and all the applications that have been installed on those VMs. MongoDB is free, offers a flexible storage of data and also provides high availability to the user by having a distributed database in the core. Thus MongoDB is being considered for bot development.
 
-* **Amazon Web Service (AWS):** The AutoBot will use the services provided by AWS to create virtual machines using API calls. Users shall have their AWS account setup so that AutoBot can use their AWS account for provisioning flavored VMs.
-
 * **Packer:** The AutoBot will automate the creation of machine image using Packer. Using packed AutoBot will be able to create machine images that will be available for dowload to the user. These images can be in different formats and be used on a local virtual environment like VirtualBox.
 
 * **Digital Ocean:** The AutoBot will use the services provided by Digital Ocean to create virtual machines using API calls of Packer.
@@ -143,10 +141,10 @@ Architecture Design
 #### Constraints and Guidelines 
 * AutoBot initiates response to basic commands only.
 * AutoBot can perform  only one task at a time.
-* It is necessary for the user to have a AWS/Digital Ocean account.
+* It is necessary for the user to have a Digital Ocean account.
 
 #### Additional Patterns
-We are thinking to design AutoBot with _**command**_ and _**adapter**_ patterns. Command pattern because AutoBot is serving the user requests and adapter pattern because we are integrating AutoBot with VM manager (using AWS SDK) and MongoDB. This requires a bridge between the two incompatible interfaces where the adapter pattern comes in.
+We are thinking to design AutoBot with _**command**_ and _**adapter**_ patterns. Command pattern because AutoBot is serving the user requests and adapter pattern because we are integrating AutoBot with VM manager and MongoDB. This requires a bridge between the two incompatible interfaces where the adapter pattern comes in.
 
 #### Future Design 
 Natural Language Processing - A third party natural language processing API, for example Api.ai, may be used to have a more human-like conversation with AutoBot and perform tasks such as spawning a virtual machine.
