@@ -101,7 +101,7 @@ We use selenium to test  the AutoBot response based on the input. The selenium t
 
 ## Task Tracking
 
-We use Trello Cards and Pivotal Tasks to task tracking of this project. We define one Trello card for each task : Use case refinement, Mocking Service Components, Bot Integration, Bot Platform, Selenium Testing and Creating Screencast. In each Card you can see checklist items for each use case. We define Pivotal Task for each checklist item. For example Mocking Services Trello has 3 checklist for use case 1, use case 2 and use case 3 and each checklist has a Pivotal Task. You can see our task tracking for week 1 to week 3 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
+We use Trello Cards and Pivotal Tasks to perform task tracking of this project. We define one Trello card for each task : Use case refinement, Mocking Service Components, Bot Integration, Bot Platform, Selenium Testing and Creating Screencast. In each Card you can see checklist items for each use case. We have defined a Pivotal Task for each checklist item, for example, Mocking Services card in Trello has 3 checklist items - one each for use case 1, use case 2 and use case 3, and each checklist has a Pivotal Task assigned to it (shown in WORKSHEET.md). You can see our task tracking for week 1 to week 3 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
 
 ## Screencast
 
