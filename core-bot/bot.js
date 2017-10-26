@@ -118,6 +118,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                           convo.ask("Please provide your private Key so that I can access your droplet", function(responseNew, convoNew) {
                             privateKey = responseNew.text
                             service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
+                            convo.next();
                           });
                         }
                         convo.next();
@@ -180,7 +181,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                    break;
 
                 case 'create.vm.with.eclipse' :
-                   service.createPackerMachine(bot, message, response);
+                   service.createPackerImage(bot, message, response);
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 
