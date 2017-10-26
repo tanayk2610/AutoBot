@@ -111,8 +111,8 @@ In [Screencast](path) we show AutoBot performs our use cases and our selenium te
 
 | Team Member   | Contribution   
 | ------------- | ------------ 
-| Bhavya Bansal      |          
-| Nitish Raghunathan     |    
-| Pushpendra Singh Patel |
-| Rezvan Mahdavi Hezaveh  |
-| Tanay Kothari |
+| Bhavya Bansal      |  Bot implementation for 3 use cases, Bot interaction        
+| Nitish Raghunathan     |    Mocking for 3 usecases, Bot implementation for use case 2
+| Pushpendra Singh Patel |    Selenium testing, Bot implementation for usecase 3
+| Rezvan Mahdavi Hezaveh  |   Mocking for 3 usecases, Bot implementation usecase 1 , Worksheet
+| Tanay Kothari | Selenium testing, Bot implementation for usecase 2
