@@ -46,7 +46,7 @@ exports.createImage = function(bot, message, response){
                                     console.log(err);
                                 }
                                 else{
-                                 console.log(data);
+                                 console.log("packer in action");
                                  bot.reply(message, "Your VM image has been created and posted on your digital Ocean Account")
                                 }
                             }
