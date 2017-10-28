@@ -54,15 +54,13 @@ Use Case 2: Setup virtual machine with Eclipse and selective plugins installed u
 User shall have valid Slack API token on their system, and eclipse installed in the environment.
 
 2. Main Flow
-User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBot ask user whether or not to install any specific plugins on the configured eclipse[S2]. The user provides plugins to be installed[S3]. The AutoBot build VM image with eclipse and plugins configured using packer Io and gives the image back to user[S4].
+User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBot ask user whether or not to install any specific plugins on the configured eclipse[S2]. The user provides plugins to be installed[S3]. The AutoBot build VM image with eclipse and plugins configured using packer Io and post the image to the user account[S4].
 
-3. Subflows : to be edited
-   [S1] User requests the AutoBot to setup a local Eclipse workspace.
-   [S2] AutoBot ask the user about the location of eclipse directory on the system.
-   [S3] User provide the location of the Eclipse Directory.
-   [S4] The AutoBot provides the list of available plugins and ask the user the select some of them. 
-   [S5] The user selects desired plugins from the provided list.
-   [S6] The AutoBot setups Eclipse workspace with selected plugins installed.
+3. Subflows : 
+   [S1] User requests the AutoBot to setup a virtual machine image with eclipse installed on it
+   [S2] The AutoBot provides the list of available plugins and ask the user the select some of them. 
+   [S3] The user selects desired plugins from the provided list.
+   [S4] The AutoBot create VM image and post it to the user Digital Ocean Account using packer.io
 
 4. Alternative Flows
    [E1] User wants plugins that do not exist in the list of plugins which bot can install.
@@ -124,7 +122,7 @@ Design Sketches
 
 Architecture Design
 ---
-![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Architecture.png)
+![Architecture](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/AD_Final.jpg)
 
 * **Slack:** The AutoBot will have a Slack user-interface on the frontend. The interaction with slack interface can be controlled programmatically using a bot user token which can access Slack APIs. Autobot will listen asynchronously on the channel for direct-messages and slash-commands like '/help' and other messages provided by the user. The bot can work with message threads and reply in conversations too.
 

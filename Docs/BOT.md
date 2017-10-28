@@ -35,13 +35,11 @@ User shall have a valid Slack API token on their system, and eclipse installed i
 2. Main Flow
 User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBot queries user whether or not to install any specific plugins on the configured eclipse[S2]. The user provides plugins to be installed[S3]. The AutoBot build VM image with eclipse and plugins configured using packer Io and gives the image back to user[S4].
 
-3. Subflows : to be edited
-   [S1] User requests the AutoBot to setup a local Eclipse workspace.
-   [S2] AutoBot queries the user about the location of the eclipse directory on the system.
-   [S3] User provides the location of the Eclipse Directory.
-   [S4] The AutoBot provides the list of available plugins and queries the user to select some of them. 
-   [S5] The user selects  the desired plugins from the provided list.
-   [S6] The AutoBot sets up Eclipse workspace with selected plugins installed.
+3. Subflows : 
+   [S1] User requests the AutoBot to setup a virtual machine image with eclipse installed on it
+   [S2] The AutoBot provides the list of available plugins and ask the user the select some of them. 
+   [S3] The user selects desired plugins from the provided list.
+   [S4] The AutoBot create VM image and post it to the user Digital Ocean Account using packer.io
 
 4. Alternative Flows
    [E1] User wants plugins that do not exist in the list of plugins which the bot can install.
@@ -97,22 +95,22 @@ We use "nock" to mock our api calls. In the following table you can see api call
 
 ## Selenium Testing
 
-We use selenium to test  the AutoBot response based on the input. The selenium test is [Selenium Testing](https://github.ncsu.edu/bbansal/AutoBots/tree/master/Selenium). and test results are ![Selenium Testing](). 
+We use selenium to test  the AutoBot response based on the input. The selenium test is [Selenium Testing](https://github.ncsu.edu/bbansal/AutoBots/tree/master/Selenium). 
 
 ## Task Tracking
 
-We use Trello Cards and Pivotal Tasks to task tracking of this project. We define one Trello card for each task : Use case refinement, Mocking Service Components, Bot Integration, Bot Platform, Selenium Testing and Creating Screencast. In each Card you can see checklist items for each use case. We define Pivotal Task for each checklist item. For example Mocking Services Trello has 3 checklist for use case 1, use case 2 and use case 3 and each checklist has a Pivotal Task. You can see our task tracking for week 1 to week 3 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
+We use Trello Cards and Pivotal Tasks to perform task tracking of this project. We define one Trello card for each task : Use case refinement, Mocking Service Components, Bot Integration, Bot Platform, Selenium Testing and Creating Screencast. In each Card you can see checklist items for each use case. We have defined a Pivotal Task for each checklist item, for example, Mocking Services card in Trello has 3 checklist items - one each for use case 1, use case 2 and use case 3, and each checklist has a Pivotal Task assigned to it (shown in WORKSHEET.md). You can see our task tracking for week 1 to week 3 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
 
 ## Screencast
 
-In [Screencast](path) we show AutoBot performs our use cases and our selenium tests are executed.
+In [Screencast](https://youtu.be/E4jFcvInCHA) we show AutoBot performs our use cases and our selenium tests are executed.
 
 ## Contributions
 
 | Team Member   | Contribution   
 | ------------- | ------------ 
-| Bhavya Bansal      |          
-| Nitish Raghunathan     |    
-| Pushpendra Singh Patel |
-| Rezvan Mahdavi Hezaveh  |
-| Tanay Kothari |
+| Bhavya Bansal      |  Bot implementation for 3 use cases, Bot interaction        
+| Nitish Raghunathan     |    Mocking for 3 usecases, Bot implementation for use case 2
+| Pushpendra Singh Patel |    Selenium testing, Bot implementation for usecase 3
+| Rezvan Mahdavi Hezaveh  |   Mocking for 3 usecases, Bot implementation usecase 1 , Worksheet
+| Tanay Kothari | Selenium testing, Bot implementation for usecase 2

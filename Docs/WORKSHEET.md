@@ -30,4 +30,4 @@
 | Selenium testing - Use Case 1      | Completed           |  [TC5](https://trello.com/c/hGyeTPnd) [PT10](https://www.pivotaltracker.com/story/show/152224799)
 | Selenium testing - Use Case 2      | Completed           |  [TC5](https://trello.com/c/hGyeTPnd) [PT11](https://www.pivotaltracker.com/story/show/152224802)
 | Selenium testing - Use Case 3      | Completed           |  [TC5](https://trello.com/c/hGyeTPnd) [PT12](https://www.pivotaltracker.com/story/show/152224808)
-| Screencast      | In Progress       | [TC6](https://trello.com/c/BSYHFry7)
+| Screencast      | Completed       | [TC6](https://trello.com/c/BSYHFry7)
