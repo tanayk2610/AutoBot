@@ -1,0 +1,25 @@
+{
+
+  "builders": [{
+  "type" : "digitalocean",
+  "api_token": "5955478efd0468411752dba94edc9de3554e27cf226a33016646d2d5cc6e2f4a",
+  "image": "ubuntu-16-04-x64",
+  "region": "nyc3",
+  "size": "",
+  "ssh_username": "root"
+  }],
+
+
+  "provisioners": [{
+      "type": "shell",
+      "inline": [
+          "sudo add-apt-repository ppa:openjdk-r/ppa",
+          "sudo apt-get update",
+          "sudo apt-get install -y openjdk-8-jre-headless",
+          "wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -",
+          "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'",
+          "sudo apt-get update",
+          "sudo apt-get install -y jenkins"
+      ]
+  }]
+}

@@ -105,21 +105,17 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     var OsType =  response.result.parameters.osKind
                     // console.log(OsType)
                     var config = response.result.parameters.config
-                    var userDecision = false;
-                    var privateKey = null;
                     bot.startConversation(message, function(err, convo){
                       if(err) {
                         console.log("error")
                       } else{
                         convo.ask("Type **plain** to get a plain Vm OR Type **flavored** to add jenkins flavor on top of your VM", function(response, convo){
                         if(response.text === "plain") {
-                          service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
+                          service.createVirtualMachine(bot, message, OsType, config, false);
+                        } else if(response.text === "flavored"){
+                          service.createVirtualMachine(bot, message, OsType, config, true);
                         } else {
-                          convo.ask("Please provide your private Key so that I can access your droplet", function(responseNew, convoNew) {
-                            privateKey = responseNew.text
-                            service.createVirtualMachine(bot, message, OsType, config, userDecision, privateKey);
-                            convo.next();
-                          });
+                          bot.reply(message, "Please choose either plain or flavored, and try again!!!!!");
                         }
                         convo.next();
                         });

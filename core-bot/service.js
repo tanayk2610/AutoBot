@@ -7,8 +7,6 @@ var digitalOceanService = require('../serviceManager/DigitalOcean/digitalOcean.j
 
 var reservationsController = require('../serviceManager/reservationsController/reservationsController.js');
 
-var packerService = require('../serviceManager/packerService/packerService.js');
-
 module.exports = {
 
 	saveDigitalOceanKeys: function (bot, message, response) {
@@ -25,18 +23,15 @@ module.exports = {
 
 	},
 
-	createVirtualMachine: function(bot, message, OsType, config, userDecision, privateKey) {
+	createVirtualMachine: function(bot, message, OsType, config, userDecision) {
 		console.log("*********Spinning up new virtual machine*************");
-		console.log(OsType)
+		//console.log(OsType)
 		var params = {
 			"UserId": message.user,
 			"OS": OsType,
-			"config": config,
-			"privateKey": null
+			"config": config
 		}
-		if(userDecision == true) {
-			params['privateKey'] = privateKey;
-		}
+
 		 validateOperatingSystem(OsType, function(result) {
 			 if(!result) {
 				bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
@@ -44,13 +39,18 @@ module.exports = {
 				  validateConfig(config, function(result2) {
 						if(!result2) {
 							bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
-						} else{
+						} else if(userDecision){
+							console.log("flavored");
+							//digitalOceanService.create_vm(params, bot, message);
+							digitalOceanService.createFlavoredVm(params, bot, message);
+						} else {
 							digitalOceanService.create_vm(params, bot, message);
+							//digitalOceanService.createFlavoredVm(params, bot, message);
+							console.log("plain");
 						}
 					});
 			}
 		});
-
 	},
 
 	manageReservations: function(bot,message,response) {
@@ -108,7 +108,7 @@ module.exports = {
 									if(!configResult) {
 										bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
 									} else{
-											
+
 											packerService.createImage(bot, message, response);
 									}
 							});
@@ -122,7 +122,7 @@ module.exports = {
 
 function validateOperatingSystem(operatingSystem, callback) {
 	var os = operatingSystem.toLowerCase();
-	console.log("Operating system entered is:" + os)
+	//console.log("Operating system entered is:" + os)
 	var listOfOperatingSystemSupported = ["Ubuntu", "FreeBSD", "Fedora", "Debian", "CoreOS", "CentOS"]
 	var stricmp = listOfOperatingSystemSupported.toString().toLowerCase();
 	if (stricmp.indexOf(os.toLowerCase()) > -1) {

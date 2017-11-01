@@ -10,9 +10,10 @@ var Reservation = mongoose.model('Reservation');
 var needle = require("needle");
 var os   = require("os");
 var fs = require('fs');
+var fileSync=require('fs');
+var shell=require('node-cmd');
 
 // defining enums to match OS
-
 var Enum = require('enum');
 var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-8-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
 module.exports =
@@ -30,7 +31,7 @@ module.exports =
                 } else {
                   // read api token
                   headers.Authorization = 'Bearer ' + result.Token;
-                  console.log(result.Token);
+                  //console.log(result.Token);
                   var data;
                   var ssh_key = parseInt(result.KeyPair);
                   var name = "DevOps-Node";
@@ -38,6 +39,8 @@ module.exports =
                   // var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
                   var image = myEnum.get(params.OS).value
                   var config = params.config;
+                  // console.log(image)
+                  // console.log(config)
                   client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
                   {
                       if(err) {
@@ -190,6 +193,108 @@ module.exports =
             }
           }
       });
+    },
+
+    createFlavoredVm: function(params, bot, message) {
+      console.log("new method called");
+      Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
+
+          if(err) {
+              console.log("Could not fetch keys from database", err);
+              bot.reply(message, "Internal Server Error, please try again after some time!!!")
+          } else {
+              if(result == null) {
+                  console.log("Could not fetch keys from database", err);
+                  bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+              } else {
+                  getImageId(params, bot, message, function(success, imageID) {
+                      if(success) {
+                        console.log("Image created Succesfully");
+                        var doImageId = imageID.replace(/\n$/, '');
+                        headers.Authorization = 'Bearer ' + result.Token;
+                        var data;
+                        var ssh_key = parseInt(result.KeyPair);
+                        var name = "DevOps-Node";
+                        var region = "nyc3";
+                        // var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
+                        var image = parseInt(doImageId);
+                        var config = params.config;
+                        client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
+                        {
+                            if(err) {
+                              console.log("request failed");
+                              bot.reply(message, "Request failed, please try again after some time");
+                            }
+                            if(!err && resp.statusCode == 202)
+                            {
+                                var dropletId = resp.body.droplet.id;
+                                console.log("Got droplet: " + dropletId + " getting public IP now");
+
+                                // Get IP Handler
+                                function getIPCallback(error, response, body)
+                                {
+                                    data = response.body;
+                                    data["ReservationId"] = "" + data.droplet.id;
+                                    if( (data.droplet.networks.v4.length > 0)  && (data.droplet.status == "active") )
+                                    {
+                                        console.log(data.droplet.networks.v4[0].ip_address);
+
+                                        console.log("STORE Reservation data in DB :");
+                                        var r = {
+                                            "UserId" : params.UserId,
+                                            "Cloud" : "digital-ocean",
+                                            "Reservation" : data,
+                                            "Request" : params,
+                                        }
+
+                                        Reservation.create(r, function(err, key) {
+                                            if(err) {
+                                                console.log("Could not write to database", err);
+                                                bot.reply(message, "Internal Servor Error");
+                                            } else {
+                                              bot.reply(message, "Your VM is hosted at IP address: " + data.droplet.networks.v4[0].ip_address );
+                                            }
+                                        });
+
+                                    } else {
+                                        console.log("...");
+                                        setTimeout(function () {
+                                            client.getIP(dropletId, getIPCallback);
+                                        }, 1000);
+                                    }
+                                }
+
+                                // Get IP
+                                client.getIP(dropletId, getIPCallback);
+                            }
+                            client.deleteImage(image, function(err,resp, body) {
+                                if(err) {
+                                  console.log("Image is still on your account, please delete if not required");
+                                } else {
+                                    if(!err && resp.statusCode == 204) {
+                                      console.log("packer image deleted Succesfully");
+                                    }
+                                }
+                            });
+                        });
+                        var user = message.user;
+                        shell.get(
+                          'rm '+ user + '.json' + '&& rm build.log',
+                          function(err1, data1, stderr1) {
+                            if(err1) {
+                              console.log("can not delete logs and json");
+                            } else {
+                              console.log("logs deleted Succesfully");
+                            }
+                          }
+                        );
+                      } else {
+                        bot.reply(message, "Decepticons have attacked us, please try again after some time!!!!")
+                      }
+                  });
+              }
+            }
+        });
     }
 }
 
@@ -216,7 +321,10 @@ var client =
         needle.get("https://api.digitalocean.com/v2/images", {headers:headers}, onResponse)
     },
 
-
+    deleteImage: function (imageId, onResponse) {
+      needle.delete("https://api.digitalocean.com/v2/images/" + imageId, null,{headers:headers}, onResponse)
+    },
+    
     createDroplet: function (dropletName, mainMemorySize, region, imageName, ssh_key, onResponse)
     {
         var data =
@@ -236,7 +344,7 @@ var client =
 
         console.log("Attempting to create Droplet: "+ JSON.stringify(data) + "\n" );
         // mocking service call here
-        nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
+        //nock("https://api.digitalocean.com").post("/v2/droplets", data).reply(202, mockData)
         needle.post("https://api.digitalocean.com/v2/droplets", data, {headers:headers,json:true}, onResponse );
     },
 
@@ -244,7 +352,7 @@ var client =
     getIP: function(dropletId, onResponse )
     {
         // mocking service call here
-        nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
+        //nock("https://api.digitalocean.com").get("/v2/droplets/"+dropletId).reply(202, dropletData)
         needle.get("https://api.digitalocean.com/v2/droplets/"+dropletId, {headers:headers}, onResponse)
     },
 
@@ -254,7 +362,7 @@ var client =
 
         console.log("Attempting to delete: "+ dropletId );
         // mocking service call here
-        nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId).reply(204)
+        //nock("https://api.digitalocean.com").delete("/v2/droplets/"+dropletId).reply(204)
         needle.delete("https://api.digitalocean.com/v2/droplets/" + dropletId, null,{headers:headers}, onResponse)
     },
 
@@ -267,8 +375,72 @@ var client =
       }
       console.log("Attempting to Resize the droplet:" + dropletId);
       // mocking service call here
-      nock("https://api.digitalocean.com").post("/v2/droplets/"+ dropletId + "/actions", data).reply(201, updateData)
+      //nock("https://api.digitalocean.com").post("/v2/droplets/"+ dropletId + "/actions", data).reply(201, updateData)
       needle.post("https://api.digitalocean.com/v2/droplets/" + dropletId + "/actions", data, {headers:headers,json:true}, onResponse );
     }
 
 };
+
+function getImageId(params, bot, message, callback) {
+  console.log("******** createImage starts*************");
+  bot.startConversation(message, function(err, convo){
+    if(err){
+      console.log(err);
+    } else{
+      convo.say("Please wait for a moment");
+      var newConfig = params.config;
+      console.log("New config is: " + newConfig)
+      var OS = params.OS;
+      var user = message.user;
+      Key.findOne({ "UserId": user, "Service": "digital-ocean" }, function(err,result){
+
+          if(err) {
+              console.log("Could not fetch keys from database", err);
+              bot.reply(message, "Internal Server Error, please try again after some time!!!")
+              callback(false, null);
+          } else {
+              if(result == null) {
+                  console.log("Could not fetch keys from database", err);
+                  bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+                  callback(false, null);
+              } else {
+                  var data = JSON.parse(fileSync.readFileSync('jenkins_config.json').toString());
+
+                  data.builders[0].size=newConfig;
+                  data.builders[0].image=myEnum.get(OS).value;
+                  data.builders[0].api_token = result.Token;
+
+                  console.log("\nChanged content: \n"+JSON.stringify(data));
+
+                  fileSync.writeFile( user + '.json', JSON.stringify(data));
+
+                      shell.get(
+                          './packer build '+ user +'.json >> build.log',
+                          function(err, data, stderr){
+                              if(err){
+                                  bot.reply(message, "Internal Server Error, please try again after some time!!!!")
+                                  callback(false , null);
+                              }
+                              else{
+                                shell.get(
+                                  'tail -2 build.log | head -2 | grep -Po \'ID: [0-9]+\' | gawk \'{print $1}\' FPAT=\'[0-9]+\'',
+                                  function(err1, data1, stderr1) {
+                                    if(err1) {
+                                      bot.reply(message, "Error creatig image, please try again after some time!!!!");
+                                      callback(false, null);
+                                    } else {
+                                      callback(true, data1);
+                                    }
+                                  }
+                                );
+                              }
+                          }
+                      );
+
+              }
+          }
+      });
+    }
+    convo.next();
+  });
+}
