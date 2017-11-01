@@ -12,9 +12,9 @@
 
 | Deliverable   | Item/Status   |  Issues/Tasks
 | ------------- | ------------  |  ------------
-| Bot Platform - Use Case 1     | In Progress        |[TC3](https://trello.com/c/UdeMZwB2) [PT4](https://www.pivotaltracker.com/story/show/152219898)
-| Bot Platform - Use Case 2            |  In Progress        |[TC3](https://trello.com/c/UdeMZwB2) [PT5](https://www.pivotaltracker.com/story/show/152221185)
-| Mock Service - Use Case 1      | In Progress            |  [TC4](https://trello.com/c/wm2htHJN) [PT6](https://www.pivotaltracker.com/story/show/152219339)
+| Bot Platform - Use Case 1     | Completed        |[TC3](https://trello.com/c/UdeMZwB2) [PT4](https://www.pivotaltracker.com/story/show/152219898)
+| Bot Platform - Use Case 2            |  Completed        |[TC3](https://trello.com/c/UdeMZwB2) [PT5](https://www.pivotaltracker.com/story/show/152221185)
+| Mock Service - Use Case 1      | Completed            |  [TC4](https://trello.com/c/wm2htHJN) [PT6](https://www.pivotaltracker.com/story/show/152219339)
 | Selenium Test for interaction | Completed | [TC5](https://trello.com/c/hGyeTPnd) [PT3](https://www.pivotaltracker.com/story/show/152253271)
 
 ##### Week 3
