@@ -13,11 +13,11 @@
 
   "provisioners" : [
   {
-    "type" : "shell-local",
-    "command":"sudo add-apt-repository ppa:webupd8team/java",
-    "command":"sudo apt-get update",
-    "command":"sudo apt-get install oracle-java8-installer",
-    "command":"sudo apt-get install eclipse"
+    "type" : "shell",
+    "inline":[
+        "sudo apt-get update",
+        "sudo apt-get install eclipse-y"
+      ]
     }
   ]
 }
