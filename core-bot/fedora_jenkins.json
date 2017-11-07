@@ -1,0 +1,19 @@
+{
+
+  "builders": [{
+  "type" : "digitalocean",
+  "api_token": "f31d0d68bc19c23e84d792f123ad13cd5975d5f66cebb63e30824371af219b66",
+  "image": "fedora-25-x64",
+  "region": "nyc3",
+  "size": "512mb",
+  "ssh_username": "root"
+  }],
+  "provisioners": [{
+      "type": "shell",
+      "inline": [
+                  "sudo dnf -y install jenkins",
+                  "sudo systemctl enable jenkins",
+                  "sudo systemctl start jenkins"
+      ]
+  }]
+}
