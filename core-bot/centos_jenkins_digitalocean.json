@@ -1,0 +1,20 @@
+{
+  "builders": [{
+  "type" : "digitalocean",
+  "api_token": "f31d0d68bc19c23e84d792f123ad13cd5975d5f66cebb63e30824371af219b66",
+  "image": "centos-6-X64",
+  "region": "nyc3",
+  "size": "512mb",
+  "ssh_username": "root"
+  }],
+  "provisioners": [{
+      "type": "shell",
+      "inline": [
+                  "wget  -O /etc/yum.repos.d/jenkins.repo http://jenkins-ci.org/redhat/jenkins.repo",
+                  "rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key",
+                  "yum -y  install jenkins",
+                  "yum -y install java",
+                  "/etc/init.d/jenkins start"
+      ]
+  }]
+}
