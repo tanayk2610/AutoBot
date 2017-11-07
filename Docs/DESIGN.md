@@ -58,9 +58,9 @@ User requests the AutoBot for a VM image with Eclipse pre-configured[S1]. AutoBo
 
 3. Subflows : 
    [S1] User requests the AutoBot to setup a virtual machine image with eclipse installed on it
-   [S2] The AutoBot provides the list of available plugins and ask the user the select some of them. 
+   [S2] The AutoBot provides the list of available plugins and ask the user to select some of them. 
    [S3] The user selects desired plugins from the provided list.
-   [S4] The AutoBot create VM image and post it to the user Digital Ocean Account using packer.io
+   [S4]  AutoBot creates a VM image and provides a download link.
 
 4. Alternative Flows
    [E1] User wants plugins that do not exist in the list of plugins which bot can install.
