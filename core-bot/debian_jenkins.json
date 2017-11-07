@@ -1,0 +1,23 @@
+
+{
+
+  "builders": [{
+  "type" : "digitalocean",
+  "api_token": "f31d0d68bc19c23e84d792f123ad13cd5975d5f66cebb63e30824371af219b66",
+  "image": "debian-9-x64",
+  "region": "nyc3",
+  "size": "512mb",
+  "ssh_username": "root"
+  }],
+  "provisioners": [{
+      "type": "shell",
+      "inline": [
+          "sudo apt-get update",
+          "sudo apt-get install -y java-package",
+          "wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -",
+          "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'",
+          "sudo apt-get update",
+          "sudo apt-get install -y jenkins"
+      ]
+  }]
+}
