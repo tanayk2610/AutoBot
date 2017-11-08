@@ -324,7 +324,7 @@ var client =
     deleteImage: function (imageId, onResponse) {
       needle.delete("https://api.digitalocean.com/v2/images/" + imageId, null,{headers:headers}, onResponse)
     },
-    
+
     createDroplet: function (dropletName, mainMemorySize, region, imageName, ssh_key, onResponse)
     {
         var data =
@@ -404,10 +404,20 @@ function getImageId(params, bot, message, callback) {
                   bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
                   callback(false, null);
               } else {
-                  var data = JSON.parse(fileSync.readFileSync('jenkins_config.json').toString());
+                  var OSType = myEnum.get(OS).value;
+                  var data;
+                  if(OSType == "ubuntu-16-04-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/ubuntu_jenkins.json').toString());
+                  } else if(OSType == "fedora-24-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/fedora_jenkins.json').toString());
+                  } else if(OSType == "debian-8-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/debian_jenkins.json').toString());
+                  } else if(OSType == "centos-6-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/centos_jenkins.json').toString());
+                  }
 
                   data.builders[0].size=newConfig;
-                  data.builders[0].image=myEnum.get(OS).value;
+                  data.builders[0].image=OSType;
                   data.builders[0].api_token = result.Token;
 
                   console.log("\nChanged content: \n"+JSON.stringify(data));
