@@ -56,7 +56,6 @@
 | Create flavored VM for CentOS with jenkins | Completed   | [TC12](https://trello.com/c/MmNVjdVA)
 | Create flavored VM for Debian with jenkins | Completed   | [TC14](https://trello.com/c/KgAJ6dzb)
 | UseCase 2
-| Solve sudo issue      | Completed         |[#1](https://github.ncsu.edu/bbansal/AutoBots/issues/1)
 | Create VM Ubuntu with eclipse installed on it  | Completed  | [TC9](https://trello.com/c/A6MT3Glc)
 | Create VM Fedora with eclipse installed on it  | Completed  | [TC10](https://trello.com/c/6CZgYUIK)
 | Create VM CentOS with eclipse installed on it  | Completed  | [TC11](https://trello.com/c/3NMwwmRU)
