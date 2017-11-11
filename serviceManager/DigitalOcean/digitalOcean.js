@@ -424,8 +424,11 @@ function getImageId(params, bot, message, callback) {
                   data.builders[0].image=OSType;
                   data.builders[0].api_token = result.Token;
 
-                  fileSync.writeFile( user + '.json', JSON.stringify(data));
-
+                  fileSync.writeFile( user + '.json', JSON.stringify(data), (newErr) => {
+                    if(newErr) {
+                      console.log("file write error")
+                    } else {
+                      console.log("file has been created Succesfully")
                       shell.get(
                           './packer build '+ user +'.json >> build.log',
                           function(err, data, stderr){
@@ -448,6 +451,10 @@ function getImageId(params, bot, message, callback) {
                               }
                           }
                       );
+                    }
+                  });
+
+
 
               }
           }
