@@ -31,3 +31,47 @@
 | Selenium testing - Use Case 2      | Completed           |  [TC5](https://trello.com/c/hGyeTPnd) [PT11](https://www.pivotaltracker.com/story/show/152224802)
 | Selenium testing - Use Case 3      | Completed           |  [TC5](https://trello.com/c/hGyeTPnd) [PT12](https://www.pivotaltracker.com/story/show/152224808)
 | Screencast      | Completed       | [TC6](https://trello.com/c/BSYHFry7)
+
+##### Week 4
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| UseCase 1
+| Create flavored VM for Ubuntu with jenkins | Completed   | [TC6](https://trello.com/c/EqMuQDgU)
+| UseCase 2
+| Solve sudo issue      | Completed         |[#1](https://github.ncsu.edu/bbansal/AutoBots/issues/1)
+| Trying another ISO approach for Packer | Completed  | [TC7](https://trello.com/c/s5FlQovw)
+| Create VM Ubuntu with eclipse installed on it  | In Progress  | [TC9](https://trello.com/c/A6MT3Glc)
+| Create VM Fedora with eclipse installed on it  | In Progress  | [TC10](https://trello.com/c/6CZgYUIK)
+| Create VM CentOS with eclipse installed on it  | In Progress  | [TC11](https://trello.com/c/3NMwwmRU)
+| UseCase 3
+| Testing functionality of the use case  | In Progress | [TC8](https://trello.com/c/MkZiU1vL)
+
+##### Week 5
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| UseCase 1
+| Create flavored VM for Fedora with jenkins | Completed   | [TC13](https://trello.com/c/Q6pWhWLy)
+| Create flavored VM for CentOS with jenkins | Completed   | [TC12](https://trello.com/c/MmNVjdVA)
+| Create flavored VM for Debian with jenkins | Completed   | [TC14](https://trello.com/c/KgAJ6dzb)
+| UseCase 2
+| Create VM Ubuntu with eclipse installed on it  | Completed  | [TC9](https://trello.com/c/A6MT3Glc)
+| Create VM Fedora with eclipse installed on it  | Completed  | [TC10](https://trello.com/c/6CZgYUIK)
+| Create VM CentOS with eclipse installed on it  | Completed  | [TC11](https://trello.com/c/3NMwwmRU)
+| UseCase 3
+| Testing functionality of the use case  | In Progress | [TC8](https://trello.com/c/MkZiU1vL)
+
+##### Week 6
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| UseCase 1
+| Integrate config files in code | Completed   | [TC6](https://trello.com/c/EqMuQDgU)
+| Testing functionality of the use case  | In Progress | [TC6](https://trello.com/c/EqMuQDgU)
+| UseCase 2
+| Integrate config files in code | In Progress         |[TC15](https://trello.com/c/s5FlQovw)
+| Testing functionality of the use case  | In Progress | [TC15](https://trello.com/c/s5FlQovw)
+| UseCase 3
+| Testing functionality of the use case  | In Progress | [TC8](https://trello.com/c/MkZiU1vL)
+| Create Screen cast  | In Progress | [TC16](https://trello.com/c/uxvJq3AH)

@@ -137,7 +137,7 @@ function validateOperatingSystem(operatingSystem, callback) {
 function validatePlugins(pluginList, callback) {
 	var pluginsProvided = pluginList.split(" ")
 	var flag = true;
-	var listOfPluginsProvided = ["Firebugs", "Checklist", "Hibernate", "Subversive"]
+	var listOfPluginsProvided = ["SpotBugs", "Checklist", "Hibernate", "Subversive"]
 	var stricmp = listOfPluginsProvided.toString().toLowerCase();
 	for(var i = 0; i < pluginsProvided.length; i++) {
 		var plugin = pluginsProvided[i];

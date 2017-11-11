@@ -133,9 +133,8 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                         getSlackUsers()
                     }
                     var userEmail = userIdEmailMap[message.user];
-                    // mock otp for this milestone
-                    // var otp = shortid.generate()
-                    var otp = otpMockData.otp;
+                    // mock otp for this milestone, mocking removed for service milestone
+                    var otp = shortid.generate()
                     var dropletId = response.result.parameters.reservationId
                     console.log("Droplet Id is: " + dropletId);
                     emailService.sendEmail(userEmail, otp);

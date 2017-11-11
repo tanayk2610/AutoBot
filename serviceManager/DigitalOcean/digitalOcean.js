@@ -15,7 +15,7 @@ var shell=require('node-cmd');
 
 // defining enums to match OS
 var Enum = require('enum');
-var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-8-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
+var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-9-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
 module.exports =
 {
     create_vm: function (params, bot, message) {
@@ -44,7 +44,8 @@ module.exports =
                   client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
                   {
                       if(err) {
-                        console.log("request failed")
+                        console.log("request failed");
+                        bot.reply(message, "Request Failed, please check your ssh key ID");
                       }
                       if(!err && resp.statusCode == 202)
                       {
@@ -250,7 +251,7 @@ module.exports =
                                         Reservation.create(r, function(err, key) {
                                             if(err) {
                                                 console.log("Could not write to database", err);
-                                                bot.reply(message, "Internal Servor Error");
+                                                bot.reply(message, "Internal Server Error");
                                             } else {
                                               bot.reply(message, "Your VM is hosted at IP address: " + data.droplet.networks.v4[0].ip_address );
                                             }
@@ -324,7 +325,7 @@ var client =
     deleteImage: function (imageId, onResponse) {
       needle.delete("https://api.digitalocean.com/v2/images/" + imageId, null,{headers:headers}, onResponse)
     },
-    
+
     createDroplet: function (dropletName, mainMemorySize, region, imageName, ssh_key, onResponse)
     {
         var data =
@@ -404,13 +405,24 @@ function getImageId(params, bot, message, callback) {
                   bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
                   callback(false, null);
               } else {
-                  var data = JSON.parse(fileSync.readFileSync('jenkins_config.json').toString());
+                  var OSType = myEnum.get(OS).value;
+                  var data;
+                  if(OSType == "ubuntu-16-04-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/ubuntu_jenkins.json').toString());
+                  } else if(OSType == "fedora-24-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/fedora_jenkins.json').toString());
+                  } else if(OSType == "debian-9-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/debian_jenkins.json').toString());
+                  } else if(OSType == "centos-6-x64") {
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/centos_jenkins.json').toString());
+                    // will change once we have support for remaining operating systems
+                  } else {
+                      data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/ubuntu_jenkins.json').toString());
+                  }
 
                   data.builders[0].size=newConfig;
-                  data.builders[0].image=myEnum.get(OS).value;
+                  data.builders[0].image=OSType;
                   data.builders[0].api_token = result.Token;
-
-                  console.log("\nChanged content: \n"+JSON.stringify(data));
 
                   fileSync.writeFile( user + '.json', JSON.stringify(data));
 
@@ -418,7 +430,7 @@ function getImageId(params, bot, message, callback) {
                           './packer build '+ user +'.json >> build.log',
                           function(err, data, stderr){
                               if(err){
-                                  bot.reply(message, "Internal Server Error, please try again after some time!!!!")
+                                  //bot.reply(message, "Internal Server Error, please try again after some time!!!!")
                                   callback(false , null);
                               }
                               else{
@@ -426,7 +438,7 @@ function getImageId(params, bot, message, callback) {
                                   'tail -2 build.log | head -2 | grep -Po \'ID: [0-9]+\' | gawk \'{print $1}\' FPAT=\'[0-9]+\'',
                                   function(err1, data1, stderr1) {
                                     if(err1) {
-                                      bot.reply(message, "Error creatig image, please try again after some time!!!!");
+                                      //bot.reply(message, "Error creatig image, please try again after some time!!!!");
                                       callback(false, null);
                                     } else {
                                       callback(true, data1);
