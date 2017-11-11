@@ -60,6 +60,16 @@
         "../serviceManager/packerService/config/fedora/scripts/eclipse.sh"
       ],
       "type": "shell"
+    },
+    {
+      "type": "shell",
+      "inline":[
+        "cd /usr/bin",
+        "eclipse -application org.eclipse.equinox.p2.director -repository http://findbugs.cs.umd.edu/eclipse/ -installIU edu.umd.cs.findbugs.plugin.eclipse.feature.group",
+        "eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/oxygen/ -installIU org.eclipse.emf.cdo.server.hibernate.source.feature.group",
+        "eclipse -application org.eclipse.equinox.p2.director -repository http://download.eclipse.org/releases/oxygen/ -installIU org.eclipse.team.svn.feature.group",
+        "eclipse -application org.eclipse.equinox.p2.director -repository http://eclipse-cs.sf.net/update -installIU net.sf.eclipsecs.feature.group"
+      ]
     }
   ],
   "variables": {
