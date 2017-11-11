@@ -173,7 +173,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
 
                 case 'create.vm.with.eclipse' :
                    service.createPackerImage(bot, message, response);
-                   
+
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 

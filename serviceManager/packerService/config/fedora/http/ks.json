@@ -3,7 +3,7 @@ cdrom
 lang en_US.UTF-8
 keyboard us
 network --bootproto=dhcp
-rootpw vagrant
+rootpw fedora
 firewall --disabled
 authconfig --enableshadow --passalgo=sha512
 selinux --permissive
@@ -16,7 +16,7 @@ clearpart --all --initlabel
 part / --fstype=ext4 --ondisk=sda --grow --label=root
 firstboot --disabled
 reboot
-user --name=vagrant --plaintext --password vagrant
+user --name=fedora --plaintext --password fedora
 
 %packages --ignoremissing --excludedocs
 bzip2
@@ -40,7 +40,7 @@ net-tools
 
 %post
 # sudo
-echo 'Defaults:vagrant !requiretty' > /etc/sudoers.d/vagrant
-echo '%vagrant ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/vagrant
-chmod 440 /etc/sudoers.d/vagrant
+echo 'Defaults:fedora !requiretty' > /etc/sudoers.d/fedora
+echo '%fedora ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/fedora
+chmod 440 /etc/sudoers.d/fedora
 %end

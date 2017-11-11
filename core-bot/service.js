@@ -7,6 +7,8 @@ var digitalOceanService = require('../serviceManager/DigitalOcean/digitalOcean.j
 
 var reservationsController = require('../serviceManager/reservationsController/reservationsController.js');
 
+var packerService = require('../serviceManager/packerService/packerService.js');
+
 module.exports = {
 
 	saveDigitalOceanKeys: function (bot, message, response) {
@@ -94,7 +96,7 @@ module.exports = {
 	},
 
 	createPackerImage: function(bot, message, response) {
-		console.log("****************Creating Packer Image***************");
+		console.log("****************Creating Packer Image********************");
 
 		validatePlugins(response.result.parameters.pluginList, function(valid) {
 			if(!valid) {

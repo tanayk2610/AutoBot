@@ -7,7 +7,6 @@ var Key = mongoose.model('Key');
 var Enum = require('enum');
 var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x64', 'Fedora': 'fedora-24-x64', 'Debian': 'debian-8-x64', 'CoreOS': 'coreos-stable', 'CentOS': 'centos-6-x64'}, {ignoreCase: true});
 
-
 exports.createImage = function(bot, message, response){
     console.log("******** createImage starts*************");
     bot.startConversation(message, function(err, convo){
@@ -29,29 +28,24 @@ exports.createImage = function(bot, message, response){
                     console.log("Could not fetch keys from database", err);
                     bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
                 } else {
-                    var data = JSON.parse(fileSync.readFileSync('config.json').toString());
+                    var data = JSON.parse(fileSync.readFileSync('../serviceManager/packerService/config/' + response.result.parameters.osKind.toLowerCase() +  '/config.json').toString());
 
-                    data.builders[0].size=newConfig;
-                    data.builders[0].image=myEnum.get(OS).value;
-                    data.builders[0].api_token = result.Token;
+                    console.log("\nContent: \n"+JSON.stringify(data));
 
-                    console.log("\nChanged content: \n"+JSON.stringify(data));
+                    fileSync.writeFile('../serviceManager/packerService/config/' + response.result.parameters.osKind.toLowerCase() + '/userConfig/' + user + '.json', JSON.stringify(data));
 
-                    fileSync.writeFile( user + '.json', JSON.stringify(data));
-
-                        shell.get(
-                            './packer build '+ user +'.json',
-                            function(err, data, stderr){
-                                if(err){
-                                    console.log(err);
-                                }
-                                else{
-                                 console.log("packer in action");
-                                 bot.reply(message, "Your VM image has been created and posted on your digital Ocean Account")
-                                }
+                    shell.get(
+                        '../serviceManager/packerService/config/./packer build ../serviceManager/packerService/config/' + response.result.parameters.osKind.toLowerCase() + '/userConfig/' + user +'.json',
+                        function(err, data, stderr){
+                            if(err){
+                                console.log(err);
                             }
-                        );
-
+                           else{
+                            console.log("Packer in action");
+                            bot.reply(message, "Here is your VM.");
+                           }
+                       }
+                   );
                 }
             }
         });
