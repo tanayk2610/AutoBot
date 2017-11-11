@@ -158,17 +158,13 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
                     break;
 
                 case 'show.configurations':
-                   bot.reply(message, "Please see below available configurations from Digital Ocean")
+                   var textContent = 'Click below link to see configurations supported by digital ocean \n https://www.digitalocean.com/pricing/'
+                   var attachments = [{
+                      text: textContent
+                    }]
                    bot.reply(message, {
-                     "attachments": [
-                       {
-                         "fallback": "Required plain-text summary of the attachment.",
-                         "color": "#36a64f",
-                         "image_url": "https://transfer.sh/hMmpP/digitalOceanPricing.PNG",
-                         "ts": 123456789
-                       }
-                     ]
-                   });
+                     attachments: attachments
+                   })
                    break;
 
                 case 'update.droplet' :
@@ -177,6 +173,7 @@ controller.hears('(.*)', ['mention', 'direct_mention', 'direct_message'], functi
 
                 case 'create.vm.with.eclipse' :
                    service.createPackerImage(bot, message, response);
+                   
                 default:
                     bot.reply(message, response.result.fulfillment.speech);
 
@@ -221,3 +218,15 @@ function validateOTP(number, otp, callback) {
     callback(false);
   }
 }
+
+//  bot.reply(message, "Please see below available configurations from Digital Ocean")
+//  bot.reply(message, {
+//    "attachments": [
+//      {
+//        "fallback": "Required plain-text summary of the attachment.",
+//        "color": "#36a64f",
+//        "image_url": "https://transfer.sh/hMmpP/digitalOceanPricing.PNG",
+//        "ts": 123456789
+//      }
+//    ]
+//  });

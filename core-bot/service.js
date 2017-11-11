@@ -102,14 +102,14 @@ module.exports = {
 			} else{
 				validateOperatingSystem(response.result.parameters.osKind, function(result){
 					if(!result) {
-					 bot.reply(message, "Unfortunaly, Digital Ocean do not support entered Operating System. Please select from the given list only!!!")
+					 bot.reply(message, "Unfortunaly, We do not support entered Operating System. Please select from the given list only!!!")
 				 } else {
-					    validateConfig(response.result.parameters.config, function(configResult) {
+					    validateSystemConfig(response, function(configResult) {
 									if(!configResult) {
-										bot.reply(message, "Unfortunaly, Digital Ocean do not support entered configuraton. Please refer show configurations help in the main menu");
+										bot.reply(message, "Unfortunaly, you have entered incorrect configurations. Please enter correct configurations and try again!!!!");
 									} else{
-
 											packerService.createImage(bot, message, response);
+											//bot.reply(message, "success");
 									}
 							});
 				 }
@@ -133,22 +133,28 @@ function validateOperatingSystem(operatingSystem, callback) {
 };
 
 function validatePlugins(pluginList, callback) {
-	var pluginsProvided = pluginList.split(" ")
-	var flag = true;
-	var listOfPluginsProvided = ["SpotBugs", "Checklist", "Hibernate", "Subversive"]
-	var stricmp = listOfPluginsProvided.toString().toLowerCase();
-	for(var i = 0; i < pluginsProvided.length; i++) {
-		var plugin = pluginsProvided[i];
-		if (stricmp.indexOf(plugin.toLowerCase()) < 0) {
-			flag = false;
-			break;
+	console.log(pluginList);
+	if(pluginList == "none") {
+		callback(true);
+	} else {
+		var pluginsProvided = pluginList.split(" ")
+		var flag = true;
+		var listOfPluginsProvided = ["SpotBugs", "Checklist", "Hibernate", "Subversive"]
+		var stricmp = listOfPluginsProvided.toString().toLowerCase();
+		for(var i = 0; i < pluginsProvided.length; i++) {
+			var plugin = pluginsProvided[i];
+			if (stricmp.indexOf(plugin.toLowerCase()) < 0) {
+				flag = false;
+				break;
+			}
+		}
+		if(flag == false) {
+			callback(false)
+		} else {
+			callback(true)
 		}
 	}
-	if(flag == false) {
-		callback(false)
-	} else {
-		callback(true)
-	}
+
 }
 
 function validateConfig(config, callback) {
@@ -159,4 +165,22 @@ function validateConfig(config, callback) {
   } else {
 		callback(false);
   }
+}
+
+function validateSystemConfig(response, callback) {
+	var mainMemory = response.result.parameters.RAM;
+	var lastTwoCharacters = mainMemory.substring(mainMemory.length-2, mainMemory.length);
+	if(lastTwoCharacters == "GB" || lastTwoCharacters == "gb") {
+		var RAM = parseInt(mainMemory.trim().substring(0, mainMemory.length-2));
+		var CPU = parseInt(response.result.parameters.CPU);
+
+		if(!isNaN(RAM) && RAM <= 16 && !isNaN(CPU) && CPU <= 8) {
+			callback(true);
+		} else {
+			callback(false);
+		}
+	} else {
+		callback(false);
+	}
+
 }
