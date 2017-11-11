@@ -68,7 +68,7 @@
 | ------------- | ------------  |  ------------
 | UseCase 1
 | Integrate config files in code | Completed   | [TC6](https://trello.com/c/EqMuQDgU)
-| Testing functionality of the use case  | In Progress | [TC6](https://trello.com/c/EqMuQDgU)
+| Testing functionality of the use case  | Completed | [TC6](https://trello.com/c/EqMuQDgU)
 | UseCase 2
 | Integrate config files in code | In Progress         |[TC15](https://trello.com/c/s5FlQovw)
 | Testing functionality of the use case  | In Progress | [TC15](https://trello.com/c/s5FlQovw)
