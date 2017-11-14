@@ -70,13 +70,13 @@
 | Integrate config files in code | Completed   | [TC6](https://trello.com/c/EqMuQDgU)
 | Testing functionality of the use case  | Completed | [TC6](https://trello.com/c/EqMuQDgU)
 | UseCase 2
-| Create VM Debian with eclipse installed on it  | Completed  | [TC16](https://trello.com/c/oFxoayKM)
+| Create VM Debian with eclipse installed on it  | Completed  | [TC15](https://trello.com/c/oFxoayKM)
 | Install eclipse plugins on Ubuntu VM  | Completed  | [TC9](https://trello.com/c/A6MT3Glc)
 | Install eclipse plugins on Fedora VM   | Completed  | [TC10](https://trello.com/c/6CZgYUIK)
 | Install eclipse plugins on CentOS VM   | Completed  | [TC11](https://trello.com/c/3NMwwmRU)
-| Install eclipse plugins on Debian VM  | Completed  | [TC16](https://trello.com/c/oFxoayKM)
-| Integrate config files in code | Completed         |[TC15](https://trello.com/c/s5FlQovw)
-| Testing functionality of the use case  | In Progress | [TC15](https://trello.com/c/s5FlQovw)
+| Install eclipse plugins on Debian VM  | Completed  | [TC15](https://trello.com/c/oFxoayKM)
+| Integrate config files in code | Completed         |[TC7](https://trello.com/c/s5FlQovw)
+| Testing functionality of the use case  | In Progress | [TC7](https://trello.com/c/s5FlQovw)
 | UseCase 3
 | Testing functionality of the use case  | Completed | [TC8](https://trello.com/c/MkZiU1vL)
 | Create Screen cast  | In Progress | [TC16](https://trello.com/c/uxvJq3AH)
