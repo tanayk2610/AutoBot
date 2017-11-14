@@ -17,7 +17,7 @@ The Autobot uses the help of Packer.io to create a Virtual Machine with eclispe 
 
 ### USE CASE 3:
 
-TASK: The user can manage his virtual machines by querying th operation he wants to perform to the Autobot.The Autobot can List VMs,delete VMs and also change RAM size per convenience.The User chooses his action to manage by conveying it to the Autobot.
+TASK: The user can manage his virtual machines by querying the operation he wants to perform to the Autobot.The Autobot can List VMs,delete VMs and also change RAM size per convenience.The User chooses his action to manage by conveying it to the Autobot.
 
 SERVICE: The Autobot then Acts as VM Manager and performs the tasks assigned by the user.The changes can be observed in the Digital Ocean Account of the user.
 
