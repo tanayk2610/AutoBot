@@ -11,17 +11,27 @@ information with user and the Autobot.We use API.AI to have a natural language w
 
 ### USE CASE 2:
 
-Autobot creates a virtual machine of Ubuntu, Fedora, Debian or Centos with eclipse on it based on the selected ram, cpu and eclipse plugins the user selected.
+Autobot creates a virtual machine of Ubuntu, Fedora, Debian or Centos with eclipse on it based on the selected ram, cpu and eclipse plugins (Spotbugs, Hibernate, Checklist and Subversive)  the user selected.
+
 ### USE CASE 3:
 
-Autobot manage user's virtual machine. It can delete a virtual machine or change its ram.
+Autobot manage user's virtual machine. It can delete a virtual machine or change it's ram size.
+
 ## WORKSHEET
 
 You can see our task tracking for week 4 to week 6 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
+
 ## Screencast
 
 In [Screencast](https://youtube.com) we show AutoBot performs our use cases.
+
 ## Contributions
 
-
+| Team Member   | Contribution   
+| ------------- | ------------ 
+| Bhavya Bansal      |  Use case 1, Use Case 2      
+| Nitish Raghunathan     |    Use Case 2, Use Case 1
+| Pushpendra Singh Patel |    Use Case 3, Use Case 2
+| Rezvan Mahdavi Hezaveh  |   Use Case 2, Use Case 1
+| Tanay Kothari | Use Case 2, Use Case 1
  
