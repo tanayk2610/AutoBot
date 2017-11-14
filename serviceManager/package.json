@@ -4,17 +4,18 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@google-cloud/storage": "^1.4.0",
     "aws-sdk": ">= 2.0.9",
     "body-parser": "~1.15.2",
     "enum": "2.3.0",
     "express": "4.x",
     "forever": "^0.15.3",
+    "fs": "0.0.1-security",
     "needle": "^0.7.10",
+    "node-cmd": "3.0.0",
     "node-uuid": ">= 1.4.1",
     "request": "^2.67.0",
-    "update-json-file": "^1.1.1",
-    "node-cmd": "3.0.0",
-    "fs": "0.0.1-security"
+    "update-json-file": "^1.1.1"
   },
   "devDependencies": {
     "mongoose": "~4.6.3",
