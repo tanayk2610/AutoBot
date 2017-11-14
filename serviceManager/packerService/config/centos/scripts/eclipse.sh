@@ -1,2 +1,2 @@
-yum -y install java
-yum -y install eclipse
+yum -y install java;
+yum -y install eclipse;

@@ -14,7 +14,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `mirror`}}/{{user `mirror_directory`}}/{{user `iso_name`}}",
-      "output_directory": "../builds/packer-{{user `template`}}-virtualbox",
+      "output_directory": "../builds",
       "shutdown_command": "echo 'fedora'|sudo -S shutdown -P now",
       "ssh_password": "fedora",
       "ssh_port": 22,
@@ -55,9 +55,9 @@
         "../serviceManager/packerService/config/fedora/scripts/build-tools.sh",
         "../serviceManager/packerService/config/common/sshd.sh",
         "../serviceManager/packerService/config/common/virtualbox.sh",
+        "../serviceManager/packerService/config/fedora/scripts/eclipse.sh",
         "../serviceManager/packerService/config/fedora/scripts/cleanup.sh",
-        "../serviceManager/packerService/config/common/minimize.sh",
-        "../serviceManager/packerService/config/fedora/scripts/eclipse.sh"
+        "../serviceManager/packerService/config/common/minimize.sh"
       ],
       "type": "shell"
     },
