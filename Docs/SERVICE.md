@@ -28,7 +28,7 @@ You can see our task tracking for week 4 to week 6 in [WORKSHEET.md](https://git
 
 ## Screencast
 
-In [Screencast](https://youtube.com) we show AutoBot performs our use cases.
+In [Screencast](https://youtu.be/IBnlUZ6Gx4A) we show AutoBot performs our use cases.
 
 ## Contributions
 
