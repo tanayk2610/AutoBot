@@ -79,4 +79,4 @@
 | Testing functionality of the use case  | In Progress | [TC7](https://trello.com/c/s5FlQovw)
 | UseCase 3
 | Testing functionality of the use case  | Completed | [TC8](https://trello.com/c/MkZiU1vL)
-| Create Screen cast  | In Progress | [TC16](https://trello.com/c/uxvJq3AH)
+| Create Screen cast  | Completed | [TC16](https://trello.com/c/uxvJq3AH)
