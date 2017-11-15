@@ -95,17 +95,17 @@ exports.createImage = function(bot, message, response){
                                         var filepath = `../builds/zips/${filename}.zip`;
                                         gcp.uploadFile(bucketName,filepath, function(flag){
                                             if(flag){
-                                                bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
+                                                // bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
                                                 // console.log('callback if entered');
-                                                // gcp.makePublic(bucketName, filename, function(flag){
-                                                //     if(flag){
-                                                //         // console.log('callback2 if entered');
-                                                //         bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
-                                                //     }
-                                                //     else{
-                                                //         bot.reply(message, `There was some error in creating you VM, please try again.`);
-                                                //     }
-                                                // });
+                                                gcp.makePublic(bucketName, filename, function(flag){
+                                                    if(flag){
+                                                        // console.log('callback2 if entered');
+                                                        bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
+                                                    }
+                                                    else{
+                                                        bot.reply(message, `There was some error in creating you VM, please try again.`);
+                                                    }
+                                                });
                                             }
                                             else
                                                 bot.reply(message, `There was some error in creating you VM, please try again.`);
