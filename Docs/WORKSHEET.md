@@ -76,7 +76,7 @@
 | Install eclipse plugins on CentOS VM   | Completed  | [TC11](https://trello.com/c/3NMwwmRU)
 | Install eclipse plugins on Debian VM  | Completed  | [TC15](https://trello.com/c/oFxoayKM)
 | Integrate config files in code | Completed         |[TC7](https://trello.com/c/s5FlQovw)
-| Testing functionality of the use case  | In Progress | [TC7](https://trello.com/c/s5FlQovw)
+| Testing functionality of the use case  | Completed | [TC7](https://trello.com/c/s5FlQovw)
 | UseCase 3
 | Testing functionality of the use case  | Completed | [TC8](https://trello.com/c/MkZiU1vL)
-| Create Screen cast  | In Progress | [TC16](https://trello.com/c/uxvJq3AH)
+| Create Screen cast  | Completed | [TC16](https://trello.com/c/uxvJq3AH)
