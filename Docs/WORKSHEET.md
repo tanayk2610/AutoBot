@@ -1,5 +1,6 @@
 # WORKSHEET
 
+"In progress" tasks in tables were starting on that week but end in the next weeks.
 
 ##### Week 1
 
