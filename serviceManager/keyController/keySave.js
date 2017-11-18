@@ -62,8 +62,7 @@ function validateDigitalOcean(bot, message, msg, callback) {
         };
         console.log(headers);
 
-        // mocking service call here: will remove in service milestone
-        nock("https://api.digitalocean.com").get("/v2/account").reply(202, accountMockData)
+      
         needle.get("https://api.digitalocean.com/v2/account", {headers: headers}, function (err, resp, body) {
             console.log("bhavya \n")
             if (accountMockData.account) {
