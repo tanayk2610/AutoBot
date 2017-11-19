@@ -1,0 +1,85 @@
+---
+- hosts: localhost
+  connection: localhost
+
+  tasks:
+
+    - name: get running user
+      local_action: command whoami
+      register: current_user
+
+    - name: check if sshkey exists
+      become_user: current_user
+      stat:
+        path: ~/.ssh/id_rsa.pub
+      register: ssh_exists
+
+    # - name: debug ssh key
+    #   debug:
+    #     msg: "{{ ssh_exists }}"
+
+    - name: Generate SSH keys if not exists
+      become_user: current_user
+      shell: ssh-keygen -N '' -f ~/.ssh/id_rsa
+      when: ssh_exists.stat.exists == False
+#
+    - name: get ssh-keygen
+      shell: cat ~/.ssh/id_rsa.pub
+      register: ssh_key
+
+    # - debug:
+    #     msg: "{{ ssh_key.stdout }}"
+
+
+    - set_fact:
+        DOTOKEN: "{{ lookup('env','DEPLOYMENTTOKEN') }}"
+
+    - name: print do token
+      debug:
+        msg: "{{DOTOKEN}}"
+
+    - digital_ocean:
+        state: present
+        command: ssh
+        name: autoBots
+        ssh_pub_key: "{{ ssh_key.stdout }}"
+        api_token: "{{ DOTOKEN }}"
+      register: new_key
+
+    # - debug:
+    #     msg: "{{ new_key.ssh_key.id }}"
+
+    - name: create new production droplet
+      digital_ocean:
+        state: present
+        ssh_key_ids: "{{ new_key.ssh_key.id }}"
+        command: droplet
+        name: autoBotsProduction
+        size_id: 16gb
+        region_id: nyc1
+        image_id: ubuntu-16-04-x64
+        wait_timeout: 500
+        api_token: "{{ DOTOKEN }}"
+      register: new_droplet
+
+    - name: delete inventory file if currently present
+      file:
+        path: "{{playbook_dir}}/inventory.ini"
+        state: absent
+
+    - name: make inventory file present
+      file:
+        path: "{{playbook_dir}}/inventory.ini"
+        state: touch
+        mode: 0777
+
+    - name: set inventory file
+      lineinfile:
+        path: "{{playbook_dir}}/inventory.ini"
+        line: "[nodes]\n{{ new_droplet.droplet.ip_address }} ansible_ssh_user=root"
+
+    - pause:
+        seconds: 15
+
+    - name: add to known hosts
+      shell: ssh-keyscan -H "{{ new_droplet.droplet.ip_address }}" >> ~/.ssh/known_hosts

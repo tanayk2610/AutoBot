@@ -1,0 +1,155 @@
+---
+  
+- hosts: nodes
+  gather_facts: no
+
+  roles:
+    - geerlingguy.nodejs
+
+  pre_tasks:
+    - name: Install Python
+      raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
+
+    - name: Turn on gather_facts
+      setup:
+
+  tasks:
+    - name: Install packages
+      become: yes
+      apt:
+        update_cache: yes
+        pkg: "{{item}}"
+        state: present
+      with_items:
+        - git
+        - python-pip
+
+    - name: Add mongo ppa key
+      become: yes
+      apt_key: >
+         keyserver=hkp://keyserver.ubuntu.com:80
+         id=7F0CEB10
+         state=present
+
+    - name: Add mongo sources list
+      become: yes
+      lineinfile: >
+        line="deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse"
+        dest=/etc/apt/sources.list.d/mongodb.list
+        state=present
+        create=yes
+
+    - name: Install mongo
+      become: yes
+      apt: name=mongodb-org state=latest force=yes update_cache=yes
+
+    - name: create data directory for mongo
+      become: yes
+      file:
+       path: /data/db
+       state: directory
+       mode: 0755
+
+    - set_fact:
+          DEPLOYMENTTOKEN: "{{ lookup('env','DEPLOYMENTTOKEN') }}"
+      tags:
+        - test3
+    - set_fact:
+        SLACKTOKEN: "{{ lookup('env','SLACKTOKEN') }}"
+
+    - set_fact:
+        APIAITOKEN: "{{ lookup('env','APIAITOKEN') }}"
+
+    - set_fact:
+        AUTOBOTEMAILPASSWORD: "{{ lookup('env','AUTOBOTEMAILPASSWORD') }}"
+
+    - name: add digital ocean token to bashrc
+      become: yes
+      lineinfile:
+        line="export DOTOKEN={{DEPLOYMENTTOKEN}}"
+        dest=/root/.bashrc
+        state=present
+        create=yes
+
+    - name: add API AI Token to bashrc
+      become: yes
+      lineinfile:
+        line="export APIAITOKEN={{APIAITOKEN}}"
+        dest=/root/.bashrc
+        state=present
+        create=yes
+
+    - name: add slackToken to bashrc
+      become: yes
+      lineinfile:
+        line="export SLACKTOKEN={{SLACKTOKEN}}"
+        dest=/root/.bashrc
+        state=present
+        create=yes
+
+    - name: add autobotemail to bashrc
+      become: yes
+      lineinfile:
+        line="export AUTOBOTEMAILPASSWORD={{AUTOBOTEMAILPASSWORD}}"
+        dest=/root/.bashrc
+        state=present
+        create=yes
+
+    - name: restart server
+      shell: sleep 2 && shutdown -r now
+      async: 1
+      poll: 0
+      become: yes
+      become_method: sudo
+      ignore_errors: true
+      tags:
+        - test
+    - pause:
+        seconds: 30
+      tags:
+        - test
+
+    - name: waiting for server to come back after reboot
+      local_action: wait_for host={{ ansible_ssh_host }} state=started delay=30 timeout=50 connect_timeout=15
+      tags:
+        - test
+
+    - name: run mongo daemon
+      shell: mongod --fork --logpath /var/log/mongo.logpath
+      become: yes
+
+    - name: Generate SSH keys
+      shell: ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ""
+      args:
+        creates: /root/.ssh/id_rsa
+
+    - name: clone repo
+      git:
+       repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
+       dest: /root/SlackBot/
+
+    - name: install forever package
+      become: yes
+      npm: name=forever global=yes state=latest
+
+    - name: install npm packages at core bot
+      npm:
+        path: /root/SlackBot/core-bot/
+        state: latest
+
+    - name: install npm packages at service manager
+      npm:
+        path: /root/SlackBot/service-manager/
+        state: latest
+
+    - name: install npm packages for email service
+      npm:
+        path: /root/SlackBot/emailService/
+        state: latest
+
+    - name: install pm2 monitoring packages
+      npm: name=pm2 global=yes state=latest
+
+    - name: run the app using forever previously cloned from github
+      become: yes
+      shell: /usr/bin/pm2 start /root/SlackBot/core-bot/bot.js
