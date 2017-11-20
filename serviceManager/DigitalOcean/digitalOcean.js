@@ -280,20 +280,21 @@ module.exports =
                                 }
                             });
                         });
-                        var user = message.user;
-                        shell.get(
-                          'rm '+ user + '.json' + '&& rm build.log',
-                          function(err1, data1, stderr1) {
-                            if(err1) {
-                              console.log("can not delete logs and json");
-                            } else {
-                              console.log("logs deleted Succesfully");
-                            }
-                          }
-                        );
                       } else {
                         bot.reply(message, "Decepticons have attacked us, please try again after some time!!!!")
                       }
+
+                      var user = message.user;
+                      shell.get(
+                        'rm '+ user + '.json' + '&& rm build.log',
+                        function(err1, data1, stderr1) {
+                          if(err1) {
+                            console.log("can not delete logs and json");
+                          } else {
+                            console.log("logs and json deleted Succesfully");
+                          }
+                        }
+                      );
                   });
               }
             }
