@@ -1,5 +1,5 @@
 ---
-  
+
 - hosts: nodes
   gather_facts: no
 
@@ -52,8 +52,7 @@
 
     - set_fact:
           DEPLOYMENTTOKEN: "{{ lookup('env','DEPLOYMENTTOKEN') }}"
-      tags:
-        - test3
+
     - set_fact:
         SLACKTOKEN: "{{ lookup('env','SLACKTOKEN') }}"
 
@@ -150,6 +149,9 @@
     - name: install pm2 monitoring packages
       npm: name=pm2 global=yes state=latest
 
-    - name: run the app using forever previously cloned from github
+    - pause:
+        seconds: 15
+
+    - name: run the app using pm2 previously cloned from github
       become: yes
-      shell: /usr/bin/pm2 start /root/SlackBot/core-bot/bot.js
+      shell: APIAITOKEN="{{APIAITOKEN}}" SLACKTOKEN="{{SLACKTOKEN}}" DEPLOYMENTTOKEN="{{DEPLOYMENTTOKEN}}" AUTOBOTEMAILPASSWORD="{{AUTOBOTEMAILPASSWORD}}" forever start /root/SlackBot/core-bot/bot.js
