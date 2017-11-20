@@ -160,13 +160,20 @@ function validatePlugins(pluginList, callback) {
 }
 
 function validateConfig(config, callback) {
+	var flag = false;
 	var listOfConfigSupported = ["512MB", "1GB", "2GB", "4GB", "8GB", "16GB"]
 	var stricmp = listOfConfigSupported.toString().toLowerCase();
-	if (stricmp.indexOf(config.toLowerCase()) > -1) {
-    callback(true);
-  } else {
+	for(var i = 0; i < listOfConfigSupported.length; i++) {
+			if(config.toLowerCase() == listOfConfigSupported[i].toLowerCase()) {
+				flag = true;
+				break;
+			}
+	}
+	if(flag == true) {
+		callback(true);
+	} else {
 		callback(false);
-  }
+	}
 }
 
 function validateSystemConfig(response, callback) {
