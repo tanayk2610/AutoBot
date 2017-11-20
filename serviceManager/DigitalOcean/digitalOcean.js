@@ -186,6 +186,8 @@ module.exports =
                             console.log("Status code is: " + resp.statusCode)
                             if(!err && resp.statusCode == 201) {
                               bot.reply(message, "Droplet has been updated Succesfully")
+                            } else {
+                              bot.reply(message, "Error serving the request: Seems like you tried to downgrade your droplet. Digital Ocean Droplets can not be downsized.")
                             }
                           }
                       });
