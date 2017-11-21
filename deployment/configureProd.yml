@@ -3,8 +3,8 @@
 - hosts: nodes
   gather_facts: no
 
-  roles:
-    - geerlingguy.nodejs
+  # roles:
+  #   - geerlingguy.nodejs
 
   pre_tasks:
     - name: Install Python
@@ -14,6 +14,33 @@
       setup:
 
   tasks:
+
+    - name: SERVER | Download the nvm(node version manager) install script
+      get_url: url=https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.gz dest=/root
+
+    - name: create temp directory
+      file:
+       path: /opt/nodejs
+       state: directory
+       mode: 0755
+
+    - name: Extract tar gz file
+      unarchive:
+        src: /root/node-v6.11.3-linux-x64.tar.gz
+        dest: /opt/nodejs
+        remote_src: yes
+
+    - name: rename the unzipped file
+      shell: mv node-v6.11.3-linux-x64 6.11.3
+      args:
+        chdir: /opt/nodejs
+
+    - name: cd and create sym link
+      shell: cd /opt/nodejs && ln -s 6.11.3 current
+
+    - name: create symlink to node library
+      shell: ln -s /opt/nodejs/current/bin/node /bin/node
+      
     - name: Install packages
       become: yes
       apt:
@@ -23,6 +50,7 @@
       with_items:
         - git
         - python-pip
+        - npm
 
     - name: Add mongo ppa key
       become: yes
@@ -124,8 +152,8 @@
 
     - name: clone repo
       git:
-       repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
-       dest: /root/SlackBot/
+        repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
+        dest: /root/SlackBot/
 
     - name: install forever package
       become: yes
@@ -134,24 +162,22 @@
     - name: install npm packages at core bot
       npm:
         path: /root/SlackBot/core-bot/
-        state: latest
+
 
     - name: install npm packages at service manager
       npm:
-        path: /root/SlackBot/service-manager/
-        state: latest
+        path: /root/SlackBot/serviceManager/
+
 
     - name: install npm packages for email service
       npm:
         path: /root/SlackBot/emailService/
-        state: latest
-
-    - name: install pm2 monitoring packages
-      npm: name=pm2 global=yes state=latest
 
     - pause:
         seconds: 15
 
-    - name: run the app using pm2 previously cloned from github
+    - name: run the app using forever previously cloned from github
       become: yes
-      shell: APIAITOKEN="{{APIAITOKEN}}" SLACKTOKEN="{{SLACKTOKEN}}" DEPLOYMENTTOKEN="{{DEPLOYMENTTOKEN}}" AUTOBOTEMAILPASSWORD="{{AUTOBOTEMAILPASSWORD}}" forever start /root/SlackBot/core-bot/bot.js
+      shell: APIAITOKEN="{{APIAITOKEN}}" SLACKTOKEN="{{SLACKTOKEN}}" DEPLOYMENTTOKEN="{{DEPLOYMENTTOKEN}}" AUTOBOTEMAILPASSWORD="{{AUTOBOTEMAILPASSWORD}}" forever start bot.js
+      args:
+        chdir: /root/SlackBot/core-bot

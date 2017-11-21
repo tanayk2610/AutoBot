@@ -413,14 +413,14 @@ function getImageId(params, bot, message, callback) {
                   if(OSType == "ubuntu-16-04-x64") {
                     data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/ubuntu_jenkins.json').toString());
                   } else if(OSType == "fedora-24-x64") {
-                    data = JSON.parse(fileSync.readFileSync('./core-bot/jenkins_config_files/fedora_jenkins.json').toString());
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/fedora_jenkins.json').toString());
                   } else if(OSType == "debian-9-x64") {
-                    data = JSON.parse(fileSync.readFileSync(__dirname + '../../core-bot/jenkins_config_files/debian_jenkins.json').toString());
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/debian_jenkins.json').toString());
                   } else if(OSType == "centos-6-x64") {
-                    data = JSON.parse(fileSync.readFileSync(__dirname + '../../core-bot/jenkins_config_files/centos_jenkins.json').toString());
+                    data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/centos_jenkins.json').toString());
                     // will change once we have support for remaining operating systems
                   } else {
-                      data = JSON.parse(fileSync.readFileSync(__dirname + '../../core-bot/jenkins_config_files/ubuntu_jenkins.json').toString());
+                      data = JSON.parse(fileSync.readFileSync('./jenkins_config_files/ubuntu_jenkins.json').toString());
                   }
 
                   data.builders[0].size=newConfig;
