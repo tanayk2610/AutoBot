@@ -7,14 +7,16 @@
   "size": "",
   "ssh_username": "root"
   }],
-  "provisioners": [{
-      "type": "shell",
-      "inline": [
-                  "wget  -O /etc/yum.repos.d/jenkins.repo http://jenkins-ci.org/redhat/jenkins.repo",
-                  "rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key",
-                  "yum -y  install jenkins",
-                  "yum -y install java",
-                  "/etc/init.d/jenkins start"
-      ]
-  }]
+  "provisioners":[
+     {
+        "type":"shell",
+        "inline":[
+           "wget  -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo",
+           "rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key",
+           "yum -y  install jenkins",
+           "yum -y install java",
+           "/etc/init.d/jenkins start"
+        ]
+     }
+  ]
 }

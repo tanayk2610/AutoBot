@@ -14,11 +14,11 @@ exports.get_reservations = function(params, bot, message, response) {
             bot.reply(message, "Internal Server Error, please try again after some time!!!")
         } else {
             if(result == null || result.length == 0) {
-                console.log("Could not fetch keys from database", err);
+                console.log("Could not find reservations for the user", err);
                 bot.reply(message, "You have not made any reservations with me yet!!!");
             }
             else{
-                console.log(result); // Debug
+                // console.log(result); // Debug
                 // var reply = textFormatter(bot, message, result);
                 textFormatter(bot, message, result);
                 // bot.reply(message, reply);
@@ -35,9 +35,7 @@ function textFormatter(bot, message, data) {
             console.log("iteration" + (i+1));  // Debug
             if(data[i].Cloud == "digital-ocean")
                 data[i].Cloud = "Digital Ocean";
-            if(data[i].Request.OS == "ubuntu")
-                data[i].Request.OS = "Ubuntu"
-            reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*, Reservation ID: *" + data[i].Reservation.ReservationId + "*, OS: *" + data[i].Request.OS + "*\n";
+            reply += "> " + (i+1) + ". Cloud Service: *" + data[i].Cloud + "*,   Droplet-ID: *" + data[i].Reservation.ReservationId + "*,   OS: *" + data[i].Request.OS + "*,   Droplet-Config: *" + data[i].Request.config + "*,   IPv4 address: *" + data[i].Reservation.droplet.networks.v4[0].ip_address + "*\n";
         }
         reply += "\n";
         reply += "Further Actions on Droplet: \n\n"

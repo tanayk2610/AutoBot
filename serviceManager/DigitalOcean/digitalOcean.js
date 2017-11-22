@@ -19,81 +19,87 @@ var myEnum = new Enum({'Ubuntu': 'ubuntu-16-04-x64', 'FreeBSD': 'freebsd-10-3-x6
 module.exports =
 {
     create_vm: function (params, bot, message) {
-        Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
-
-            if(err) {
-                console.log("Could not fetch keys from database", err);
-                bot.reply(message, "Internal Server Error, please try again after some time!!!")
-            } else {
-                if(result == null) {
-                    console.log("Could not fetch keys from database", err);
-                    bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
-                } else {
-                  // read api token
-                  headers.Authorization = 'Bearer ' + result.Token;
-                  //console.log(result.Token);
-                  var data;
-                  var ssh_key = parseInt(result.KeyPair);
-                  var name = "DevOps-Node";
-                  var region = "nyc3";
-                  // var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
-                  var image = myEnum.get(params.OS).value
-                  var config = params.config;
-                  // console.log(image)
-                  // console.log(config)
-                  client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
-                  {
-                      if(err) {
-                        console.log("request failed");
-                        bot.reply(message, "Request Failed, please check your ssh key ID");
-                      }
-                      if(!err && resp.statusCode == 202)
-                      {
-                          var dropletId = resp.body.droplet.id;
-                          console.log("Got droplet: " + dropletId + " getting public IP now");
-
-                          // Get IP Handler
-                          function getIPCallback(error, response, body)
-                          {
-                              data = response.body;
-                              data["ReservationId"] = "" + data.droplet.id;
-                              if( (data.droplet.networks.v4.length > 0)  && (data.droplet.status == "active") )
+        bot.startConversation(message, function(err, convo){
+          if(err) {
+            console.log(err);
+          } else {
+               convo.say("Please wait for a moment");
+               Key.findOne({ "UserId": params.UserId, "Service": "digital-ocean" }, function(err,result) {
+                        if(err) {
+                            console.log("Could not fetch keys from database", err);
+                            bot.reply(message, "Internal Server Error, please try again after some time!!!")
+                        } else {
+                            if(result == null) {
+                                console.log("Could not fetch keys from database", err);
+                                bot.reply(message, "Looks like you have not provided me your Digital Ocean Keys. Please save your keys first");
+                            } else {
+                              // read api token
+                              headers.Authorization = 'Bearer ' + result.Token;
+                              //console.log(result.Token);
+                              var data;
+                              var ssh_key = parseInt(result.KeyPair);
+                              var name = "DevOps-Node";
+                              var region = "nyc3";
+                              // var image = (params.OS.indexOf("buntu") > -1) ? "ubuntu-16-04-x64" : "centos-6-5-x64";
+                              var image = myEnum.get(params.OS).value
+                              var config = params.config;
+                              // console.log(image)
+                              // console.log(config)
+                              client.createDroplet(name, config, region, image, ssh_key, function(err, resp, body)
                               {
-                                  console.log(data.droplet.networks.v4[0].ip_address);
-
-                                  console.log("STORE Reservation data in DB :");
-                                  var r = {
-                                      "UserId" : params.UserId,
-                                      "Cloud" : "digital-ocean",
-                                      "Reservation" : data,
-                                      "Request" : params,
+                                  if(err) {
+                                    console.log("request failed");
+                                    bot.reply(message, "Request Failed, please check your ssh key ID");
                                   }
+                                  if(!err && resp.statusCode == 202)
+                                  {
+                                      var dropletId = resp.body.droplet.id;
+                                      console.log("Got droplet: " + dropletId + " getting public IP now");
 
-                                  Reservation.create(r, function(err, key) {
-                                      if(err) {
-                                          console.log("Could not write to database", err);
-                                          bot.reply(message, "Internal Servor Error");
-                                      } else {
-                                        bot.reply(message, "Your VM is hosted at IP address: " + data.droplet.networks.v4[0].ip_address );
+                                      // Get IP Handler
+                                      function getIPCallback(error, response, body)
+                                      {
+                                          data = response.body;
+                                          data["ReservationId"] = "" + data.droplet.id;
+                                          if( (data.droplet.networks.v4.length > 0)  && (data.droplet.status == "active") )
+                                          {
+                                              console.log(data.droplet.networks.v4[0].ip_address);
+
+                                              console.log("STORE Reservation data in DB :");
+                                              var r = {
+                                                  "UserId" : params.UserId,
+                                                  "Cloud" : "digital-ocean",
+                                                  "Reservation" : data,
+                                                  "Request" : params,
+                                              }
+
+                                              Reservation.create(r, function(err, key) {
+                                                  if(err) {
+                                                      console.log("Could not write to database", err);
+                                                      bot.reply(message, "Internal Servor Error");
+                                                  } else {
+                                                    bot.reply(message, "Your VM is hosted at IP address: " + data.droplet.networks.v4[0].ip_address );
+                                                  }
+                                              });
+
+                                          } else {
+                                              console.log("...");
+                                              setTimeout(function () {
+                                                  client.getIP(dropletId, getIPCallback);
+                                              }, 1000);
+                                          }
                                       }
-                                  });
 
-                              } else {
-                                  console.log("...");
-                                  setTimeout(function () {
+                                      // Get IP
                                       client.getIP(dropletId, getIPCallback);
-                                  }, 1000);
-                              }
-                          }
-
-                          // Get IP
-                          client.getIP(dropletId, getIPCallback);
-                      }
-                  });
-                }
-            }
+                                  }
+                              });
+                            }
+                        }
+                    });
+          }
+          convo.next();
         });
-
     },
 
     terminateVM: function (params, bot, message) {
