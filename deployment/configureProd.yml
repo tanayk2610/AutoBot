@@ -133,6 +133,10 @@
     - set_fact:
         AUTOBOTEMAILPASSWORD: "{{ lookup('env','AUTOBOTEMAILPASSWORD') }}"
 
+
+    - set_fact:
+        KEYFILE: /root/SlackBot/keyfile.json
+
     - name: add digital ocean token to bashrc
       become: yes
       lineinfile:
