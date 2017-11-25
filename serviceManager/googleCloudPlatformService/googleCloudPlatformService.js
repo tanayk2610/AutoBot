@@ -4,6 +4,7 @@ const projectId = 'csc510-bot';
 // Creates a client
 const storage = new Storage({
   projectId: projectId,
+  keyfile: process.env.KEYFILE
 });
 
 module.exports =
