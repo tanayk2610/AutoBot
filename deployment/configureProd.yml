@@ -34,17 +34,17 @@
       register: nodeDir
       tags:
         - testbhavya
-    #
-    # - debug:
-    #     msg: "{{nodeDir}}"
-    #   tags:
-    #     - testbhavya
+
+    - debug:
+        msg: "{{nodeDir}}"
+      tags:
+        - testbhavya
 
     - name: rename the unzipped file
       shell: mv node-v6.11.3-linux-x64 6.11.3
       args:
         chdir: /opt/nodejs
-      when: nodeDir.stat.isdir is defined and nodeDir.stat.isdir == False
+      when: nodeDir.stat.isdir is not defined
       tags:
         - testbhavya
 
@@ -94,6 +94,7 @@
         - git
         - python-pip
         - npm
+        - virtualbox
 
     - name: Add mongo ppa key
       become: yes
@@ -133,9 +134,27 @@
     - set_fact:
         AUTOBOTEMAILPASSWORD: "{{ lookup('env','AUTOBOTEMAILPASSWORD') }}"
 
-
+    - set_fact:
+        PRIVATEKEYID: "{{ lookup('env','PRIVATEKEYID') }}"
+      tags:
+        - test0
     - set_fact:
         KEYFILE: /root/SlackBot/keyfile.json
+
+    - set_fact:
+        PRIVATEKEY: "{{ lookup('env','PRIVATEKEY') }}"
+      tags:
+        - test0
+
+    - set_fact:
+        CLIENTEMAIL: "{{ lookup('env','CLIENTEMAIL') }}"
+      tags:
+        - test0
+
+    - set_fact:
+        CLIENTID: "{{ lookup('env','CLIENTID') }}"
+      tags:
+        - test0
 
     - name: add digital ocean token to bashrc
       become: yes
@@ -165,6 +184,14 @@
       become: yes
       lineinfile:
         line="export AUTOBOTEMAILPASSWORD={{AUTOBOTEMAILPASSWORD}}"
+        dest=/root/.bashrc
+        state=present
+        create=yes
+
+    - name: add clien email to bashrc
+      become: yes
+      lineinfile:
+        line="export KEYFILE={{KEYFILE}}"
         dest=/root/.bashrc
         state=present
         create=yes
@@ -202,31 +229,38 @@
         repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
         dest: /root/SlackBot/
 
-
     - name: setup private key id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
-        regexp: '^private_key_id='
-        line: 'private_key_id= "{{ lookup('env','PRIVATEKEYID') }}"'
+        regexp: "private_key_id"
+        line: '"private_key_id": "{{PRIVATEKEYID}}",'
+      tags:
+        - test0
 
     - name: setup private key in keyfile
       lineinfile:
-        path: /root/SlackBot/keyfile.json
-        regexp: '^private_key='
-        line: 'private_key= "{{ lookup('env','PRIVATEKEY') }}"'
+          path: /root/SlackBot/keyfile.json
+          regexp: 'private_key'
+          line: '"private_key": "{{PRIVATEKEY}}",'
+      tags:
+        - test0
 
     - name: setup client email in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
-        regexp: '^client_email='
-        line: 'client_email= "{{ lookup('env','CLIENTEMAIL') }}"'
+        regexp: 'client_email'
+        line: '"client_email": "{{CLIENTEMAIL}}",'
+      tags:
+        - test0
 
     - name: setup client id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
-        regexp: '^client_id='
-        line: 'client_id= "{{ lookup('env','CLIENTID') }}"'
-        
+        regexp: 'client_id'
+        line: '"client_id": "{{CLIENTID}}",'
+      tags:
+        - test0
+
     - name: install forever package
       become: yes
       npm: name=forever global=yes state=latest
@@ -262,7 +296,7 @@
 
     - name: run the app using forever previously cloned from github
       become: yes
-      shell: APIAITOKEN="{{APIAITOKEN}}" SLACKTOKEN="{{SLACKTOKEN}}" DEPLOYMENTTOKEN="{{DEPLOYMENTTOKEN}}" AUTOBOTEMAILPASSWORD="{{AUTOBOTEMAILPASSWORD}}" forever start bot.js
+      shell: KEYFILE="{{KEYFILE}}" APIAITOKEN="{{APIAITOKEN}}" SLACKTOKEN="{{SLACKTOKEN}}" DEPLOYMENTTOKEN="{{DEPLOYMENTTOKEN}}" AUTOBOTEMAILPASSWORD="{{AUTOBOTEMAILPASSWORD}}" forever start bot.js
       args:
         chdir: /root/SlackBot/core-bot
       when: "forever_list.stdout.find('bot.js') == -1"
