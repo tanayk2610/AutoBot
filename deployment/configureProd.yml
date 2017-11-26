@@ -133,6 +133,10 @@
     - set_fact:
         AUTOBOTEMAILPASSWORD: "{{ lookup('env','AUTOBOTEMAILPASSWORD') }}"
 
+
+    - set_fact:
+        KEYFILE: /root/SlackBot/keyfile.json
+
     - name: add digital ocean token to bashrc
       become: yes
       lineinfile:
@@ -198,6 +202,31 @@
         repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
         dest: /root/SlackBot/
 
+
+    - name: setup private key id in keyfile
+      lineinfile:
+        path: /root/SlackBot/keyfile.json
+        regexp: '^private_key_id='
+        line: 'private_key_id= "{{ lookup('env','PRIVATEKEYID') }}"'
+
+    - name: setup private key in keyfile
+      lineinfile:
+        path: /root/SlackBot/keyfile.json
+        regexp: '^private_key='
+        line: 'private_key= "{{ lookup('env','PRIVATEKEY') }}"'
+
+    - name: setup client email in keyfile
+      lineinfile:
+        path: /root/SlackBot/keyfile.json
+        regexp: '^client_email='
+        line: 'client_email= "{{ lookup('env','CLIENTEMAIL') }}"'
+
+    - name: setup client id in keyfile
+      lineinfile:
+        path: /root/SlackBot/keyfile.json
+        regexp: '^client_id='
+        line: 'client_id= "{{ lookup('env','CLIENTID') }}"'
+        
     - name: install forever package
       become: yes
       npm: name=forever global=yes state=latest
