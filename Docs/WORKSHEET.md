@@ -81,3 +81,37 @@
 | UseCase 3
 | Testing functionality of the use case  | Completed | [TC8](https://trello.com/c/MkZiU1vL)
 | Create Screen cast  | Completed | [TC16](https://trello.com/c/uxvJq3AH)
+
+##### Week 7
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| UseCase 1
+| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| UseCase 2
+| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| UseCase 3
+| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| Deployment
+| Ansible script to create droplet | Completed | [TC18](https://trello.com/c/3wyrhfux)
+| Ansible script to setup the application at remote server | Completed | [TC19](https://trello.com/c/Hz3Ndna8)
+| Configure the remote server | Completed | [TC20](https://trello.com/c/gKgFZCa8)
+
+##### Week 8
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| UseCase 1
+| Test functionality of the use case  | Completed | [TC17](https://trello.com/c/ZsskvYBI)
+| UseCase 2
+| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| Write GCP Authentication script | Completed | [TC22](https://trello.com/c/Aw5U5WBa)
+| Integrate automated REST API call Authentication with AutoBot | Completed | [TC23](https://trello.com/c/0xgH7K5U)
+| UseCase 3
+| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| Deployment
+| Issue with Forever or Pm2 | Completed | [TC21](https://trello.com/c/XSbyMPgE)
+| General
+| Create acceptance test instructions  | In Progress | [TC24](https://trello.com/c/1MPIEBet)
+| Create Demo video | In Progress | [TC25](https://trello.com/c/eL7EWXAd)
+| Screencast  | In Progress | [TC26](https://trello.com/c/PqJ8U4GF)
