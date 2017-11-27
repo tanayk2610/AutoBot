@@ -228,6 +228,13 @@
         repo: 'https://github.com/bbansalWolfPack/AutoBotsProd.git'
         dest: /root/SlackBot/
 
+    - name: download ubuntu ova file from google cloud platform
+      get_url:
+        url: https://storage.googleapis.com/base_ova_autobot/ubuntu.ova
+        dest: /root/SlackBot/serviceManager/packerService/ubuntu/ubuntu.ova
+      tags:
+        - testgcp
+
     - name: setup private key id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
