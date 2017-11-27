@@ -94,7 +94,6 @@
         - git
         - python-pip
         - npm
-        - virtualbox
 
     - name: Add mongo ppa key
       become: yes

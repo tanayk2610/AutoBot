@@ -1,0 +1,60 @@
+---
+- hosts: nodes
+  gather_facts: no
+
+  pre_tasks:
+    - name: Install Python
+      raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
+
+    - name: Turn on gather_facts
+      setup:
+
+  tasks:
+    #BEGIN VirtualBox stuff
+
+    - name: install dkms build-essential
+      become: yes
+      apt:
+        update_cache: yes
+        pkg: "{{item}}"
+        state: present
+      with_items:
+              - dkms
+              - build-essential
+
+    - name: add oracle 2016 key to apt key
+      become: yes
+      apt_key:
+        url: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+        state: present
+
+    - name: add oracle key to apt key
+      become: yes
+      apt_key:
+        url: "https://www.virtualbox.org/download/oracle_vbox.asc"
+        state: present
+
+    - name: Add VirtualBox repo
+      become: yes
+      apt_repository:
+        repo: 'deb http://download.virtualbox.org/virtualbox/debian xenial contrib'
+        state: present
+        update_cache: yes
+
+    - name: sudo apt-get update
+      become: yes
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+    - name: install virtualbox
+      become: yes
+      apt:
+        name: virtualbox-5.2
+        state: present
+        force: yes
+        update_cache: yes
+
+    - name: start the vboxdrv service
+      become: yes
+      systemd: state=started name=vboxdrv
