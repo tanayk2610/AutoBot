@@ -30,43 +30,47 @@ exports.createImage = function (bot, message, response) {
             var RAM = parseInt(mainMemory.trim().substring(0, mainMemory.length - 2));
             var CPUs = parseInt(response.result.parameters.CPU);
             var OS = response.result.parameters.osKind.toLowerCase();
-            var plugins = response.result.parameters.pluginList.split(" ");
-            var pluginConfig = "";
-            if (plugins != "none") {
-                pluginConfig = "cd/usr/bin";
-                for (var i = 0; i < plugins.length; i++) {
-                    pluginConfig = pluginConfig.concat(pluginEnum.get(plugins[i]) + ',');
-                }
-                pluginConfig = pluginConfig.trim().substring(0, pluginConfig.length - 2);
-            }
 
+            // Creating Timestamp
             var date = new Date();
             var timeStamp = date.getFullYear().toString() + date.getMonth().toString() +
                 date.getDate().toString() + date.getHours().toString() +
                 date.getMinutes().toString() + date.getSeconds().toString();
             var filename = `${user}_${timeStamp}`;
 
+            // Plugins to install
+            var plugins = response.result.parameters.pluginList.split(" ");
+            var pluginConfig = "cd/usr/bin;";
+            if (plugins != "none") {
+                for (var i = 0; i < plugins.length; i++) {
+                    pluginConfig = pluginConfig.concat("\n" + pluginEnum.get(plugins[i]));
+                }
+            }
+            fileSync.writeFile('../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.sh', pluginConfig);
+            
             console.log("**************     Modifying JSON file to user provided configuration      ************");
             //Modifying JSON file to user provided configuration
-            var data = JSON.parse(fileSync.readFileSync('../serviceManager/packerService/config/' + OS + '/config.json').toString());
+            var data = JSON.parse(fileSync.readFileSync('../serviceManager/packerService/' + OS + '/config.json').toString());
 
             // console.log('Old JSON content:\n\n\n'+JSON.stringify(data));
             // console.log('\n\n\n');
 
             data.variables.memory = "" + RAM * 1024 + "";
             data.variables.cpus = "" + CPUs + "";
-            data.builders[0].output_directory = `../builds/${filename}`;
+            data.variables.vm_name = `${OS}_${timeStamp}`;
+            data.variables.output_directory = `../builds/${filename}`;
+            data.variables.eclipse_path = '../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.sh';
 
             console.log("**************     Saving the user requested settings as packer template      ************");
             // Saving the user requested settings as packer template
-            fileSync.writeFile('../serviceManager/packerService/config/' + OS + '/userConfig/' + user + '.json', JSON.stringify(data));
+            fileSync.writeFile('../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.json', JSON.stringify(data));
 
             // console.log('New JSON content:\n\n\n'+JSON.stringify(data));
             // console.log('\n\n\n');
 
             console.log("**************     Running packer      ************");
             shell.get(
-                './packer build ../serviceManager/packerService/config/' + OS + '/userConfig/' + user + '.json',
+                './packer build ../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.json',
                 function (err, data, stderr) {
                     if (err) {
                         console.log(err);
@@ -77,7 +81,7 @@ exports.createImage = function (bot, message, response) {
                         zipFolder(`../builds/${filename}`, `../builds/zips/${filename}.zip`, function (err) {
                             if (err) {
                                 console.log('Error encountered wile creating zip file!', err);
-                                bot.reply(message, `The zip file couldn't be created due to some error, please try again.`);
+                                bot.reply(message, `There was some error in creating your VM, please try again.`);
                             } else {
                                 console.log(`***    Zip created successfully for user ${user}   ***`);
                                 bot.reply(message, `Zip created successfully, uploading it on cloud...`);
@@ -93,13 +97,16 @@ exports.createImage = function (bot, message, response) {
                                                 bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
                                             }
                                             else {
+                                                console.log("Error in makePublic");
                                                 bot.reply(message, `There was some error in creating you VM, please try again.`);
                                             }
                                         });
                                     }
-                                    else
-                                        bot.reply(message, `There was some error in creating you VM, please try again.`);
-                                    console.log('callback end entered');
+                                    else {
+                                        console.log("Error in uploadFile");
+                                        bot.reply(message, `There was some error in creating you VM, please try again.`);      
+                                    }
+                                    // console.log('callback end entered');
                                 });
                             }
                         });
