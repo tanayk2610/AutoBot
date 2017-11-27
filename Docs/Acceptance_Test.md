@@ -31,4 +31,16 @@ Flavored one:
 
 ## Use Case 2
 
+In this use case, the user ask the AutoBot to create an image of a vm with eclipse installed on it to use on Virtual Box on local machine. In this use case we have 4 operating system like the firts use case: Ubuntu, Fedora, Debian and Centos. The user also is asked to select from a list of plugins to install on eclipse. Available plugins are: SpotBugs, Checklist, Hibernate, Subversive. He/She can select all, some or none of them. The plugins should be seprated by ",". If the user don't want any plugins, he/she should enter "none".
+
+
+If the user enter the wrong name for the operating system or plugins, he/she will get an error like you see in following screenshots.
+
 ## Use Case 3
+
+In this use case the user can manage his/her VMs. After inserting "manage vm" he can see the list of his/her VMs and can use one of the two messages the bot provided: delete a vm or change a vm.
+
+If he insert "delete a vm", the AutoBot ask him to enter the IP of the vm he wants to delete and then send an email with a code. The user should insert the code to confirm the deletion.
+
+If he select "change a vm", the AutoBot ask him to enter the IP of the vm he wants to change. Then the AutoBot asks the new configuration and get the user input. Same as the first use case if he insert the wrong configuration he get the error. Be aware that you can not change the configuration downward.
+
