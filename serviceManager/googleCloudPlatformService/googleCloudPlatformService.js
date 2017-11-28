@@ -2,10 +2,11 @@ const Storage = require('@google-cloud/storage');
 const projectId = 'csc510-bot';
 
 // Creates a client
-const storage = new Storage({
-  projectId: projectId,
-  keyfile: process.env.KEYFILE
-});
+var config = {
+    projectId: projectId,
+    keyFilename: `${process.env.KEYFILE}`
+  };  
+const storage = require('@google-cloud/storage')(config);
 
 module.exports =
 {

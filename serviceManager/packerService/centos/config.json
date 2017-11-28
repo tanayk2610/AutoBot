@@ -1,0 +1,45 @@
+{
+    "builders": [
+      {
+        "type": "virtualbox-ovf",
+        "vm_name":"{{ user `vm_name` }}",
+        "source_path": "../serviceManager/packerService/centos/centos.ova",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "ssh_wait_timeout":"10000s",
+        "boot_wait":"10s",
+        "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+        "output_directory":"{{ user `output_directory`}}",
+        "vboxmanage": [
+            ["modifyvm","{{.Name}}","--cpus","1"],
+            ["modifyvm","{{.Name}}","--memory","1024"],
+            ["modifyvm","{{.Name}}","--vrde","off"],
+            ["modifyvm","{{.Name}}","--nic1","nat"],
+            ["modifyvm","{{.Name}}","--nictype1","virtio"]
+        ],
+        "post_shutdown_delay":"60s",
+        "vboxmanage_post":[
+            ["modifyvm","{{.Name}}","--memory","{{ user `memory` }}"],
+            ["modifyvm","{{.Name}}","--cpus","{{ user `cpus` }}"]
+        ],
+        "format":"ova",
+        "virtualbox_version_file": ".vbox_version",
+        "headless":"true"
+      }
+    ],
+    "provisioners": [
+      {
+        "scripts": [
+          "{{ user `eclipse_path` }}"
+        ],
+        "type": "shell"
+      }
+    ],
+    "variables":{
+        "output_directory":"../builds",
+        "cpus":"4",
+        "memory":"8192",
+        "eclipse_path":"../serviceManager/packerService/centos/eclipse.sh",
+        "vm_name":"centos_timestamp"
+    }
+  }
