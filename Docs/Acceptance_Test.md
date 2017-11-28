@@ -3,31 +3,34 @@
 In this document we provide instructions for TAs to test our bot.
 
 ## Start using bot
-Before using the bot  a Digital Ocean account, an API token for your account and a ssh id is required. We have created a digital ocean account, an API token and a ssh id which is saved on the bot. 
+Before using the bot a Digital Ocean account, an API token for your account and a ssh id is required. We have created a digital ocean account, an API token and a ssh id which is saved on the bot. 
 The bot can be started by saying "hi" or "hello" to the bot and type "help" to see the list of bot tasks.
 
-![1](https://media.github.ncsu.edu/user/8135/files/e41a907a-cfe2-11e7-9efb-1026d63c310e)
+![1](https://media.github.ncsu.edu/user/7998/files/d7ff3c30-d467-11e7-9fd2-43ded0954b34)
 
 ## Use Case 1
-In the first use case, the bot creates a digital ocean vm with Ubuntu, Fedora, Debian or Centos operating systems. You can ask the bot to create a plain vm or flavored with jenkins installed in it.
+In the first use case, the bot creates a digital ocean VM with Ubuntu, Fedora, Debian or Centos operating systems. You can ask the bot to create a plain VM or flavored VM with jenkins installed in it.
 To start type "create vm". If API token and ssh key id hasn't been provided , Autobot asks you to first save them.
-![2](https://media.github.ncsu.edu/user/8135/files/e775db98-cfe3-11e7-8d76-8324c74d83da)
+![2](https://media.github.ncsu.edu/user/7998/files/e5d46b8c-d467-11e7-94e2-15c055a483d6)
 
 Type "save keys" to perform this action.
-![3](https://media.github.ncsu.edu/user/8135/files/96b15100-cfe4-11e7-8cfc-a92b49cfe7e7)
+![3](https://media.github.ncsu.edu/user/7998/files/f687744c-d467-11e7-8338-b35afb18f87e)
 
 After typing "create vm" the AutoBot asks you about the operating system, the configuration you want (512mb, 1gb, 2gb, ..) and type of the vm.
 You can see four types of operating systems and if you insert something else, an error will be shown stating incorrect input.
 
 If you provide incorrect configuration like 256mb (which Digital Ocean dosen't support) or 512 (instead of 512mb) an error will be shown stating incorrect input.
-![6](https://media.github.ncsu.edu/user/8135/files/80c3a04e-cfe6-11e7-9340-6c1d2bd305ad)
+![4](https://media.github.ncsu.edu/user/7998/files/0db7f362-d468-11e7-826b-26155a33d578)
 
 After inserting all required inputs correctly, AutoBot gives the ip address of your vm and you can ssh to it.
-Plain vm:
-![4](https://media.github.ncsu.edu/user/8135/files/a4e5f374-cfe5-11e7-88a6-18777a0cf86f)
+Plain VM:  
+![5](https://media.github.ncsu.edu/user/7998/files/19f94e96-d468-11e7-979a-d8fa3a5731f9)
 
-Flavored one:
-![5](https://media.github.ncsu.edu/user/8135/files/28b53b92-cfe6-11e7-9f03-e9cb10fe7bd2)
+Flavored VM:  
+![6](https://media.github.ncsu.edu/user/7998/files/26161902-d468-11e7-8f1b-b6a5accf1df3)  
+  
+On Digital Ocean we can see the droplets which we have created.  
+![7](https://media.github.ncsu.edu/user/7998/files/6add37d2-d468-11e7-950c-e4a6c794cfe9)  
 
 ## Use Case 2
 
@@ -38,9 +41,15 @@ If the user enter the wrong name for the operating system or plugins, he/she wil
 
 ## Use Case 3
 
-In this use case the user can manage his/her VMs. After inserting "manage vm" he can see the list of his/her VMs and can use one of the two messages the bot provided: delete a vm or change a vm.
+In this use case the user can manage his/her VMs. After inserting "manage" he can see the list of his/her VMs and can use one of the two messages the bot provided: delete droplet or update droplet.  
 
-If he insert "delete a vm", the AutoBot ask him to enter the ID (DROPLET ID) of the vm he wants to delete and then send an email with a code. The user should insert the code to confirm the deletion.
+![8](https://media.github.ncsu.edu/user/7998/files/7aa7bc50-d468-11e7-81b8-6011164fb4cf)
 
-If he select "change a vm", the AutoBot ask him to enter the ID (DROPLET ID) of the vm he wants to change. Then the AutoBot asks the new configuration and get the user input. Same as the first use case if he insert the wrong configuration he get the error. Be aware that you can not change the configuration downward.
+If he insert "delete droplet", the AutoBot ask user to enter the ID (DROPLET ID) of the vm he wants to delete and then send an email with a code. The user should insert the code to confirm the deletion.  
+
+![10](https://media.github.ncsu.edu/user/7998/files/7ac5946e-d468-11e7-823a-114ba8b94cf8)  
+
+If he select "update droplet", the AutoBot ask user to enter the ID (DROPLET ID) of the vm he wants to change. Then the AutoBot asks the new configuration and get the user input. Same as the first use case if he insert the wrong configuration he get the error. Be aware that you can not change the configuration downward.  
+
+![9](https://media.github.ncsu.edu/user/7998/files/7aea310c-d468-11e7-9f8c-74122e565410)  
 
