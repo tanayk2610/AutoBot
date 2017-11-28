@@ -10,26 +10,33 @@ The bot can be started by saying "hi" or "hello" to the bot and type "help" to s
 
 ## Use Case 1
 In the first use case, the bot creates a digital ocean VM with Ubuntu, Fedora, Debian or Centos operating systems. You can ask the bot to create a plain VM or flavored VM with jenkins installed in it.
-To start type "create vm". If API token and ssh key id hasn't been provided , Autobot asks you to first save them.
+To start type "create vm". If API token and ssh key id hasn't been provided , Autobot asks you to first save them.  
+
 ![2](https://media.github.ncsu.edu/user/7998/files/e5d46b8c-d467-11e7-94e2-15c055a483d6)
 
-Type "save keys" to perform this action.
-![3](https://media.github.ncsu.edu/user/7998/files/f687744c-d467-11e7-8338-b35afb18f87e)
+Type "save keys" to perform this action.  
 
-After typing "create vm" the AutoBot asks you about the operating system, the configuration you want (512mb, 1gb, 2gb, ..) and type of the vm.
-You can see four types of operating systems and if you type something else, an error will be shown stating incorrect input.
+![3](https://media.github.ncsu.edu/user/7998/files/f687744c-d467-11e7-8338-b35afb18f87e)  
 
-If you provide incorrect configuration like 256mb (which Digital Ocean dosen't support) or 512 (instead of 512mb) an error will be shown stating incorrect input.
-![4](https://media.github.ncsu.edu/user/7998/files/0db7f362-d468-11e7-826b-26155a33d578)
+After typing "create vm" the AutoBot asks you about the operating system, the configuration you want (512mb, 1gb, 2gb, ..) and type of the vm.  
+You can see four types of operating systems and if you type something else, an error will be shown stating incorrect input.  
+
+If you provide incorrect configuration like 256mb (which Digital Ocean dosen't support) or 512 (instead of 512mb) an error will be shown stating incorrect input.  
+
+![4](https://media.github.ncsu.edu/user/7998/files/0db7f362-d468-11e7-826b-26155a33d578)  
 
 After inserting all required inputs correctly, AutoBot gives the ip address of your vm and you can ssh to it.  
-Plain VM:  
-![5](https://media.github.ncsu.edu/user/7998/files/19f94e96-d468-11e7-979a-d8fa3a5731f9)  
 
-Flavored VM:  
-![6](https://media.github.ncsu.edu/user/7998/files/26161902-d468-11e7-8f1b-b6a5accf1df3)    
+Plain VM:    
+
+![5](https://media.github.ncsu.edu/user/7998/files/19f94e96-d468-11e7-979a-d8fa3a5731f9)    
+
+Flavored VM:    
+
+![6](https://media.github.ncsu.edu/user/7998/files/26161902-d468-11e7-8f1b-b6a5accf1df3)      
   
-On Digital Ocean we can see the droplets which we have created.    
+On Digital Ocean we can see the droplets which we have created.      
+
 ![7](https://media.github.ncsu.edu/user/7998/files/6add37d2-d468-11e7-950c-e4a6c794cfe9)    
 
 ## Use Case 2
