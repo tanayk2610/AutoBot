@@ -104,14 +104,15 @@
 | UseCase 1
 | Test functionality of the use case  | Completed | [TC17](https://trello.com/c/ZsskvYBI)
 | UseCase 2
-| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| Test functionality of the use case  | Completed | [TC17](https://trello.com/c/ZsskvYBI)
 | Write GCP Authentication script | Completed | [TC22](https://trello.com/c/Aw5U5WBa)
 | Integrate automated REST API call Authentication with AutoBot | Completed | [TC23](https://trello.com/c/0xgH7K5U)
 | UseCase 3
-| Test functionality of the use case  | In Progress | [TC17](https://trello.com/c/ZsskvYBI)
+| Test functionality of the use case  | Completed | [TC17](https://trello.com/c/ZsskvYBI)
 | Deployment
 | Issue with Forever or Pm2 | Completed | [TC21](https://trello.com/c/XSbyMPgE)
 | General
+| Bot Polish | Completed | [TC27](https://trello.com/c/7aQfYmVz)
 | Create acceptance test instructions  | In Progress | [TC24](https://trello.com/c/1MPIEBet)
 | Create Demo video | In Progress | [TC25](https://trello.com/c/eL7EWXAd)
 | Screencast  | In Progress | [TC26](https://trello.com/c/PqJ8U4GF)
