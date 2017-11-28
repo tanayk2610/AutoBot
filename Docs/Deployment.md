@@ -32,7 +32,15 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
         ansible-playbook createDroplet.yml
    ```     
    
- 2. **"configureProd.yml"**: This ansible script will configure the newly created droplet. This will install all the required packages,
+ 2. **"install_VirtualBox.yml"**: This ansible script is used to install and setup virtual box at the remote droplet we created above
+                            
+   run below command to install virtualbox on remote machine:
+   
+   ```
+        ansible-playbookm -i inventory.ini install_VirtualBox.yml
+   ```   
+   
+ 3. **"configureProd.yml"**: This ansible script will configure the newly created droplet. This will install all the required packages,
                               dependencies, code, etc which are requried to run autoBot in a production environment.
        
        run below command to configure the droplet:
@@ -42,7 +50,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
    ```                               
                  
  
- Running the two ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.
+ Running above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.
  
  
                             
