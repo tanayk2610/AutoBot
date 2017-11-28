@@ -38,6 +38,15 @@ exports.createImage = function (bot, message, response) {
                 date.getMinutes().toString() + date.getSeconds().toString();
             var filename = `${user}_${timeStamp}`;
 
+            // console.log("****   Initial = "+filename);
+            // var filename = "U6XHAC4VD_201710284257";
+            // const bucketName = 'csc510-bot';
+            // filename = `${filename}.zip`;
+            // console.log("****   Final = "+filename);
+            // gcp.makePublic(bucketName, filename, function (flag) {
+            //     console.log(flag);
+            // });
+
             // Plugins to install
             var plugins = response.result.parameters.pluginList.split(" ");
             var pluginConfig = "cd/usr/bin;";
@@ -91,6 +100,7 @@ exports.createImage = function (bot, message, response) {
                                     if (flag) {
                                         // bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
                                         // console.log('callback if entered');
+                                        filename = filename + ".zip";
                                         gcp.makePublic(bucketName, filename, function (flag) {
                                             if (flag) {
                                                 // console.log('callback2 if entered');
@@ -113,6 +123,7 @@ exports.createImage = function (bot, message, response) {
                     }
                 }
             );
+            // Packer ends!
         }
     });
 }
