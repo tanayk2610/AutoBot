@@ -40,7 +40,7 @@ If the user enter the wrong name for the operating system or plugins, he/she wil
 
 In this use case the user can manage his/her VMs. After inserting "manage vm" he can see the list of his/her VMs and can use one of the two messages the bot provided: delete a vm or change a vm.
 
-If he insert "delete a vm", the AutoBot ask him to enter the IP of the vm he wants to delete and then send an email with a code. The user should insert the code to confirm the deletion.
+If he insert "delete a vm", the AutoBot ask him to enter the ID (DROPLET ID) of the vm he wants to delete and then send an email with a code. The user should insert the code to confirm the deletion.
 
-If he select "change a vm", the AutoBot ask him to enter the IP of the vm he wants to change. Then the AutoBot asks the new configuration and get the user input. Same as the first use case if he insert the wrong configuration he get the error. Be aware that you can not change the configuration downward.
+If he select "change a vm", the AutoBot ask him to enter the ID (DROPLET ID) of the vm he wants to change. Then the AutoBot asks the new configuration and get the user input. Same as the first use case if he insert the wrong configuration he get the error. Be aware that you can not change the configuration downward.
 
