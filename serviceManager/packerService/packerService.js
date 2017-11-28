@@ -38,25 +38,16 @@ exports.createImage = function (bot, message, response) {
                 date.getMinutes().toString() + date.getSeconds().toString();
             var filename = `${user}_${timeStamp}`;
 
-            // console.log("****   Initial = "+filename);
-            // var filename = "U6XHAC4VD_201710284257";
-            // const bucketName = 'csc510-bot';
-            // filename = `${filename}.zip`;
-            // console.log("****   Final = "+filename);
-            // gcp.makePublic(bucketName, filename, function (flag) {
-            //     console.log(flag);
-            // });
-
             // Plugins to install
             var plugins = response.result.parameters.pluginList.split(" ");
-            var pluginConfig = "cd/usr/bin;";
+            var pluginConfig = "cd /usr/bin;";
             if (plugins != "none") {
                 for (var i = 0; i < plugins.length; i++) {
                     pluginConfig = pluginConfig.concat("\n" + pluginEnum.get(plugins[i]));
                 }
             }
             fileSync.writeFile('../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.sh', pluginConfig);
-            
+
             console.log("**************     Modifying JSON file to user provided configuration      ************");
             //Modifying JSON file to user provided configuration
             var data = JSON.parse(fileSync.readFileSync('../serviceManager/packerService/' + OS + '/config.json').toString());
@@ -104,7 +95,7 @@ exports.createImage = function (bot, message, response) {
                                         gcp.makePublic(bucketName, filename, function (flag) {
                                             if (flag) {
                                                 // console.log('callback2 if entered');
-                                                bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
+                                                bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}`);
                                             }
                                             else {
                                                 console.log("Error in makePublic");
@@ -114,7 +105,7 @@ exports.createImage = function (bot, message, response) {
                                     }
                                     else {
                                         console.log("Error in uploadFile");
-                                        bot.reply(message, `There was some error in creating you VM, please try again.`);      
+                                        bot.reply(message, `There was some error in creating you VM, please try again.`);
                                     }
                                     // console.log('callback end entered');
                                 });
