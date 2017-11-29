@@ -8,7 +8,7 @@ To test the bot, TAs need to login to this [channel](https://csc510-autobot.slac
 
 For testing use case 1 & 3 we have already saved the required Digital Ocean keys for TA. TAs will be able to create virtual machines and can verify by pinging to the IP addresses.
 
-**Note:** To test the tokens we created a VM using TAs account and thus TAs might see a breif chat history with AutoBot. The VM has been deleted after testing.
+**Note:** To test the tokens we  have created a VM using TAs account and thus TAs might see a breif chat history with AutoBot. The VM has been deleted after testing.
 
 **Note:** TAs will not be able to see the machines on Digital Ocean, because the machines will be created on our Digital Ocean account. This has been discussed with Professor Christopher Parnin.
 
@@ -53,11 +53,11 @@ On Digital Ocean we can see the droplets which we have created.
 
 **Note:** For this specific use case, the duration of creation of VM the time varies as it is depended on the network condition on Digital Ocean. Unfortunately, it is not in our hands. We have seen cases in which it took 10 minutes at top but there have been cases where it took 1 hour or more.    
 
-In this use case, the user ask the AutoBot to create an image of a vm with eclipse installed on it to use on Virtual Box on local machine. In this use case we have 4 operating system like the firts use case: Ubuntu, Fedora, Debian and Centos. The user also is asked to select from a list of plugins to install on eclipse. Available plugins are: SpotBugs, Checklist, Hibernate, Subversive. User can select all, some or none of them. The plugins should be seprated by `````,`````. If the user don't want any plugins, user should enter `````none`````. You can use `````create image with eclipse````` to create an image of a vm with eclipse installed.
+In this use case, the user asks the AutoBot to create an image of a vm with eclipse installed on it to use on Virtual Box on local machine. In this use case we have 4 operating systems like the firts use case: Ubuntu, Fedora, Debian and Centos. The user also is asked to select from a list of plugins to install on eclipse. Available plugins are: SpotBugs, Checklist, Hibernate, Subversive. User can select all, some or none of them. The plugins should be seprated by `````,`````. If the user don't want any plugins, user should enter `````none`````. You can use `````create image with eclipse````` to create an image of a vm with eclipse installed.
 
 ![use case 2](https://user-images.githubusercontent.com/32002357/33355590-10b9d076-d486-11e7-950a-d56e4b1b3270.png)
 
-If the user enter the wrong name for the operating system or plugins, user will get an error like you see in following screenshots.
+If the user enters a wrong name for the operating system or plugins, user will get an error like you see in following screenshots.
 
 ## Use Case 3
 
