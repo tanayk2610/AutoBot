@@ -32,7 +32,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
         ansible-playbook createDroplet.yml
    ```     
    
- 2. ["install_VirtualBox.yml](https://github.ncsu.edu/bbansal/AutoBots/blob/master/deployment/install_VirtualBox.yml): This ansible script is used to install and setup virtual box at the remote droplet we created above
+ 2. [install_VirtualBox.yml](https://github.ncsu.edu/bbansal/AutoBots/blob/master/deployment/install_VirtualBox.yml): This ansible script is used to install and setup virtual box at the remote droplet we created above
                             
    run below command to install virtualbox on remote machine:
    
