@@ -41,6 +41,8 @@ On Digital Ocean we can see the droplets which we have created.
 
 ## Use Case 2
 
+**Note:** For this specific use case, the duration of creation of VM the time varies as it is depended on the network condition on Digital Ocean. Unfortunately, it is not in our hands. We have seen cases in which it took 10 minutes at top but there have been cases where it took 1 hour or more.    
+
 In this use case, the user ask the AutoBot to create an image of a vm with eclipse installed on it to use on Virtual Box on local machine. In this use case we have 4 operating system like the firts use case: Ubuntu, Fedora, Debian and Centos. The user also is asked to select from a list of plugins to install on eclipse. Available plugins are: SpotBugs, Checklist, Hibernate, Subversive. User can select all, some or none of them. The plugins should be seprated by ",". If the user don't want any plugins, user should enter "none".
 
 
