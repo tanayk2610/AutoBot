@@ -14,7 +14,7 @@ The machine running the playbook must have below tokens:
 3. **DEPLOYMENTTOKEN**: run command: export DEPLOYMENTTOKEN=&lt;your digital ocean account token&gt;. This will also be saved in ~/.bashrc file
 4. **AUTOBOTEMAILPASSWORD**: run command: export AUTOBOTEMAILPASSWORD=&lt;your gmail account password&gt;. This will be saved in ~/.bashrc file
 
-Once you have run and saved all above tokens into ~/.bashrc file. you need to source those in order for variables to be available to be used by shell.
+Once you have run and saved all above tokens into ~/.bashrc file, you need to source those in order for variables to be available to be used by shell.
 Run command: source ~/.bashrc or reboot the system once.
 
 **You also need ansible installed on the host running the configuration scripts.**
@@ -50,7 +50,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
    ```                               
                  
  
- Running above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.  
+ Running the above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.  
  ## Acceptance Test
  
  The acceptance test instruction for TAs is accessible in [Acceptance_test.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Acceptance_Test.md)
