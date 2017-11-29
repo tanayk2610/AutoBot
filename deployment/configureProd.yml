@@ -235,6 +235,21 @@
       tags:
         - testgcp
 
+    - name: download debian ova file from google cloud platform
+      get_url:
+        url: https://storage.googleapis.com/base_ova_autobot/debian.ova
+        dest: /root/SlackBot/serviceManager/packerService/debian/debian.ova
+        
+    - name: download fedora ova file from google cloud platform
+      get_url:
+        url: https://storage.googleapis.com/base_ova_autobot/fedora.ova
+        dest: /root/SlackBot/serviceManager/packerService/fedora/fedora.ova
+        
+    - name: download centOS ova file from google cloud platform
+      get_url:
+        url: https://storage.googleapis.com/base_ova_autobot/centos.ova
+        dest: /root/SlackBot/serviceManager/packerService/centos/centos.ova
+        
     - name: setup private key id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
