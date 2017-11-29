@@ -23,7 +23,7 @@ Run command: source ~/.bashrc or reboot the system once.
 
 To setup and run AutoBot on Digital ocean, run below two ansible scripts on the machine where ansible is configured.
 
-1. **"createDroplet.yml"**: This ansible script is used to create a new droplet on your digital ocean account. The details for the droplet created
+1. [createDroplet.yml](https://github.ncsu.edu/bbansal/AutoBots/blob/master/deployment/createDroplet.yml): This ansible script is used to create a new droplet on your digital ocean account. The details for the droplet created
                             will be saved in "inventory.ini" file so that the next configuration script can be run.
                             
    run below command to setup the droplet:
@@ -32,7 +32,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
         ansible-playbook createDroplet.yml
    ```     
    
- 2. **"install_VirtualBox.yml"**: This ansible script is used to install and setup virtual box at the remote droplet we created above
+ 2. ["install_VirtualBox.yml](https://github.ncsu.edu/bbansal/AutoBots/blob/master/deployment/install_VirtualBox.yml): This ansible script is used to install and setup virtual box at the remote droplet we created above
                             
    run below command to install virtualbox on remote machine:
    
@@ -40,7 +40,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
         ansible-playbookm -i inventory.ini install_VirtualBox.yml
    ```   
    
- 3. **"configureProd.yml"**: This ansible script will configure the newly created droplet. This will install all the required packages,
+ 3. [configureProd.yml](https://github.ncsu.edu/bbansal/AutoBots/blob/master/deployment/configureProd.yml): This ansible script will configure the newly created droplet. This will install all the required packages,
                               dependencies, code, etc which are requried to run autoBot in a production environment.
        
        run below command to configure the droplet:
@@ -61,7 +61,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
  
  ## Screencast  
  
- You can see our screencast for this deployment milestone on this [link](https://github.ncsu.edu/bbansal/AutoBots).  
+ You can see our screencast for this deployment milestone on this [link](https://youtu.be/VupnrZCJoI4).  
  
  
  ## Contributions
