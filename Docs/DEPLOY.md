@@ -1,4 +1,4 @@
-#### DEPLOYMENT 
+# DEPLOY MILESTONE
 
 AutoBots has been deployed using **Ansible** on digital ocean. To setup the autoBot on digital ocean platform, we have created two ansible
 scripts. The first script is used to create a fresh droplet on digital ocean platform and the second one configures the created droplet
