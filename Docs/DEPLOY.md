@@ -59,7 +59,7 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
  Running the above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.  
  ## Acceptance Test
  
- The acceptance test instruction for TAs is accessible in [Acceptance_test.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Acceptance_Test.md)
+ The acceptance test instruction for TAs can be viewed [here](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/Acceptance_Test.md)
  
  ## Task Tracking
  
