@@ -57,7 +57,12 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
  
  ## Task Tracking
  
- You can see our task tracking for week 7 and week 8 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).
+ You can see our task tracking for week 7 and week 8 in [WORKSHEET.md](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/WORKSHEET.md).  
+ 
+ ## Screencast  
+ 
+ You can see our screencast for this deployment milestone on this [link](https://github.ncsu.edu/bbansal/AutoBots).  
+ 
  
  ## Contributions
 
