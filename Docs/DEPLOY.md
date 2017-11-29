@@ -18,7 +18,7 @@ The machine running the playbook must have below environment variables set on it
 7. **CLIENTEMAIL**: run command: export CLIENTEMAIL=&lt;your CLIENT EMAIL&gt;. This will save the token in ~/.bashrc file
 8. **CLIENTID**: run command: export CLIENTID=&lt;your CLIENT ID&gt;. This will save the token in ~/.bashrc file
 
-5-8 are the private terms that you'll find in the Google Cloud Platform's Keyfile (JSON) that is used in authentication of the bot.
+5-8 are the credentials that can be found in the Google Cloud Platform's Keyfile (JSON) that is used in authentication of the bot.
 
 Once you have run and saved all above tokens into ~/.bashrc file, you need to source those in order for variables to be available to be used by shell.
 Run command: source ~/.bashrc or reboot the system once.
