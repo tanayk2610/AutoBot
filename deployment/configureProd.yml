@@ -3,9 +3,6 @@
 - hosts: nodes
   gather_facts: no
 
-  # roles:
-  #   - geerlingguy.nodejs
-
   pre_tasks:
     - name: Install Python
       raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
@@ -32,57 +29,44 @@
 
     - stat: path=/opt/nodejs/6.11.3
       register: nodeDir
-      tags:
-        - testbhavya
 
-    - debug:
-        msg: "{{nodeDir}}"
-      tags:
-        - testbhavya
 
     - name: rename the unzipped file
       shell: mv node-v6.11.3-linux-x64 6.11.3
       args:
         chdir: /opt/nodejs
       when: nodeDir.stat.isdir is not defined
-      tags:
-        - testbhavya
+
 
     - stat: path=/opt/nodejs/current
       register: linkCurrent
-      tags:
-        - testNew
+
 
     - name: remove symlink if it exists
       file:
         path: /opt/nodejs/current
         state: absent
       when: linkCurrent.stat.islnk is defined and linkCurrent.stat.islnk
-      tags:
-        - testNew
+
 
     - name: cd and create sym link
       shell: cd /opt/nodejs && ln -s 6.11.3 current
-      tags:
-        - testNew
+
 
     - stat: path=/bin/node
       register: linkNode
-      tags:
-        - testNew
+
 
     - name: remove symlink if it exists
       file:
         path: /bin/node
         state: absent
       when: linkNode.stat.islnk is defined and linkNode.stat.islnk
-      tags:
-        - testNew
+
 
     - name: create symlink to node library
       shell: ln -s /opt/nodejs/current/bin/node /bin/node
-      tags:
-        - testNew
+
 
     - name: Install packages
       become: yes
@@ -135,25 +119,21 @@
 
     - set_fact:
         PRIVATEKEYID: "{{ lookup('env','PRIVATEKEYID') }}"
-      tags:
-        - test0
+
     - set_fact:
         KEYFILE: /root/SlackBot/keyfile.json
 
     - set_fact:
         PRIVATEKEY: "{{ lookup('env','PRIVATEKEY') }}"
-      tags:
-        - test0
+
 
     - set_fact:
         CLIENTEMAIL: "{{ lookup('env','CLIENTEMAIL') }}"
-      tags:
-        - test0
+
 
     - set_fact:
         CLIENTID: "{{ lookup('env','CLIENTID') }}"
-      tags:
-        - test0
+
 
     - name: add digital ocean token to bashrc
       become: yes
@@ -187,7 +167,7 @@
         state=present
         create=yes
 
-    - name: add clien email to bashrc
+    - name: add client email to bashrc
       become: yes
       lineinfile:
         line="export KEYFILE={{KEYFILE}}"
@@ -202,17 +182,14 @@
       become: yes
       become_method: sudo
       ignore_errors: true
-      tags:
-        - test
+
     - pause:
         seconds: 30
-      tags:
-        - test
+
 
     - name: waiting for server to come back after reboot
       local_action: wait_for host={{ ansible_ssh_host }} state=started delay=30 timeout=50 connect_timeout=15
-      tags:
-        - test
+
 
     - name: run mongo daemon
       shell: mongod --fork --logpath /var/log/mongo.logpath
@@ -232,40 +209,34 @@
       get_url:
         url: https://storage.googleapis.com/base_ova_autobot/ubuntu.ova
         dest: /root/SlackBot/serviceManager/packerService/ubuntu/ubuntu.ova
-      tags:
-        - testgcp
-
+        
     - name: setup private key id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
         regexp: "private_key_id"
         line: '"private_key_id": "{{PRIVATEKEYID}}",'
-      tags:
-        - test0
+
 
     - name: setup private key in keyfile
       lineinfile:
           path: /root/SlackBot/keyfile.json
           regexp: 'private_key'
           line: '"private_key": "{{PRIVATEKEY}}",'
-      tags:
-        - test0
+
 
     - name: setup client email in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
         regexp: 'client_email'
         line: '"client_email": "{{CLIENTEMAIL}}",'
-      tags:
-        - test0
+
 
     - name: setup client id in keyfile
       lineinfile:
         path: /root/SlackBot/keyfile.json
         regexp: 'client_id'
         line: '"client_id": "{{CLIENTID}}",'
-      tags:
-        - test0
+
 
     - name: install forever package
       become: yes
@@ -292,13 +263,7 @@
       shell: forever list
       register: forever_list
       changed_when: false
-      tags:
-        - testForever
 
-    # - debug:
-    #    msg: "{{forever_list.stdout.find('bot.js')}}"
-    #   tags:
-    #     - testForever
 
     - name: run the app using forever previously cloned from github
       become: yes

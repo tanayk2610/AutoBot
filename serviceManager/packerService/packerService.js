@@ -41,7 +41,7 @@ exports.createImage = function (bot, message, response) {
             // Plugins to install
             var plugins = response.result.parameters.pluginList.split(" ");
             var pluginConfig = "cd /usr/bin;";
-            if (plugins != "none") {
+            if (plugins != "none" || plugins != "None") {
                 for (var i = 0; i < plugins.length; i++) {
                     pluginConfig = pluginConfig.concat("\n" + pluginEnum.get(plugins[i]));
                 }
@@ -52,8 +52,6 @@ exports.createImage = function (bot, message, response) {
             //Modifying JSON file to user provided configuration
             var data = JSON.parse(fileSync.readFileSync('../serviceManager/packerService/' + OS + '/config.json').toString());
 
-            // console.log('Old JSON content:\n\n\n'+JSON.stringify(data));
-            // console.log('\n\n\n');
 
             data.variables.memory = "" + RAM * 1024 + "";
             data.variables.cpus = "" + CPUs + "";
@@ -65,12 +63,9 @@ exports.createImage = function (bot, message, response) {
             // Saving the user requested settings as packer template
             fileSync.writeFile('../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.json', JSON.stringify(data));
 
-            // console.log('New JSON content:\n\n\n'+JSON.stringify(data));
-            // console.log('\n\n\n');
-
             console.log("**************     Running packer      ************");
             shell.get(
-                './packer build ../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.json',
+                './packer build ../serviceManager/packerService/' + OS + '/userConfig/' + filename + '.json >> build.log',
                 function (err, data, stderr) {
                     if (err) {
                         console.log(err);
@@ -89,8 +84,6 @@ exports.createImage = function (bot, message, response) {
                                 var filepath = `../builds/zips/${filename}.zip`;
                                 gcp.uploadFile(bucketName, filepath, function (flag) {
                                     if (flag) {
-                                        // bot.reply(message, `Here is your VM: https://storage.googleapis.com/csc510-bot/${filename}.zip`);
-                                        // console.log('callback if entered');
                                         filename = filename + ".zip";
                                         gcp.makePublic(bucketName, filename, function (flag) {
                                             if (flag) {
@@ -107,14 +100,13 @@ exports.createImage = function (bot, message, response) {
                                         console.log("Error in uploadFile");
                                         bot.reply(message, `There was some error in creating you VM, please try again.`);
                                     }
-                                    // console.log('callback end entered');
                                 });
                             }
                         });
                     }
                 }
             );
-            // Packer ends!
+            
         }
     });
 }
