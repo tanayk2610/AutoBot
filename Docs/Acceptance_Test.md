@@ -57,7 +57,7 @@ In this use case, the user asks the AutoBot to create an image of a vm with ecli
 
 ![use case 2](https://user-images.githubusercontent.com/32002357/33355590-10b9d076-d486-11e7-950a-d56e4b1b3270.png)
 
-If the user enters a wrong name for the operating system or plugins, user will get an error like you see in following screenshots.
+If the user enters a wrong name for the operating system or plugins, user will get an error like you saw in use case 1.
 
 ## Use Case 3
 
