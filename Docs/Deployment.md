@@ -50,7 +50,18 @@ To setup and run AutoBot on Digital ocean, run below two ansible scripts on the 
    ```                               
                  
  
- Running above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.
+ Running above ansible scripts, will run the bot in the cloud, and you are ready to use the autoBot for creating virtual machines for you.  
+ 
+ ## Contributions
+
+| Team Member   | Contribution   
+| ------------- | ------------ 
+| Bhavya Bansal      |  Refinement, Deployment, Screencast      
+| Nitish Raghunathan     |    Deployment, Bot Refinement
+| Pushpendra Singh Patel |    Testing, Acceptance Test, Screencast
+| Rezvan Mahdavi Hezaveh  |   Deployment, Testing, Acceptance Test
+| Tanay Kothari | Bot Refinement, Deployment, Screencast
+
  
  
                             
