@@ -113,6 +113,6 @@
 | Issue with Forever or Pm2 | Completed | [TC21](https://trello.com/c/XSbyMPgE)
 | General
 | Bot Polish | Completed | [TC27](https://trello.com/c/7aQfYmVz)
-| Create acceptance test instructions  | In Progress | [TC24](https://trello.com/c/1MPIEBet)
-| Create Demo video | In Progress | [TC25](https://trello.com/c/eL7EWXAd)
-| Screencast  | In Progress | [TC26](https://trello.com/c/PqJ8U4GF)
+| Create acceptance test instructions  | Completed | [TC24](https://trello.com/c/1MPIEBet)
+| Create Demo video | Completed | [TC25](https://trello.com/c/eL7EWXAd)
+| Screencast  | Completed | [TC26](https://trello.com/c/PqJ8U4GF)
