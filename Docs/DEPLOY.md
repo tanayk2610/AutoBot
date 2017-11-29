@@ -7,12 +7,18 @@ with autoBot code and required packages. We have used ubuntu 16.04 image for our
 #### Pre-requisites
 
 Before running the ansible scripts, the setup process require API tokens and AutoBot email account details so that services can be used.
-The machine running the playbook must have below tokens:
+The machine running the playbook must have below environment variables set on it:
 
 1. **APIAITOKEN**: run command: export APAITOKEN=&lt;your API AI token&gt;. This will save the token in ~/.bashrc file
 2. **SLACKTOKEN**: run command: export SLACKTOKEN=&lt;your SLACK token&gt;. This will save the token in ~/.bashrc file
 3. **DEPLOYMENTTOKEN**: run command: export DEPLOYMENTTOKEN=&lt;your digital ocean account token&gt;. This will also be saved in ~/.bashrc file
 4. **AUTOBOTEMAILPASSWORD**: run command: export AUTOBOTEMAILPASSWORD=&lt;your gmail account password&gt;. This will be saved in ~/.bashrc file
+5. **PRIVATEKEYID**: run command: export PRIVATEKEYID=&lt;your PRIVATE KEY ID&gt;. This will save the token in ~/.bashrc file
+6. **PRIVATEKEY**: run command: export PRIVATEKEY=&lt;your PRIVATE KEY&gt;. This will save the token in ~/.bashrc file
+7. **CLIENTEMAIL**: run command: export CLIENTEMAIL=&lt;your CLIENT EMAIL&gt;. This will save the token in ~/.bashrc file
+8. **CLIENTID**: run command: export CLIENTID=&lt;your CLIENT ID&gt;. This will save the token in ~/.bashrc file
+
+5-8 are the private terms that you'll find in the Google Cloud Platform's Keyfile (JSON) that is used in authentication of the bot.
 
 Once you have run and saved all above tokens into ~/.bashrc file, you need to source those in order for variables to be available to be used by shell.
 Run command: source ~/.bashrc or reboot the system once.
