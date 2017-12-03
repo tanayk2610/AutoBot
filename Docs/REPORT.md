@@ -56,8 +56,9 @@ User can also update the virtual machine configuration based on their needs (re-
 
 ## Reflection on the development process and project
 
-While developing this project we got to learn and work with new technologies like Packer, Slack-bots and API.ai. It was a great experience to be familiar with new practical technologies. 
-Also we got to learn how to work using agile process development conducting bi-weekly meetings for each iteration and working with a useful task tracking tool Trello. When using Trello, we got to know the status of assigned tasks, which tasks were on waiting and which task needed more attention and work which helped us to track the every process of the project development. We also used Pivotal Task and described our each use case.
+While developing this project we got to learn and work with new technologies like Packer, Slack-bots and API.ai. It was a great experience to be familiar with new technologies trending in the industry. Also we got to learn how to work using agile process development by conducting bi-weekly meetings for each iteration and working with a useful task tracking tool Trello. When using Trello, we got to know the status of assigned tasks, which tasks were on waiting and which task needed more attention and work which helped us to track the every process of the project development. We also used Pivotal Task and described our each use case.
+
+We faced enormous amount of challenges throughout the project such as issues with packer, issues with asynchronous nature of node js and a lot more, which ultimately motivated us to dig deep and come up with some working solutions to these problems. We definitely got a gist of how real life projects are handled by working throughout each phases of Software Development Lifecycle, such as Design Milestone, Implementation Milestone, Testing phase and finally deployment. At last, we think this project is very useful in industries too and can be extended with new features and functionalities in nearby future.
 
 ## Limitations and Future Work
   
