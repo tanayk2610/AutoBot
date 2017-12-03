@@ -68,9 +68,9 @@ Based on the current design and implementation, we have some limitations for our
  
 We have identified some features which are planned for our future release. Some of the planned future work is described below:  
 
-a. We are planning to make AutoBot as platform agnostic, which means adding support for other cloud platforms like Amazon, Azure, Google Cloud platform etc.  
-b. We have planned to add a “price feature”, which is a general recommendation from AutoBot to users, before they spin virtual machines on cloud. 
+* We are planning to make AutoBot as platform agnostic, which means adding support for other cloud platforms like Amazon, Azure, Google Cloud platform etc.  
+* We have planned to add a “price feature”, which is a general recommendation from AutoBot to users, before they spin virtual machines on cloud. 
 Basically, AutoBot will scour the web based on the requested parameters from users, and then will recommend which cloud platform to go for based on the price per hour for the virtual machine creation.
  This will let users to make an informed decision.  
-c. We have also planned to optimize the packer performance by deploying AutoBot, in production environments which supports nested virtualizations. 
+* We have also planned to optimize the packer performance by deploying AutoBot, in production environments which supports nested virtualizations. 
 We have identified that cloud providers like Amazon, has started providing instances which supports nested virtualization in a clean and neat way.  
