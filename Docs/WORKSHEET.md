@@ -116,3 +116,10 @@
 | Create acceptance test instructions  | Completed | [TC24](https://trello.com/c/1MPIEBet)
 | Create Demo video | Completed | [TC25](https://trello.com/c/eL7EWXAd)
 | Screencast  | Completed | [TC26](https://trello.com/c/PqJ8U4GF)
+
+##### Week 9
+
+| Deliverable   | Item/Status   |  Issues/Tasks
+| ------------- | ------------  |  ------------
+| Update presentation      | Completed         |[TC28](https://trello.com/c/OfkBuXbx) 
+| Create Report.md   | Completed             |[TC29](https://trello.com/c/wdWyXkKD)
