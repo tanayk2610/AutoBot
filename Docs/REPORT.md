@@ -1,14 +1,14 @@
 # Autobot Project Report  
   
-* The problem our Bot is solving?  
-* Primary Features and Screenshots?  
+## The problem our Bot is solving?  
 
-* Bot solutions to problems:  
 Currently Developers face the challenge of creating development environments as it involves installing numerous packages and softwares with plugins,which could be tedious and time consuming.
  Another highlight is constant updates to softwares and applications for bug fixes and compatibility with  newer products is to be performed to bolster efficiency and also prevent usage of outdated software.
  Using package managers to bundle dependencies and also using automation tools such as ansible to automate processes is a viable solution to enhance productivity.
  Autobot performs the above with ease as any developer who requires  an environment say  jenkins server or a software eclipse with plugins installed just needs to instruct the bot to perform actions useful to the developer.  
-Handling nested Virtual machines manually could take away precious time from co-workers hence ,Autobot performs VM management ,installation and deployment  saves enormous effort and time, which enables developers to perform other important tasks.The autobot also takes care of security flaws and accidental user mistakes by incorporating OTP system.In the event someone(attacker) other than the developer tries to delete a running virtual machine,the autobot generates a OTP and sends it to user mail account.Without the OTP the the Autobot will not delete the Virtual Machine.  
+Handling nested Virtual machines manually could take away precious time from co-workers hence ,Autobot performs VM management ,installation and deployment  saves enormous effort and time, which enables developers to perform other important tasks.The autobot also takes care of security flaws and accidental user mistakes by incorporating OTP system.In the event someone(attacker) other than the developer tries to delete a running virtual machine,the autobot generates a OTP and sends it to user mail account.Without the OTP the the Autobot will not delete the Virtual Machine. 
+
+## Primary Features and Screenshots?   
 
 We have identified three main features for our slack bot, and these are described below:  
 
@@ -20,27 +20,50 @@ A flavored virtual machine is a plain VM with jenkins already installed on it.
 Note: For creating virtual machines, users first have to save their keys using “Save keys” command.  
 Below is a screenshot for the same:  
 
+![1](https://media.github.ncsu.edu/user/7998/files/f687744c-d467-11e7-8338-b35afb18f87e)
+
 Below is the screenshot for creating a plain virtual machine:
 
+![2](https://media.github.ncsu.edu/user/7998/files/19f94e96-d468-11e7-979a-d8fa3a5731f9)  
+
 Below is the screenshot for creating a flavored virtual machine:
+
+![3](https://media.github.ncsu.edu/user/7998/files/26161902-d468-11e7-8f1b-b6a5accf1df3) 
 
 ##### Create a virtual machine image with eclipse and plugins:  
 Users can request AutoBot to create a virtual machine image with eclipse already installed on it. 
 Users can also request to install eclipse plugins (we support 4 eclipse plugins at this moment), with the image they have requested.
  AutoBot will ask for parameters such as kind of operating system (we support ubuntu, centos, fedora, debian), RAM size, number of cores requested and then will create an OVF file which users can import in virtualbox installed on their local machine.
  AutoBot will provide a download link from where users can download the generated OVF file.
+ 
+ ![4](https://user-images.githubusercontent.com/32002357/33355590-10b9d076-d486-11e7-950a-d56e4b1b3270.png)
 
 ##### Manage Reservations:  
-AutoBot will keep track of all the reservations which users have made on their “Digital Ocean” account. This will help users to review what all machines they have running on digital ocean (resource tracking). AutoBot also provides feature to delete or update an existing reservation. Users can terminate the virtual machine if they no longer need it and can also update the virtual machine configuration based on their needs (re-sizing the droplet). For termination a droplet, AutoBot will send a one time password (OTP) to user's registered email, and users are expected to provide this OTP as a confirmation action for terminating an instance. 
-* Reflection on the development process and project?
-* Limitations and future work?
+AutoBot will keep track of all the reservations which users have made on their “Digital Ocean” account. This will help users to review what all machines they have running on digital ocean (resource tracking).
+
+![5](https://media.github.ncsu.edu/user/7998/files/7aa7bc50-d468-11e7-81b8-6011164fb4cf) 
+
+AutoBot also provides feature to delete or update an existing reservation. Users can terminate the virtual machine if they no longer need it. For termination a droplet, AutoBot will send a one time password (OTP) to user's registered email, and users are expected to provide this OTP as a confirmation action for terminating an instance.
+
+![6](https://media.github.ncsu.edu/user/7998/files/7ac5946e-d468-11e7-823a-114ba8b94cf8) 
+
+User can also update the virtual machine configuration based on their needs (re-sizing the droplet).
+
+![7](https://media.github.ncsu.edu/user/7998/files/7aea310c-d468-11e7-9f8c-74122e565410)  
+
+## Reflection on the development process and project?
+
+While developing this project we learn new technologies like packer, slack bots and API.ai. It was a greate experience to be familiar with new practical technologies. 
+Also we have learned agile process development with weekly meetings for each iteration and working with a useful task tracking tool Trello. Using Trello help us to know the status of assigned tasks and track the process of project development. 
+
+## Limitations and future work?
 
 Based on the current design and implementation, we have some limitations for our AutoBot project:  
 
-Currently AutoBot only supports virtual machine creation on “Digital Ocean” Platform, and users are required to have their account created on “Digital Ocean”, so that they can create virtual machines using our Slack Bot.
-Use case 2 of the bot, which includes creating an image using "Packer" with configurations parameters taken from users, is expected to have random run times based on the performance of the production server (which is controlled by Digital Ocean) and also depends on the virtualization aspects on the production server.
+* Currently AutoBot only supports virtual machine creation on “Digital Ocean” Platform, and users are required to have their account created on “Digital Ocean”, so that they can create virtual machines using our Slack Bot.
+* Use case 2 of the bot, which includes creating an image using "Packer" with configurations parameters taken from users, is expected to have random run times based on the performance of the production server (which is controlled by Digital Ocean) and also depends on the virtualization aspects on the production server.
  There have been cases where it has taken 10 minutes to run and there have been cases where it took anytime between 1 hour to 5 hours (approximations).  
-AutoBot requests for “Digital ocean token” from users in order to spin virtual machines, and digital ocean tokens have “rate limits” after which they expires and thus can not be used again.
+* AutoBot requests for “Digital ocean token” from users in order to spin virtual machines, and digital ocean tokens have “rate limits” after which they expires and thus can not be used again.
  In such cases, users are requested to save their keys again by providing new “token” to AutoBot.  
  
 We have identified some features which are planned for our future release. Some of the planned future work is described below:  
