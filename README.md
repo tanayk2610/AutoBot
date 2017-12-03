@@ -13,3 +13,4 @@ Documents for different milestones achieved during this project are as follows -
 2. [Bot](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/BOT.md)
 3. [Service](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/SERVICE.md)
 4. [Deploy](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/DEPLOY.md)
+5. [Report](https://github.ncsu.edu/bbansal/AutoBots/blob/master/Docs/REPORT.md)
