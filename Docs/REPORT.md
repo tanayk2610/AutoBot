@@ -3,9 +3,9 @@
 ## The problem our Bot is solving  
 
 Currently Developers face the challenge of creating development environments as it involves installing numerous packages and softwares with plugins, which could be tedious and time consuming.
- Another highlight is constant updates to softwares and applications for bug fixes and compatibility with newer products is to be performed to bolster efficiency and also prevent usage of outdated software.
+New releases and constant updates to softwares and applications for bug fixes and compatibility with newer products is to be performed to bolster efficiency and also prevent usage of outdated software.
  Using package managers to bundle dependencies and also using automation tools such as ansible to automate processes is a viable solution to enhance productivity.
- Autobot performs the above with ease as any developer who requires an environment say jenkins server or a software eclipse with plugins installed just needs to instruct the bot to perform actions useful to the developer.  
+ Autobot performs the above with ease as any developer who requires an environment say a virtual machine with a jenkins server or an operating system with eclipse and plugins installed just needs to instruct the bot to perform actions useful to the developer.  
 Handling nested Virtual machines manually could take away precious time from co-workers hence, Autobot performs VM management, installation and deployment saves enormous effort and time, which enables developers to perform other important tasks.The autobot also takes care of security flaws and accidental user mistakes by incorporating OTP system. In the event someone(attacker) other than the developer tries to delete a running virtual machine, the autobot generates a OTP and sends it to user mail account. Without the OTP the the Autobot will not delete the Virtual Machine.  
 
 ## Primary Features and Screenshots   
