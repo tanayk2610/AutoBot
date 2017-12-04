@@ -60,7 +60,7 @@ We faced enormous amount of challenges throughout the project such as issues wit
 
 ## Limitations and Future Work
   
-##### Limitations  
+### Limitations  
 Based on the current design and implementation, we have some limitations for our AutoBot project:  
 
 * Currently AutoBot only supports virtual machine creation on “Digital Ocean” Platform, and users are required to have their account created on “Digital Ocean”, so that they can create virtual machines using our Slack Bot.
@@ -69,7 +69,7 @@ Based on the current design and implementation, we have some limitations for our
 * AutoBot requests for “Digital ocean token” from users in order to spin virtual machines, and digital ocean tokens have “rate limits” after which they expires and thus can not be used again.
  In such cases, users are requested to save their keys again by providing new “token” to AutoBot.  
   
-##### Future Scope  
+### Future Scope  
 We have identified some features which are planned for our future release. Some of the planned future work is described below:  
 
 * We are planning to make AutoBot as platform agnostic, which means adding support for other cloud platforms like Amazon, Azure, Google Cloud platform etc.  
@@ -78,6 +78,7 @@ Basically, AutoBot will scour the web based on the requested parameters from use
  This will let users to make an informed decision.  
 * We have also planned to optimize the packer performance by deploying AutoBot, in production environments which supports nested virtualizations. 
 We have identified that cloud providers like Amazon, has started providing instances which supports nested virtualization in a clean and neat way.  
+* We have a plan to provide Autobot to the world by packing it as a Slack App, which will become more actionable and interactive using the message button and more easier to use.
 
 
 ## Project Presentation:
