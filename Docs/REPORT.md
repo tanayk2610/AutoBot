@@ -1,12 +1,10 @@
 # Autobot Project Report  
   
-## The problem our Bot is solving  
+## The problem our Bot is solving
 
-Currently Developers face the challenge of creating development environments as it involves installing numerous packages and softwares with plugins, which could be tedious and time consuming.
-New releases and constant updates to softwares and applications for bug fixes and compatibility with newer products is to be performed to bolster efficiency and also prevent usage of outdated software.Using package managers to bundle dependencies and also using automation tools such as ansible to automate processes is a viable solution to enhance productivity.
+While development, there are many tasks that developers are responsible for. Some of these tasks are really tedious but are necessary to be performed. Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. These tasks are take ample amount of the developer’s time which could be used efficiently solving bigger problems. Also, setting up development environments with IDEs such as Eclipse can be a painful task as it involves creation of workspaces, installing required plugins and finally importing all the build projects into the workspace.
  
- Autobot performs the above with ease as any developer who requires an environment say a virtual machine with a jenkins server or an operating system with eclipse and plugins installed just needs to instruct the bot to perform actions useful to the developer.  
-Handling nested Virtual machines manually could take away precious time from co-workers hence, Autobot performs VM management, installation and deployment saves enormous effort and time, which enables developers to perform other important tasks.The autobot also takes care of security flaws and accidental user mistakes by incorporating OTP system. In the event someone(attacker) other than the developer tries to delete a running virtual machine, the autobot generates a OTP and sends it to user mail account. Without the OTP the the Autobot will not delete the Virtual Machine.  
+Autobot performs the above tasks without much effort from the user. Autobot is capable to provide any developer with an environment, through a virtual machine, on which he will be able to directly start his work without much wait. It is capable to do many tasks varying from creation of a remote Jenkins flavored VM to one with eclipse pre-installed which he can run locally. Using Autobot developers could easily manage VMs without making much effort.
 
 ## Primary Features and Screenshots   
 
