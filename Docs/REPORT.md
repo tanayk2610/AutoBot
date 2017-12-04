@@ -4,7 +4,7 @@
 
 While development, there are many tasks that developers are responsible for. Some of these tasks are really tedious but are necessary to be performed. Developers are responsible for managing their own virtual resources which includes creating virtual machines, installing necessary applications or packages on it and much more. These tasks are take ample amount of the developer’s time which could be used efficiently solving bigger problems. Also, setting up development environments with IDEs such as Eclipse can be a painful task as it involves creation of workspaces, installing required plugins and finally importing all the build projects into the workspace.
  
-AutoBot provides a command based interface for providing common development setup tasks.It is capable to provide any developer with an environment, through a virtual machine, on which he will be able to directly start his work without much wait. AutoBot can do many tasks varying from creation of a remote Jenkins flavored VM to one with eclipse pre-installed which he can run locally. Using Autobot developers could easily manage VMs without making much effort.
+AutoBot provides a command based interface for providing common development setup tasks.It is capable to provide any developer with an environment, through a virtual machine, on which he will be able to directly start his work with less time spent on waiting. AutoBot can do many tasks varying from creation of a remote Jenkins flavored VM to one with eclipse pre-installed which he can run locally. Using Autobot developers could easily manage VMs without making much effort.
 
 ## Primary Features and Screenshots   
 
