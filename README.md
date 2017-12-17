@@ -10,6 +10,7 @@ Technologies used to make this bot -
 4. Google Cloud Platform - https://cloud.google.com
 5. MongoDB - https://www.mongodb.com/
 6. Botkit - https://www.botkit.ai/
+7. Dialogflow - https://dialogflow.com/
 
 Team members with their Unity IDs (in alphabetical order) -
 1. Bhavya Bansal - bbansal
