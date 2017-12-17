@@ -11,7 +11,7 @@ Technologies used to make this bot -
 5. MongoDB - https://www.mongodb.com/
 6. Botkit - https://www.botkit.ai/
 
-Team members with their Unity IDs -
+Team members with their Unity IDs (in alphabetical order) -
 1. Bhavya Bansal - bbansal
 2. Nitish Raghunathan - nraghun4
 3. Pushpendra Singh Patel - ppatel16
